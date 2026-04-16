@@ -1,0 +1,71 @@
+`timescale 1ns / 1ps
+
+
+module posit_mac (
+    input [31:0] a, b,       // Input operands
+    input clk, reset,        // Clock and reset
+    output reg [31:0] out    // Output result
+);
+
+function [31:0] log2;
+input reg [31:0] value;
+	begin
+	value = value-1;
+	for (log2=0; value>0; log2=log2+1)
+        	value = value>>1;
+      	end
+endfunction
+
+parameter N=32;
+parameter Bs=log2(N);
+parameter es=3;
+
+    // Internal signals
+    wire [31:0] product, sum;
+    reg [31:0] accum, prod_reg;
+    reg mult_start, add_start;
+    wire mult_done, add_done;
+
+    wire inf_mult, inf_add, zero_mult, zero_add;
+
+    reg [4:0] counter;
+    
+    // Instantiate posit multiplier
+    posit_mult #(.N(N), .es(es)) mult(a, b, mult_start, product, inf_mult, zero_mult, mult_done);
+          
+    // Instantiate posit adder
+    posit_add #(.N(N), .es(es)) add(prod_reg, accum, add_start, sum, inf_add, zero_add, add_done);
+     
+// Control signals
+always @(posedge clk) begin
+    if (reset) begin
+        accum <= 32'b0;
+        prod_reg <= 32'b0;
+        out <= 32'b0;
+        mult_start <= 1'b1;
+        add_start <= 1'b1;
+        counter <= 5'b00000;
+    end else begin
+        // Default assignments
+        mult_start <= 1'b1;
+        add_start <= 1'b1;
+        
+        case (counter)
+            5'b00000: begin
+                // First cycle: get the result of multiplication
+                prod_reg <= product;
+                counter <= counter + 5'b00001;
+            end
+            5'b00001: begin
+                // Second cycle: register addition result
+                accum <= sum;
+                out <= sum; //output accumulator result at this moment
+                counter <= 5'b0;
+            end
+        
+            default: counter <= 5'b00000;
+        endcase
+    end
+end
+
+endmodule

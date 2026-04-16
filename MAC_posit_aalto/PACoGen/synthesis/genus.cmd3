@@ -1,0 +1,7 @@
+# Cadence Genus(TM) Synthesis Solution, Version 21.10-p002_1, built Aug 20 2021 10:13:13
+
+# Date: Sun Apr 27 16:11:03 2025
+# Host: vspace.ecdl.hut.fi (x86_64 w/Linux 3.10.0-1160.118.1.el7.x86_64) (1core*8cpus*15physical cpus*Intel(R) Xeon(R) CPU E5-2640 v4 @ 2.40GHz 25600KB)
+# OS:   CentOS Linux release 7.9.2009 (Core)
+
+source synthesize.tcl

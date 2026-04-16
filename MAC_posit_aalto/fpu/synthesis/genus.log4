@@ -1,0 +1,216 @@
+Cadence Genus(TM) Synthesis Solution.
+Copyright 2021 Cadence Design Systems, Inc. All rights reserved worldwide.
+Cadence and the Cadence logo are registered trademarks and Genus is a trademark
+of Cadence Design Systems, Inc. in the United States and other countries.
+
+Version: 21.10-p002_1, built Fri Aug 20 00:13:13 PDT 2021
+Options: 
+Date:    Sun Apr 20 11:57:52 2025
+Host:    vspace.ecdl.hut.fi (x86_64 w/Linux 3.10.0-1160.118.1.el7.x86_64) (1core*8cpus*15physical cpus*Intel(R) Xeon(R) CPU E5-2640 v4 @ 2.40GHz 25600KB) (65807808KB)
+PID:     14273
+OS:      CentOS Linux release 7.9.2009 (Core)
+
+Checking out license: Genus_Synthesis
+
+
+***********************************************************************************************************
+***********************************************************************************************************
+
+
+
+Loading tool scripts...
+Finished loading tool scripts (17 seconds elapsed).
+
+WARNING: This version of the tool is 1339 days old.
+@genus:root: 1> read_db dbs/syn_opt.db
+Reading database file 'dbs/syn_opt.db'.
+Checking out license: Genus_Low_Power_Opt
+
+Threads Configured:3
+
+  Message Summary for Library slow_vdd1v0_basicCells_hvt.lib:
+  ***********************************************************
+  Missing a function attribute in the output pin definition. [LBR-518]: 1
+  ***********************************************************
+ 
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.900000, 125.000000) in library 'slow_vdd1v0_basicCells_hvt.lib'.
+        : The nominal operating condition is represented, either by the nominal PVT values specified in the library source (via nom_process,nom_voltage and nom_temperature respectively), or by the default PVT values (1.0,1.0,1.0).
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'ANTENNAHVT' must have an output pin.
+        : Add the missing output pin(s), then reload the library. Else the library cell will be marked as timing model i.e. unusable. Timing_model means that the cell does not have any defined function. If there is no output pin, Genus will mark library cell as unusable i.e. the attribute 'usable' will be marked to 'false' on the libcell. Therefore, the cell is not used for mapping and it will not be picked up from the library for synthesis. If you query the attribute 'unusable_reason' on the libcell; result will be: 'Library cell has no output pins.'Note: The message LBR-9 is only for the logical pins and not for the power_ground pins. Genus will depend upon the output function defined in the pin group (output pin) of the cell, to use it for mapping. The pg_pin will not have any function defined.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'ANTENNAHVT' must have an output pin.
+Info    : Set default library domain. [LBR-109]
+        : The default library domain is 'library_domain:slow_vdd1v0.setup'.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_HV' has no resistance value.
+        : If this is the expected behavior, this message can be ignored.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_VV' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_VH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_HH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_2x1_HV_E' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_2x1_HV_W' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_1x2_HV_N' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_1x2_HV_S' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_VH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_HH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_HV' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_VV' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_M_NH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_M_SH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_2x1_VH_E' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_2x1_VH_W' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_1x2_VH_N' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_1x2_VH_S' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M4_M3_HV' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M4_M3_VV' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M4_M3_VH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M4_M3_HH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M4_M3_M_EV' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M4_M3_M_WV' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M4_M3_2x1_HV_E' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M4_M3_2x1_HV_W' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M4_M3_1x2_HV_N' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M4_M3_1x2_HV_S' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M5_M4_VH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M5_M4_HH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M5_M4_HV' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M5_M4_VV' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M5_M4_M_NH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M5_M4_M_SH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M5_M4_2x1_VH_E' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M5_M4_2x1_VH_W' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M5_M4_1x2_VH_N' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M5_M4_1x2_VH_S' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M6_M5_HV' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M6_M5_VV' has no resistance value.
+
+  According to lef_library, there are total 11 routing layers [ V(5) / H(6) ]
+
+  Library has 324 usable logic and 128 usable sequential lib-cells.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILL1HVT cannot be found in library.
+        : Ensure that the proper library files are available and have been imported.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILL16HVT cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILL2HVT cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILL32HVT cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILL4HVT cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILL64HVT cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILL8HVT cannot be found in library.
+==================================
+Stage : incr_opt 
+==================================
+  =================
+   Message Summary
+  =================
+---------------------------------------------------------------------------------------
+|    Id    |  Sev   |Count |                      Message Text                        |
+---------------------------------------------------------------------------------------
+| LBR-9    |Warning |    2 |Library cell has no output pins defined.                  |
+|          |        |      |Add the missing output pin(s)                             |
+|          |        |      | , then reload the library. Else the library cell will be |
+|          |        |      | marked as timing model i.e. unusable. Timing_model means |
+|          |        |      | that the cell does not have any defined function. If     |
+|          |        |      | there is no output pin, Genus will mark library cell as  |
+|          |        |      | unusable i.e. the attribute 'usable' will be marked to   |
+|          |        |      | 'false' on the libcell. Therefore, the cell is not used  |
+|          |        |      | for mapping and it will not be picked up from the        |
+|          |        |      | library for synthesis. If you query the attribute        |
+|          |        |      | 'unusable_reason' on the libcell; result will be:        |
+|          |        |      | 'Library cell has no output pins.'Note: The message      |
+|          |        |      | LBR-9 is only for the logical pins and not for the       |
+|          |        |      | power_ground pins. Genus will depend upon the output     |
+|          |        |      | function defined in the pin group (output pin)           |
+|          |        |      | of the cell, to use it for mapping. The pg_pin will not  |
+|          |        |      | have any function defined.                               |
+| LBR-41   |Info    |    1 |An output library pin lacks a function attribute.         |
+|          |        |      |If the remainder of this library cell's semantic checks   |
+|          |        |      | are successful, it will be considered as a timing-model  |
+|          |        |      | (because one of its outputs does not have a valid functi |
+|          |        |      | on.                                                      |
+| LBR-109  |Info    |    1 |Set default library domain.                               |
+| LBR-155  |Info    |  264 |Mismatch in unateness between 'timing_sense' attribute    |
+|          |        |      | and the function.                                        |
+|          |        |      |The 'timing_sense' attribute will be respected.           |
+| LBR-161  |Info    |    1 |Setting the maximum print count of this message to 10 if  |
+|          |        |      | information_level is less than 9.                        |
+| LBR-162  |Info    |  124 |Both 'pos_unate' and 'neg_unate' timing_sense arcs have   |
+|          |        |      | been processed.                                          |
+|          |        |      |Setting the 'timing_sense' to non_unate.                  |
+| LBR-412  |Info    |    1 |Created nominal operating condition.                      |
+|          |        |      |The nominal operating condition is represented, either by |
+|          |        |      | the nominal PVT values specified in the library source   |
+|          |        |      | (via nom_process,nom_voltage and nom_temperature respect |
+|          |        |      | ively), or by the default PVT values (1.0,1.0,1.0).      |
+| LBR-518  |Info    |    1 |Missing a function attribute in the output pin            |
+|          |        |      | definition.                                              |
+| PHYS-129 |Info    |  119 |Via with no resistance will have a value of '0.0'         |
+|          |        |      | assigned for resistance value.                           |
+|          |        |      |If this is the expected behavior, this message can be     |
+|          |        |      | ignored.                                                 |
+| PHYS-279 |Warning |    7 |Physical cell not defined in library.                     |
+|          |        |      |Ensure that the proper library files are available and    |
+|          |        |      | have been imported.                                      |
+---------------------------------------------------------------------------------------
+
+  According to qrc_tech_file, there are total 11 routing layers [ V(5) / H(6) ]
+
+
+  According to qrc_tech_file, there are total 11 routing layers [ V(5) / H(6) ]
+
+
+  According to qrc_tech_file, there are total 11 routing layers [ V(5) / H(6) ]
+
+
+  According to qrc_tech_file, there are total 11 routing layers [ V(5) / H(6) ]
+
+
+  According to qrc_tech_file, there are total 11 routing layers [ V(5) / H(6) ]
+
+@genus:root: 2> gui_show

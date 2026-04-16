@@ -1,0 +1,118 @@
+`timescale 1ns/1ps
+
+module posit_mac_tb;
+
+    // Parameters
+    parameter CLK_PERIOD = 10;  // 10ns = 100MHz clock
+    parameter B_UPDATE_PERIOD = 20; // Update b every 20ns
+
+    // Signals
+    reg [31:0] a, b;
+    reg clk, reset;
+    wire [31:0] out;
+    wire [4:0] monitor_counter = dut.counter;
+    
+    // File handling variables
+    integer file, scan_file, output_file;
+    reg [31:0] b_values [0:9999];
+    integer index = 0;
+    integer file_reading_done = 0;
+    
+    // Instantiate the DUT
+    posit_mac dut (
+        .a(a),
+        .b(b),
+        .clk(clk),
+        .reset(reset),
+        .out(out)
+    );
+    
+    // Clock generation
+    initial begin
+        clk = 1'b0;
+        forever #(CLK_PERIOD/2) clk = ~clk;
+    end
+    
+    // Load operand.txt file
+    initial begin
+        file = $fopen("operand.txt", "r");
+        if (file == 0) begin
+            $display("Error: Could not open operand.txt");
+            $finish;
+        end
+        
+        // Read all values into memory
+        index = 0;
+        while (!$feof(file) && index < 10000) begin
+            scan_file = $fscanf(file, "%b\n", b_values[index]);
+            if (scan_file != 1) begin
+                if (!$feof(file)) begin
+                    $display("Error reading file at line %d", index+1);
+                    $finish;
+                end
+            end
+            else begin
+                index = index + 1;
+            end
+        end
+        $fclose(file);
+        file_reading_done = 1;
+        index = 0; // Reset index for simulation
+    end
+    
+    // Open output file at start of simulation
+    initial begin
+        output_file = $fopen("output_results.txt", "w");
+        if (output_file == 0) begin
+            $display("Error: Could not create output_results.txt");
+            $finish;
+        end
+    end
+    
+    // Test stimulus
+    initial begin
+        // Wait for file reading to complete
+        wait(file_reading_done == 1);
+        
+        // Initialize inputs
+        reset = 1'b1;
+        a = 32'h0;
+        b = 32'h0;
+        
+        // Reset the design
+        #25;
+        reset = 1'b0;
+        
+        // Set fixed value for a
+        a = 32'b01001000000000000000000000000000; // always 4.0
+        
+        // Update b every 20ns with values from operand.txt
+        while (1) begin
+            b = b_values[index];
+            index = (index + 1);
+            #B_UPDATE_PERIOD;
+        end
+    end
+    
+    // Monitor the results
+    always @(posedge clk) begin
+        $display("At time %t: a = %b, b = %b, out = %b", 
+                 $time, a, b, out);
+    end
+    
+    // Capture output at specific time (200,017 ns)
+    initial begin
+        #200017;
+        $fdisplay(output_file, "Output at 200,017 ns: %b", out);
+        $display("Captured output at 200,017 ns: %b", out);
+    end
+    
+    // Simulation duration and cleanup
+    initial begin
+        #5000000; // Extended simulation time to process more values
+        $fclose(output_file);
+        $display("Simulation complete");
+        $finish;
+    end
+
+endmodule

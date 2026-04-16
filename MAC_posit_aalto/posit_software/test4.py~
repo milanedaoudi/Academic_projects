@@ -1,0 +1,44 @@
+# -*- coding: utf-8 -*-
+from posit import posit
+import struct
+
+def convert_and_add():
+    # Initialize 8-bit posit with es=1
+    p = posit(8, 1)
+    
+    # Read input files
+    with open("Pin1_8bit.txt", "r") as f1, open("Pin2_8bit.txt", "r") as f2:
+        pin1 = [line.strip() for line in f1 if line.strip()]
+        pin2 = [line.strip() for line in f2 if line.strip()]
+    
+    # Process pairs and write results
+    with open("results_float.txt", "w") as out:
+        for i in xrange(len(pin1)):
+            try:
+                # Convert posits to floats
+                a = p.posit2float(pin1[i])
+                b = p.posit2float(pin2[i])
+                
+                # Perform IEEE addition (native float64)
+                res = a + b
+                
+                # Write in long double format (80-bit extended precision)
+                # Format: a + b = result (all in hex representation)
+                a_bytes = struct.pack('!d', a).encode('hex')
+                b_bytes = struct.pack('!d', b).encode('hex')
+                res_bytes = struct.pack('!d', res).encode('hex')
+                
+                out.write("%s + %s = %s  # a=%.15g b=%.15g res=%.15g\n" % (
+                    a_bytes,
+                    b_bytes,
+                    res_bytes,
+                    a,
+                    b,
+                    res
+                ))
+            except Exception as e:
+                out.write("Error processing line %d: %s\n" % (i+1, str(e)))
+
+if __name__ == "__main__":
+    convert_and_add()
+    print("Floating-point addition results saved to results_float.txt")

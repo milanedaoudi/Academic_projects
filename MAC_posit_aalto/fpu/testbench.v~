@@ -1,0 +1,49 @@
+`timescale 1ns / 1ps
+
+`define CYCLE 20
+
+module testbench;
+parameter NUM = 30000;  // Number of test cases
+reg clk, rst;
+reg [31:0] A;
+reg [31:0] B;
+wire [31:0] out;
+integer i, results_file;
+
+initial begin
+    // Open results file
+    results_file = $fopen("fp_results.txt", "w");
+    if (results_file == 0) begin
+        $display("Error opening fp_results.txt");
+        $finish;
+    end
+    
+    // Initialize
+    clk = 0;
+    rst = 0;
+    #(`CYCLE) rst = 1;
+    #(`CYCLE) rst = 0;
+    
+    // Test loop
+    for(i = 0; i < NUM; i = i + 1) begin
+        // Read inputs directly from files
+        $readmemh("Pin1_fp_32bit.txt", A, i);
+        $readmemh("Pin2_fp_32bit.txt", B, i);
+        
+        #(`CYCLE<<1);  // Wait for computation
+        
+        // Write results: Test#, A, B, Out
+        $fwrite(results_file, "%5d: %h %h %h\n", i, A, B, out);
+    end
+    
+    $fclose(results_file);
+    $display("Completed %d tests. Results in fp_results.txt", NUM);
+    $finish;
+end
+
+always #(`CYCLE/2) clk = ~clk;
+
+// FP Adder instance
+fpadd_single DUT(.clk(clk), .reset(rst), .reg_A(A), .reg_B(B), .out(out));
+
+endmodule

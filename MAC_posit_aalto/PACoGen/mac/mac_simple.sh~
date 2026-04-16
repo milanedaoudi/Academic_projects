@@ -1,0 +1,12 @@
+vlib work
+
+#All the verilog modules
+vlog "posit_add.v"
+vlog "posit_mult.v"
+vlog "mac_simple.v"
+vlog "mac_testbench.v"
+
+vsim -t ps work.posit_mac_32b_tb
+view wave
+#add wave *
+run -all

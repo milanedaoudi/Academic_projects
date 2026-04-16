@@ -1,0 +1,49 @@
+`timescale 1ns/1ps
+
+module posit_mac_32b_tb;
+    // Testbench parameters
+    localparam CLK_PERIOD = 10; // 10ns clock period
+    
+    // DUT signals
+    reg [31:0] in1;
+    reg [31:0] in2;
+    reg [31:0] accumulator;
+    wire [31:0] out;
+    
+    // Instantiate the DUT
+    posit_mac_32b dut (
+        .in1(in1),
+        .in2(in2),
+        .accumulator(accumulator),
+        .out(out)
+    );
+    
+    // Test cases
+    initial begin
+        // Initialize inputs
+        in1 = 32'h0;
+        in2 = 32'h0;
+        accumulator = 32'h0;
+        
+        // Test case 1: Simple multiplication and accumulation
+        #10;
+        in1 = 32'h40000000; // 1.0 in posit32 (es=3)
+        in2 = 32'h40000000; // 1.0 in posit32 (es=3)
+        accumulator = 32'h40000000; // 1.0
+        #10;
+        $display("Test 1: 1.0 * 1.0 + 1.0 = %h (expected ~48000000)", out);
+        
+
+        
+        // Finish simulation
+        #40;
+        $display("MAC testbench completed");
+        $finish;
+    end
+    
+    // Waveform dumping (for visualization)
+    initial begin
+        $dumpfile("posit_mac_32b_tb.vcd");
+        $dumpvars(0, posit_mac_32b_tb);
+    end
+endmodule

@@ -1,0 +1,73 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/mdaoudi/Documents/ic_project/fpu
+vfp_normalizer
+Z1 !s110 1745140206
+!i10b 1
+!s100 go=hJUUG<FclkjRng4B>E1
+IgGX?B3e^Ag<[gDSVdILhH2
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1745066774
+8fp_normalizer.v
+Ffp_normalizer.v
+L0 1
+Z3 OL;L;10.6_1;65
+r1
+!s85 0
+31
+Z4 !s108 1745140206.000000
+!s107 fp_normalizer.v|
+!s90 fp_normalizer.v|
+!i113 1
+Z5 o-L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z6 tCvgOpt 0
+vfpadd_single
+R1
+!i10b 1
+!s100 n5^P6Y1oGEi[mD=^Q3mzd1
+IE4H@[[DaIhY=U?4`I6bBh1
+R2
+R0
+w1745066816
+8fpadd_single.v
+Ffpadd_single.v
+L0 17
+R3
+r1
+!s85 0
+31
+R4
+!s107 fpadd_single.v|
+!s90 fpadd_single.v|
+!i113 1
+R5
+R6
+vtestbench
+R1
+!i10b 1
+!s100 Bd6gB]GY[X0<cnei6l4@_2
+IN[I7jV>XLimgN;n6@ifZQ0
+R2
+R0
+w1745070621
+8testbench.v
+Ftestbench.v
+L0 5
+R3
+r1
+!s85 0
+31
+R4
+!s107 testbench.v|
+!s90 testbench.v|
+!i113 1
+R5
+R6

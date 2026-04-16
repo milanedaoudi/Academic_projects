@@ -1,0 +1,74 @@
+import struct
+import math
+
+def hex_to_float(h):
+    """Convert 32-bit hex string to float"""
+    try:
+        # Handle Python 2.7 hex conversion
+        h = h.strip().zfill(8)  # Ensure 8-character hex string
+        return struct.unpack('!f', h.decode('hex'))[0]
+    except:
+        return float('nan')
+
+def calculate_errors():
+    verilog_results = []
+    exact_results = []
+    
+    # Read Verilog results (hexadecimal, one per line)
+    with open('fp_results.txt', 'r') as f:
+        for line in f:
+            line = line.strip()
+            if line:  # Skip empty lines
+                verilog_results.append(hex_to_float(line))
+    
+    # Read exact results (decimal, one per line)
+    with open('result_fp_64bit.txt', 'r') as f:
+        exact_results = [float(line.strip()) for line in f if line.strip()]
+    
+    # Verify we have matching results
+    if len(verilog_results) != len(exact_results):
+        print("Error: Mismatched number of results (%d vs %d)" % 
+              (len(verilog_results), len(exact_results)))
+        return
+    
+    total_error = 0.0
+    error_count = 0
+    
+    # Calculate absolute errors
+    for i in xrange(len(verilog_results)):
+        verilog_val = verilog_results[i]
+        exact_val = exact_results[i]
+        
+        if math.isnan(verilog_val) or math.isnan(exact_val):
+            continue
+        
+        abs_error = abs(verilog_val - exact_val)
+        total_error += abs_error
+        error_count += 1
+    
+    if error_count == 0:
+        print("No valid results to compare")
+        return
+    
+    avg_error = total_error / error_count
+    
+    print("\nError Analysis Results:")
+    print("-----------------------")
+    print("Number of test cases: %d" % error_count)
+    print("Average absolute error: %.15g" % avg_error)
+    
+    # Write simplified error report
+    with open('error_report.txt', 'w') as f:
+        f.write("Test cases: %d\n" % error_count)
+        f.write("Average error: %.15g\n" % avg_error)
+        f.write("\nFirst 10 results for verification:\n")
+        f.write("Index\tVerilog\t\tExact\t\tError\n")
+        for i in xrange(min(10, len(verilog_results))):
+            verilog_val = verilog_results[i]
+            exact_val = exact_results[i]
+            error = abs(verilog_val - exact_val)
+            f.write("%d\t%.8g\t%.15g\t%.8g\n" % 
+                   (i, verilog_val, exact_val, error))
+
+if __name__ == "__main__":
+    calculate_errors()

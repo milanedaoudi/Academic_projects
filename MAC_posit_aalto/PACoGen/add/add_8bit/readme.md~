@@ -1,0 +1,5 @@
+-init1.py will calculate 10 000 random numbers in a chosen input range, create 2 lists and retain the result af addition in float_results.txt, convert the 2 lists to posit and then write Pin1_8bit.txt and Pin2_8bit.txt to feed verilog testbench. 
+
+!!!Change es in TESTBENCH, INIT.PY and ERROR.PY
+
+-error.py takes posit_results and convert it to float and then calculate absolute error by comparing to float_results.txt

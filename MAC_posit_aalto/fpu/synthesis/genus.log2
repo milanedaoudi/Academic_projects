@@ -1,0 +1,794 @@
+Cadence Genus(TM) Synthesis Solution.
+Copyright 2021 Cadence Design Systems, Inc. All rights reserved worldwide.
+Cadence and the Cadence logo are registered trademarks and Genus is a trademark
+of Cadence Design Systems, Inc. in the United States and other countries.
+
+Version: 21.10-p002_1, built Fri Aug 20 00:13:13 PDT 2021
+Options: -batch -files synthesize.tcl 
+Date:    Sun Apr 27 16:23:36 2025
+Host:    vspace.ecdl.hut.fi (x86_64 w/Linux 3.10.0-1160.118.1.el7.x86_64) (1core*8cpus*15physical cpus*Intel(R) Xeon(R) CPU E5-2640 v4 @ 2.40GHz 25600KB) (65807808KB)
+PID:     26249
+OS:      CentOS Linux release 7.9.2009 (Core)
+
+Checking out license: Genus_Synthesis
+
+
+***********************************************************************************************************
+***********************************************************************************************************
+
+
+
+Loading tool scripts...
+Finished loading tool scripts (13 seconds elapsed).
+
+#@ Processing -files option
+@genus 1> source synthesize.tcl
+#@ Begin verbose source ./synthesize.tcl
+@file(synthesize.tcl) 2: source ./flow/scripts/common_vars.tcl
+Sourcing './flow/scripts/common_vars.tcl' (Sun Apr 27 16:23:50 EEST 2025)...
+#@ Begin verbose source ./flow/scripts/common_vars.tcl
+@file(common_vars.tcl) 1: set TECHROOT "/prog/cadence/gpdk/g045/lan/flow/t1u1/reference_libs/GPDK045/gsclib045_all_v4.4"
+@file(common_vars.tcl) 2: set FLOWPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/flow"
+@file(common_vars.tcl) 3: set DEFPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/def"
+@file(common_vars.tcl) 4: set LEFPATH "/prog/cadence/gpdk/g045/lan/flow/t1u1/reference_libs/GPDK045/gsclib045_all_v4.4"
+@file(common_vars.tcl) 5: set CUSTOMLEFPATH ""
+@file(common_vars.tcl) 7: set CONSTRAINTPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints"
+@file(common_vars.tcl) 8: set SCRIPTPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/flow/scripts"
+@file(common_vars.tcl) 9: set TECHPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/flow/tech"
+@file(common_vars.tcl) 10: set RTLPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/source"
+@file(common_vars.tcl) 11: set DBSPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/dbs"
+@file(common_vars.tcl) 12: set REPORTPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/reports"
+@file(common_vars.tcl) 13: set TOPMODULE "fmultiplier"
+@file(common_vars.tcl) 14: set VERILOGFILES " /home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v"
+@file(common_vars.tcl) 15: set VHDLFILES ""
+@file(common_vars.tcl) 16: set SDCFILE "/home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints/timing_constraints.tcl"
+@file(common_vars.tcl) 17: set CPFFILE "/home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints/power_domains.cpf"
+#@ End verbose source ./flow/scripts/common_vars.tcl
+@file(synthesize.tcl) 5: read_mmmc ${CONSTRAINTPATH}/mmmc_config.tcl
+  Setting attribute of root '/': 'is_read_mmmc_flow' = true
+Sourcing '/home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints/mmmc_config.tcl' (Sun Apr 27 16:23:50 EEST 2025)...
+#@ Begin verbose source /home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints/mmmc_config.tcl
+@file(mmmc_config.tcl) 4: source ./flow/scripts/common_vars.tcl
+Sourcing './flow/scripts/common_vars.tcl' (Sun Apr 27 16:23:50 EEST 2025)...
+#@ Begin verbose source ./flow/scripts/common_vars.tcl
+@file(common_vars.tcl) 1: set TECHROOT "/prog/cadence/gpdk/g045/lan/flow/t1u1/reference_libs/GPDK045/gsclib045_all_v4.4"
+@file(common_vars.tcl) 2: set FLOWPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/flow"
+@file(common_vars.tcl) 3: set DEFPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/def"
+@file(common_vars.tcl) 4: set LEFPATH "/prog/cadence/gpdk/g045/lan/flow/t1u1/reference_libs/GPDK045/gsclib045_all_v4.4"
+@file(common_vars.tcl) 5: set CUSTOMLEFPATH ""
+@file(common_vars.tcl) 7: set CONSTRAINTPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints"
+@file(common_vars.tcl) 8: set SCRIPTPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/flow/scripts"
+@file(common_vars.tcl) 9: set TECHPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/flow/tech"
+@file(common_vars.tcl) 10: set RTLPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/source"
+@file(common_vars.tcl) 11: set DBSPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/dbs"
+@file(common_vars.tcl) 12: set REPORTPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/reports"
+@file(common_vars.tcl) 13: set TOPMODULE "fmultiplier"
+@file(common_vars.tcl) 14: set VERILOGFILES " /home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v"
+@file(common_vars.tcl) 15: set VHDLFILES ""
+@file(common_vars.tcl) 16: set SDCFILE "/home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints/timing_constraints.tcl"
+@file(common_vars.tcl) 17: set CPFFILE "/home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints/power_domains.cpf"
+#@ End verbose source ./flow/scripts/common_vars.tcl
+@file(mmmc_config.tcl) 5: set setup_corners "slow_vdd1v0"
+@file(mmmc_config.tcl) 6: set hold_corners  "fast_vdd1v2" 
+@file(mmmc_config.tcl) 10: foreach setupc $setup_corners {
+  puts "Defining timing files for library set ${setupc}.SS"
+  create_library_set \
+    -name ${setupc}.SS \
+    -timing [subst {
+      [glob -nocomplain ./flow/tech/lib/${setup_corners}_basicCells_hvt.lib]
+    }]
+}
+Defining timing files for library set slow_vdd1v0.SS
+@file(mmmc_config.tcl) 19: foreach holdc $hold_corners {
+  puts "Defining timing files for library set ${holdc}.FF"
+  create_library_set \
+    -name ${holdc}.FF \
+    -timing [subst {
+      [glob -nocomplain ./flow/tech/lib/${hold_corners}_basicCells_hvt.lib]
+    }]
+}
+Defining timing files for library set fast_vdd1v2.FF
+@file(mmmc_config.tcl) 42: foreach setupc $setup_corners {
+  puts "Creating operating condition for corner $setupc"
+  set tempmax 25
+  set tempmin -40
+  regexp -all {^(.*)_vdd([0-9]+)v([0-9]+)}  $setupc tot vtot vreal vdec
+  puts "$vreal.$vdec"
+  puts "$tempmax"
+  puts "$tempmin"
+  create_opcond \
+    -name               $setupc.max \
+    -process            1 \
+    -voltage            $vreal.$vdec \
+    -temperature        "$tempmax"
+}
+Creating operating condition for corner slow_vdd1v0
+1.0
+25
+-40
+@file(mmmc_config.tcl) 57: foreach holdc $hold_corners {
+  puts "Creating operating condition for corner $holdc"
+  set temp 25
+  regexp -all {^(.*)_vdd([0-9]+)v([0-9]+)}  $setupc tot vtot vreal vdec
+  puts "$vreal.$vdec"
+  puts "$temp"
+  create_opcond \
+    -name               $holdc.min \
+    -process            1 \
+    -voltage            $vreal.$vdec \
+    -temperature        "$tempmin"
+}
+Creating operating condition for corner fast_vdd1v2
+1.0
+25
+@file(mmmc_config.tcl) 74: foreach setupc $setup_corners {
+  puts "Creating timing condition for corner $setupc"
+  create_timing_condition \
+    -name               $setupc.setup \
+    -library_sets       [list ${setupc}.SS  ] \
+    -opcond             $setupc.max
+}
+Creating timing condition for corner slow_vdd1v0
+@file(mmmc_config.tcl) 82: foreach holdc $hold_corners {
+  puts "Creating timing condition for corner $holdc"
+  create_timing_condition \
+    -name               $holdc.hold \
+    -library_sets       [list ${holdc}.FF  ] \
+    -opcond             $holdc.min
+}
+Creating timing condition for corner fast_vdd1v2
+@file(mmmc_config.tcl) 95: create_rc_corner \
+    -name               cworst_CCworst \
+    -temperature        $tempmax \
+    -qrc_tech           /prog/cadence/gpdk/g045/lan/flow/t1u1/reference_libs/GPDK045/gsclib045_all_v4.4/gsclib045_tech/qrc/qx/gpdk045.tch 
+@file(mmmc_config.tcl) 100: create_rc_corner \
+    -name               rcworst_CCworst \
+    -temperature        $tempmax \
+    -qrc_tech           /prog/cadence/gpdk/g045/lan/flow/t1u1/reference_libs/GPDK045/gsclib045_all_v4.4/gsclib045_tech/qrc/qx/gpdk045.tch 
+@file(mmmc_config.tcl) 105: create_rc_corner \
+    -name               cbest_CCbest \
+    -temperature        $tempmin \
+    -qrc_tech           /prog/cadence/gpdk/g045/lan/flow/t1u1/reference_libs/GPDK045/gsclib045_all_v4.4/gsclib045_tech/qrc/qx/gpdk045.tch 
+@file(mmmc_config.tcl) 110: create_rc_corner \
+    -name               rcbest_CCbest \
+    -temperature        $tempmin \
+    -qrc_tech           /prog/cadence/gpdk/g045/lan/flow/t1u1/reference_libs/GPDK045/gsclib045_all_v4.4/gsclib045_tech/qrc/qx/gpdk045.tch 
+@file(mmmc_config.tcl) 118: foreach setupc $setup_corners {
+  puts "Defining delay corners for $setupc."
+  create_delay_corner \
+    -name               ${setupc}.setup_rcworst_CCworst \
+    -timing_condition   ${setupc}.setup \
+    -rc_corner          rcworst_CCworst
+}
+Defining delay corners for slow_vdd1v0.
+@file(mmmc_config.tcl) 126: foreach setupc $setup_corners {
+  puts "Defining delay corners for $setupc."
+  create_delay_corner \
+    -name               ${setupc}.setup_cworst_CCworst \
+    -timing_condition   ${setupc}.setup \
+    -rc_corner          cworst_CCworst
+}
+Defining delay corners for slow_vdd1v0.
+@file(mmmc_config.tcl) 134: foreach holdc $hold_corners {
+  puts "Defining delay corners for $holdc."
+  create_delay_corner \
+    -name               ${holdc}.hold_rcbest_CCbest \
+    -timing_condition   ${holdc}.hold \
+    -rc_corner          rcbest_CCbest
+}
+Defining delay corners for fast_vdd1v2.
+@file(mmmc_config.tcl) 142: foreach holdc $hold_corners {
+  puts "Defining delay corners for $holdc."
+  create_delay_corner \
+    -name               ${holdc}.hold_cbest_CCbest \
+    -timing_condition   ${holdc}.hold \
+    -rc_corner          cbest_CCbest
+}
+Defining delay corners for fast_vdd1v2.
+@file(mmmc_config.tcl) 150: foreach holdc $hold_corners {
+  puts "Defining delay corners for $holdc."
+  create_delay_corner \
+    -name               ${holdc}.hold_cworst_CCworst \
+    -timing_condition   ${holdc}.hold \
+    -rc_corner          cworst_CCworst
+}
+Defining delay corners for fast_vdd1v2.
+@file(mmmc_config.tcl) 158: foreach holdc $hold_corners {
+  puts "Defining delay corners for $holdc."
+  create_delay_corner \
+    -name               ${holdc}.hold_rcworst_CCworst \
+    -timing_condition   ${holdc}.hold \
+    -rc_corner          rcworst_CCworst
+}
+Defining delay corners for fast_vdd1v2.
+@file(mmmc_config.tcl) 169: create_constraint_mode \
+    -name               func \
+    -sdc_files          $SDCFILE
+@file(mmmc_config.tcl) 175: foreach setupc $setup_corners {
+  puts "Defining analysis views for $setupc."
+  create_analysis_view \
+    -name               func-${setupc}.setup_cworst_CCworst \
+    -constraint_mode    func \
+    -delay_corner       ${setupc}.setup_cworst_CCworst \
+    -power_mode         aon
+}
+Defining analysis views for slow_vdd1v0.
+@file(mmmc_config.tcl) 184: foreach setupc $setup_corners {
+  puts "Defining analysis views for $setupc."
+  create_analysis_view \
+    -name               func-${setupc}.setup_rcworst_CCworst \
+    -constraint_mode    func \
+    -delay_corner       ${setupc}.setup_rcworst_CCworst \
+    -power_mode         aon
+}
+Defining analysis views for slow_vdd1v0.
+@file(mmmc_config.tcl) 193: foreach holdc $hold_corners {
+  puts "Defining analysis views for $holdc."
+  create_analysis_view \
+    -name               func-${holdc}.hold_cbest_CCbest \
+    -constraint_mode    func \
+    -delay_corner       ${holdc}.hold_cbest_CCbest \
+    -power_mode         aon
+}
+Defining analysis views for fast_vdd1v2.
+@file(mmmc_config.tcl) 202: foreach holdc $hold_corners {
+  puts "Defining analysis views for $holdc."
+  create_analysis_view \
+    -name               func-${holdc}.hold_rcbest_CCbest \
+    -constraint_mode    func \
+    -delay_corner       ${holdc}.hold_rcbest_CCbest \
+    -power_mode         aon
+}
+Defining analysis views for fast_vdd1v2.
+@file(mmmc_config.tcl) 211: foreach holdc $hold_corners {
+  puts "Defining analysis views for $holdc."
+  create_analysis_view \
+    -name               func-${holdc}.hold_cworst_CCworst \
+    -constraint_mode    func \
+    -delay_corner       ${holdc}.hold_cworst_CCworst \
+    -power_mode         aon
+}
+Defining analysis views for fast_vdd1v2.
+@file(mmmc_config.tcl) 220: foreach holdc $hold_corners {
+  puts "Defining analysis views for $holdc."
+  create_analysis_view \
+    -name               func-${holdc}.hold_rcworst_CCworst \
+    -constraint_mode    func \
+    -delay_corner       ${holdc}.hold_rcworst_CCworst \
+    -power_mode         aon
+}
+Defining analysis views for fast_vdd1v2.
+@file(mmmc_config.tcl) 231: set_analysis_view \
+    -setup  [list func-${setupc}.setup_cworst_CCworst ] \
+    -hold   [list func-${holdc}.hold_cbest_CCbest ]
+
+Threads Configured:3
+
+  Message Summary for Library slow_vdd1v0_basicCells_hvt.lib:
+  ***********************************************************
+  Missing a function attribute in the output pin definition. [LBR-518]: 1
+  ***********************************************************
+ 
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.900000, 125.000000) in library 'slow_vdd1v0_basicCells_hvt.lib'.
+        : The nominal operating condition is represented, either by the nominal PVT values specified in the library source (via nom_process,nom_voltage and nom_temperature respectively), or by the default PVT values (1.0,1.0,1.0).
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'ANTENNAHVT' must have an output pin.
+        : Add the missing output pin(s), then reload the library. Else the library cell will be marked as timing model i.e. unusable. Timing_model means that the cell does not have any defined function. If there is no output pin, Genus will mark library cell as unusable i.e. the attribute 'usable' will be marked to 'false' on the libcell. Therefore, the cell is not used for mapping and it will not be picked up from the library for synthesis. If you query the attribute 'unusable_reason' on the libcell; result will be: 'Library cell has no output pins.'Note: The message LBR-9 is only for the logical pins and not for the power_ground pins. Genus will depend upon the output function defined in the pin group (output pin) of the cell, to use it for mapping. The pg_pin will not have any function defined.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'ANTENNAHVT' must have an output pin.
+Info    : Set default library domain. [LBR-109]
+        : The default library domain is 'library_domain:slow_vdd1v0.setup'.
+  Library has 324 usable logic and 128 usable sequential lib-cells.
+Warning : Cannot find expected operating_conditions in library. [MMMC-102]
+        : Operating_conditions (P=1.0 V=1.0 T=25.0 tree_type=balanced_tree) cannot be found for opcond:slow_vdd1v0.max in any libraries of timing_condition:slow_vdd1v0.setup.
+        : Using default operating conditions. Check for supported operating_conditions in libraries.
+#@ End verbose source /home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints/mmmc_config.tcl
+@file(synthesize.tcl) 8: read_physical -lefs  ${TECHPATH}/lef/gsclib045_tech.lef
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_HV' has no resistance value.
+        : If this is the expected behavior, this message can be ignored.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_VV' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_VH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_HH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_2x1_HV_E' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_2x1_HV_W' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_1x2_HV_N' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_1x2_HV_S' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_VH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_HH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_HV' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_VV' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_M_NH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_M_SH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_2x1_VH_E' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_2x1_VH_W' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_1x2_VH_N' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_1x2_VH_S' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M4_M3_HV' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M4_M3_VV' has no resistance value.
+
+  According to lef_library, there are total 11 routing layers [ V(5) / H(6) ]
+
+Warning : None of the loaded LEF files have MACRO statements. [PHYS-20]
+        : Make sure the LEF file containing MACRO statement was not missed.
+        : The LEF file containing the cell specific information was not loaded. The LEF MACRO construct is used to set the physical data on cells in the timing library. It is likely that only the technology LEF file was loaded. Load all the associated LEF files.
+@file(synthesize.tcl) 9: read_physical -add_lefs "[glob ${TECHPATH}/lef/*_macro.lef]"
+Incrementally loading LEF file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/flow/tech/lef/gsclib045_hvt_macro.lef'...
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILL1HVT cannot be found in library.
+        : Ensure that the proper library files are available and have been imported.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILL16HVT cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILL2HVT cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILL32HVT cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILL4HVT cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILL64HVT cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILL8HVT cannot be found in library.
+@file(synthesize.tcl) 12: puts " $TOPMODULE reading RTL"
+ fmultiplier reading RTL
+@file(synthesize.tcl) 13: if {[llength $VERILOGFILES]} {
+  puts "Reading in verilog files"
+  read_hdl $VERILOGFILES
+} else {
+  puts "No verilogfiles to read"
+}
+Reading in verilog files
+@file(synthesize.tcl) 20: if {[llength $VHDLFILES]} {
+  puts "Reading in vhdl files"
+  read_hdl -language vhdl $VHDLFILES
+} else {
+  puts "No vhdlfiles to read"
+}
+No vhdlfiles to read
+@file(synthesize.tcl) 28: elaborate $TOPMODULE
+Info    : Elaborating Design. [ELAB-1]
+        : Elaborating top-level block 'fmultiplier' from file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v'.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'a' in module 'fmultiplier' in file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v' on line 48.
+        : Add missing reference signals in the sensitivity list or use '*' to add all the signals in the sensitivity list. Example : always @(a or b) (OR) always (*))
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'b' in module 'fmultiplier' in file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v' on line 48.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'a_e' in module 'fmultiplier' in file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v' on line 60.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'a_m' in module 'fmultiplier' in file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v' on line 60.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'b_e' in module 'fmultiplier' in file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v' on line 60.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'b_m' in module 'fmultiplier' in file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v' on line 60.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'a_s' in module 'fmultiplier' in file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v' on line 60.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'b_s' in module 'fmultiplier' in file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v' on line 60.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'a_m' in module 'fmultiplier' in file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v' on line 115.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'a_e' in module 'fmultiplier' in file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v' on line 115.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'b_m' in module 'fmultiplier' in file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v' on line 115.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'b_e' in module 'fmultiplier' in file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v' on line 115.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'a_s' in module 'fmultiplier' in file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v' on line 129.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'b_s' in module 'fmultiplier' in file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v' on line 129.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'a_e' in module 'fmultiplier' in file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v' on line 129.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'b_e' in module 'fmultiplier' in file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v' on line 129.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'a_m' in module 'fmultiplier' in file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v' on line 129.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'b_m' in module 'fmultiplier' in file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v' on line 129.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'product' in module 'fmultiplier' in file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v' on line 138.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'z_e' in module 'fmultiplier' in file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v' on line 147.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'a_m[0]' in module 'fmultiplier'.
+        : This may cause simulation mismatches between the original and synthesized designs.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'a_m[1]' in module 'fmultiplier'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'a_m[2]' in module 'fmultiplier'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'a_m[3]' in module 'fmultiplier'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'a_m[4]' in module 'fmultiplier'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'a_m[5]' in module 'fmultiplier'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'a_m[6]' in module 'fmultiplier'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'a_m[7]' in module 'fmultiplier'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'a_m[8]' in module 'fmultiplier'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'a_m[9]' in module 'fmultiplier'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'a_m[10]' in module 'fmultiplier'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'a_m[11]' in module 'fmultiplier'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'a_m[12]' in module 'fmultiplier'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'a_m[13]' in module 'fmultiplier'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'a_m[14]' in module 'fmultiplier'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'a_m[15]' in module 'fmultiplier'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'a_m[16]' in module 'fmultiplier'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'a_m[17]' in module 'fmultiplier'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'a_m[18]' in module 'fmultiplier'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'a_m[19]' in module 'fmultiplier'.
+Info    : Done Elaborating Design. [ELAB-3]
+        : Done elaborating 'fmultiplier'.
+Checking for analog nets...
+Check completed for analog nets.
+Checking for source RTL...
+Check completed for source RTL.
+Running Unified Mux Engine Tricks...
+Completed Unified Mux Engine Tricks
+--------------------------------------------------------
+| Trick             | Accepts | Rejects | Runtime (ms) | 
+--------------------------------------------------------
+| ume_constant_bmux |       0 |       0 |         0.00 | 
+--------------------------------------------------------
+Starting clip mux common data inputs [v1.0] (stage: post_elab, startdef: fmultiplier, recur: true)
+Completed clip mux common data inputs (accepts: 0, rejects: 0, runtime: 0.000s)
+Starting clip the non-user hierarchies [v2.0] (stage: post_elab, startdef: fmultiplier, recur: true)
+Completed clip the non-user hierarchies (accepts: 0, rejects: 0, runtime: 0.000s)
+UM:   flow.cputime  flow.realtime  timing.setup.tns  timing.setup.wns  snapshot
+UM:*                                                                   elaborate
+@file(synthesize.tcl) 29: init_design -top $TOPMODULE
+Started checking and loading power intent for design fmultiplier...
+===================================================================
+No power intent for design 'fmultiplier'.
+Completed checking and loading power intent for design fmultiplier (runtime 0.00s).
+===================================================================================
+#
+# Reading SDC /home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints/timing_constraints.tcl for view:func-slow_vdd1v0.setup_cworst_CCworst (constraint_mode:func)
+#
+============================================================
+  Generated by:           Genus(TM) Synthesis Solution 21.10-p002_1
+  Generated on:           Apr 27 2025  04:23:53 pm
+  Module:                 fmultiplier
+  Library domain:         slow_vdd1v0.setup
+    Domain index:         0
+    Technology library:   slow_vdd1v0 1.0
+  Operating conditions:   PVT_0P9V_125C 
+  Interconnect mode:      global
+  Area mode:              physical library
+============================================================
+
+
+ Clock Description
+ ----------------- 
+
+                                          Clock                             Clock               No of   
+                 Mode                     Name      Period  Rise   Fall     Domain  Pin/Port  Registers 
+--------------------------------------------------------------------------------------------------------
+func-slow_vdd1v0.setup_cworst_CCworst  DSP_MASTER   1000.0   0.0   500.0   domain_1   clk         3     
+
+ Clock Network Latency / Setup Uncertainty
+ ----------------------------------------- 
+
+                                                   Network   Network   Source   Source     Setup        Setup    
+                                         Clock     Latency   Latency  Latency  Latency  Uncertainty  Uncertainty 
+                 Mode                    Name       Rise      Fall      Rise     Fall       Rise         Fall    
+-----------------------------------------------------------------------------------------------------------------
+func-slow_vdd1v0.setup_cworst_CCworst DSP_MASTER       0.0       0.0      0.0      0.0          0.0          0.0 
+
+ Clock Relationship (with uncertainty & latency)
+ ----------------------------------------------- 
+
+                   Mode                      From          To        R->R     R->F    F->R    F->F  
+----------------------------------------------------------------------------------------------------
+  func-slow_vdd1v0.setup_cworst_CCworst   DSP_MASTER   DSP_MASTER   1000.0   500.0   500.0   1000.0 
+============================================================
+  Generated by:           Genus(TM) Synthesis Solution 21.10-p002_1
+  Generated on:           Apr 27 2025  04:23:54 pm
+  Module:                 fmultiplier
+  Library domain:         slow_vdd1v0.setup
+    Domain index:         0
+    Technology library:   slow_vdd1v0 1.0
+  Operating conditions:   PVT_0P9V_125C 
+  Interconnect mode:      global
+  Area mode:              physical library
+============================================================
+
+No clocks to report
+  Setting attribute of root '/': 'timing_io_use_clock_network_latency' = ideal
+Statistics for commands executed by read_sdc:
+ "all_clocks"               - successful      1 , failed      0 (runtime  0.00)
+ "all_inputs"               - successful      2 , failed      0 (runtime  0.00)
+ "all_outputs"              - successful      1 , failed      0 (runtime  0.00)
+ "create_clock"             - successful      1 , failed      0 (runtime  0.00)
+ "get_clock"                - successful      1 , failed      0 (runtime  0.00)
+ "get_port"                 - successful      2 , failed      0 (runtime  0.00)
+ "get_ports"                - successful      2 , failed      0 (runtime  0.00)
+ "set_clock_groups"         - successful      1 , failed      0 (runtime  0.00)
+ "set_clock_latency"        - successful      1 , failed      0 (runtime  0.00)
+ "set_clock_uncertainty"    - successful      1 , failed      0 (runtime  0.00)
+ "set_driving_cell"         - successful      1 , failed      0 (runtime  0.00)
+ "set_false_path"           - successful      1 , failed      0 (runtime  0.00)
+ "set_input_delay"          - successful      1 , failed      0 (runtime  0.00)
+ "set_input_transition"     - successful      1 , failed      0 (runtime  0.00)
+ "set_load"                 - successful      1 , failed      0 (runtime  0.00)
+ "set_load_unit"            - successful      1 , failed      0 (runtime  0.00)
+ "set_output_delay"         - successful      1 , failed      0 (runtime  0.00)
+ "set_time_unit"            - successful      1 , failed      0 (runtime  0.00)
+read_sdc completed in 00:00:01 (hh:mm:ss)
+
+  According to qrc_tech_file, there are total 11 routing layers [ V(5) / H(6) ]
+
+
+  According to qrc_tech_file, there are total 11 routing layers [ V(5) / H(6) ]
+
+
+  According to qrc_tech_file, there are total 11 routing layers [ V(5) / H(6) ]
+
+
+  According to qrc_tech_file, there are total 11 routing layers [ V(5) / H(6) ]
+
+
+  According to qrc_tech_file, there are total 11 routing layers [ V(5) / H(6) ]
+
+  Setting attribute of root '/': 'read_qrc_tech_file_rc_corner' = true
+@file(synthesize.tcl) 32: read_power_intent $CPFFILE -cpf
+Checking out license: Genus_Low_Power_Opt
+Started reading power intent file(s) '/home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints/power_domains.cpf'...
+========================================================================================================================
+Checking file(s) '/home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints/power_domains.cpf' with CPF linter (version: 18.10-d331 dated:10.09.2018).
+Completed lint check of files (runtime 0.00).
+Completed reading power intent file(s) '/home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints/power_domains.cpf' (runtime 0.00s).
+========================================================================================================================================
+Started loading library commands in CPF file(s)...
+==================================================
+Completed loading library commands in CPF file(s) (runtime 0.00s).
+==================================================================
+@file(synthesize.tcl) 37: get_db cost_groups -if {.name != default} -foreach {delete_obj $object}
+@file(synthesize.tcl) 40: foreach mode [get_db constraint_modes -if {.is_setup}] {
+set_interactive_constraint_mode $mode
+group_path -name in2out -from [all_inputs] -to [all_outputs]
+if {[sizeof_collection [all_registers]] > 0} {
+  group_path -name in2reg -from [all_inputs] -to [all_registers]
+  group_path -name reg2out -from [all_registers] -to [all_outputs]
+  group_path -name reg2reg -from [all_registers] -to [all_registers]
+}
+}
+@file(synthesize.tcl) 49: set_interactive_constraint_mode {}
+@file(synthesize.tcl) 52: syn_generic
+##Generic Timing Info for library domain: slow_vdd1v0.setup typical gate delay: 202.9 ps std_slew: 29.2 ps std_load: 0.8 fF
+Starting mux data reorder optimization [v1.0] (stage: pre_to_gen_setup, startdef: fmultiplier, recur: true)
+Completed mux data reorder optimization (accepts: 0, rejects: 0, runtime: 0.001s)
+Current PLE settings:
+
+Aspect ratio        : 1.000
+Shrink factor       : 1.000
+Scale of res/length : 1.000
+Scale of cap/length : 1.000
+Net derating factor : 1.000
+Thermal factor      : 1.000
+Via Resistance      : 6.600 ohm (from qrc_tech_file)
+Site size           : 1.910 um (from lef [tech+cell])
+
+                                   Capacitance  
+  Layer                             / Length         Data source:
+Name        Direction Utilization  (pF/micron)       qrc_tech_file
+------------------------------------------------
+METAL_1         H         0.00        0.000210  
+METAL_2         V         1.00        0.000174  
+METAL_3         H         1.00        0.000174  
+METAL_4         V         1.00        0.000174  
+METAL_5         H         1.00        0.000174  
+METAL_6         V         1.00        0.000174  
+METAL_7         H         1.00        0.000175  
+METAL_8         V         1.00        0.000176  
+METAL_9         H         1.00        0.001240  
+METAL_10        V         1.00        0.000529  
+METAL_11        H         1.00        0.000686  
+
+                                    Resistance   
+  Layer                              / Length         Data source:
+Name        Direction Utilization  (ohm/micron)       qrc_tech_file
+-------------------------------------------------
+METAL_1         H         0.00         1.226667  
+METAL_2         V         1.00         0.755000  
+METAL_3         H         1.00         0.755000  
+METAL_4         V         1.00         0.755000  
+METAL_5         H         1.00         0.755000  
+METAL_6         V         1.00         0.755000  
+METAL_7         H         1.00         0.755000  
+METAL_8         V         1.00         0.267500  
+METAL_9         H         1.00         0.267500  
+METAL_10        V         1.00         0.097273  
+METAL_11        H         1.00         0.095455  
+
+                                        Area     
+  Layer                               / Length        Data source:
+Name        Direction Utilization     (micron)        lef_library
+-------------------------------------------------
+Metal1          H         0.00         0.060000  
+Metal2          V         1.00         0.080000  
+Metal3          H         1.00         0.080000  
+Metal4          V         1.00         0.080000  
+Metal5          H         1.00         0.080000  
+Metal6          V         1.00         0.080000  
+Metal7          H         1.00         0.080000  
+Metal8          V         1.00         0.080000  
+Metal9          H         1.00         0.080000  
+Metal10         V         1.00         0.220000  
+Metal11         H         1.00         0.220000  
+
+Info    : Synthesizing. [SYNTH-1]
+        : Synthesizing 'fmultiplier' to generic gates using 'medium' effort.
+PBS_Generic-Start - Elapsed_Time 0, CPU_Time 0.0
+stamp 'PBS_Generic-Start' being created for table 'pbs_debug'
+
+  Total Time (Wall) |  Stage Time (Wall)  |   % (Wall)   |    Date - Time     |  Memory   | Stage
+--------------------+---------------------+--------------+--------------------+-----------+----------------------
+ 00:00:26(00:00:20) |  00:00:00(00:00:00) |   0.0(  0.0) |   16:24:05 (Apr27) |  326.6 MB | PBS_Generic-Start
+--------------------+---------------------+--------------+--------------------+-----------+----------------------
+Number of threads: 8 * 1   (id: pbs_debug, time_info v1.57)
+Info: (*N*) indicates data that was populated from previously saved time_info database
+Info: CPU time includes time of parent + longest thread
+TNS Restructuring config: no_value at stage: generic applied.
+Info    : Partition Based Synthesis execution skipped. [PHYS-752]
+        : Design size is less than the partition size '100000' for distributed generic optimization to kick in.
+Starting mux data reorder optimization [v1.0] (stage: pre_to_gen_setup, startdef: fmultiplier, recur: true)
+Completed mux data reorder optimization (accepts: 0, rejects: 0, runtime: 0.005s)
+Starting mux data reorder optimization [v1.0] (stage: post_to_gen_setup, startdef: fmultiplier, recur: true)
+Completed mux data reorder optimization (accepts: 0, rejects: 0, runtime: 0.002s)
+Current PLE settings:
+
+Aspect ratio        : 1.000
+Shrink factor       : 1.000
+Scale of res/length : 1.000
+Scale of cap/length : 1.000
+Net derating factor : 1.000
+Thermal factor      : 1.000
+Via Resistance      : 6.600 ohm (from qrc_tech_file)
+Site size           : 1.910 um (from lef [tech+cell])
+
+                                   Capacitance  
+  Layer                             / Length         Data source:
+Name        Direction Utilization  (pF/micron)       qrc_tech_file
+------------------------------------------------
+METAL_1         H         0.00        0.000210  
+METAL_2         V         1.00        0.000174  
+METAL_3         H         1.00        0.000174  
+METAL_4         V         1.00        0.000174  
+METAL_5         H         1.00        0.000174  
+METAL_6         V         1.00        0.000174  
+METAL_7         H         1.00        0.000175  
+METAL_8         V         1.00        0.000176  
+METAL_9         H         1.00        0.001240  
+METAL_10        V         1.00        0.000529  
+METAL_11        H         1.00        0.000686  
+
+                                    Resistance   
+  Layer                              / Length         Data source:
+Name        Direction Utilization  (ohm/micron)       qrc_tech_file
+-------------------------------------------------
+METAL_1         H         0.00         1.226667  
+METAL_2         V         1.00         0.755000  
+METAL_3         H         1.00         0.755000  
+METAL_4         V         1.00         0.755000  
+METAL_5         H         1.00         0.755000  
+METAL_6         V         1.00         0.755000  
+METAL_7         H         1.00         0.755000  
+METAL_8         V         1.00         0.267500  
+METAL_9         H         1.00         0.267500  
+METAL_10        V         1.00         0.097273  
+METAL_11        H         1.00         0.095455  
+
+                                        Area     
+  Layer                               / Length        Data source:
+Name        Direction Utilization     (micron)        lef_library
+-------------------------------------------------
+Metal1          H         0.00         0.060000  
+Metal2          V         1.00         0.080000  
+Metal3          H         1.00         0.080000  
+Metal4          V         1.00         0.080000  
+Metal5          H         1.00         0.080000  
+Metal6          V         1.00         0.080000  
+Metal7          H         1.00         0.080000  
+Metal8          V         1.00         0.080000  
+Metal9          H         1.00         0.080000  
+Metal10         V         1.00         0.220000  
+Metal11         H         1.00         0.220000  
+
+Running Unified Mux Engine Tricks...
+Completed Unified Mux Engine Tricks
+--------------------------------------------
+| Trick | Accepts | Rejects | Runtime (ms) | 
+--------------------------------------------
+--------------------------------------------
+Starting datapath recasting [v1.0] (stage: pre_rtlopt, startdef: fmultiplier, recur: true)
+Completed datapath recasting (accepts: 0, rejects: 0, runtime: 0.000s)
+Starting infer macro optimization [v1.0] (stage: pre_rtlopt, startdef: fmultiplier, recur: true)
+Completed infer macro optimization (accepts: 0, rejects: 4, runtime: 0.012s)
+Starting decode mux sandwich optimization [v2.0] (stage: pre_rtlopt, startdef: fmultiplier, recur: true)
+Completed decode mux sandwich optimization (accepts: 0, rejects: 0, runtime: 0.000s)
+Starting decode mux optimization [v1.0] (stage: pre_rtlopt, startdef: fmultiplier, recur: true)
+Completed decode mux optimization (accepts: 0, rejects: 0, runtime: 0.000s)
+Starting chop wide muxes [v1.0] (stage: pre_rtlopt, startdef: fmultiplier, recur: true)
+Rejected mux_z_m_156_20 : has multidriven pins.
+
+Completed chop wide muxes (accepts: 0, rejects: 0, runtime: 0.001s)
+Starting common data mux cascade opt [v1.0] (stage: pre_rtlopt, startdef: fmultiplier, recur: true)
+Completed common data mux cascade opt (accepts: 0, rejects: 0, runtime: 0.000s)
+Starting mux input consolidation [v1.0] (stage: pre_rtlopt, startdef: fmultiplier, recur: true)
+Completed mux input consolidation (accepts: 0, rejects: 0, runtime: 0.000s)
+Starting priority mux optimization [v1.0] (stage: pre_rtlopt, startdef: fmultiplier, recur: true)
+Completed priority mux optimization (accepts: 0, rejects: 0, runtime: 0.273s)
+Starting constant-data mux optimization [v1.0] (stage: pre_rtlopt, startdef: fmultiplier, recur: true)
+Completed constant-data mux optimization (accepts: 0, rejects: 0, runtime: 0.000s)
+Starting chain-to-tree inequality transform [v2.0] (stage: pre_rtlopt, startdef: fmultiplier, recur: true)
+Completed chain-to-tree inequality transform (accepts: 0, rejects: 0, runtime: 0.011s)
+Starting reconvergence optimization [v1.0] (stage: pre_rtlopt, startdef: fmultiplier, recur: true)
+Completed reconvergence optimization (accepts: 0, rejects: 0, runtime: 0.001s)
+Starting logic restructure optimization [v1.0] (stage: pre_rtlopt, startdef: fmultiplier, recur: true)
+Completed logic restructure optimization (accepts: 0, rejects: 0, runtime: 0.000s)
+Starting common select mux optimization [v1.0] (stage: pre_rtlopt, startdef: fmultiplier, recur: true)
+Completed common select mux optimization (accepts: 0, rejects: 1, runtime: 0.001s)
+Starting identity transform [v3.0] (stage: pre_rtlopt, startdef: fmultiplier, recur: true)
+Completed identity transform (accepts: 0, rejects: 0, runtime: 0.001s)
+Starting reduce operator chain [v1.0] (stage: pre_rtlopt, startdef: fmultiplier, recur: true)
+Completed reduce operator chain (accepts: 0, rejects: 0, runtime: 0.000s)
+Starting common data mux cascade opt [v1.0] (stage: pre_rtlopt, startdef: fmultiplier, recur: true)
+Completed common data mux cascade opt (accepts: 0, rejects: 0, runtime: 0.000s)
+Starting mux input consolidation [v1.0] (stage: pre_rtlopt, startdef: fmultiplier, recur: true)
+Completed mux input consolidation (accepts: 0, rejects: 0, runtime: 0.001s)
+Starting optimize datapath elements [v1.0] (stage: pre_rtlopt, startdef: fmultiplier, recur: true)
+Completed optimize datapath elements (accepts: 1, rejects: 0, runtime: 0.002s)
+Starting clip mux common data inputs [v1.0] (stage: pre_rtlopt, startdef: fmultiplier, recur: true)
+Completed clip mux common data inputs (accepts: 0, rejects: 0, runtime: 0.000s)
+Starting clip the non-user hierarchies [v2.0] (stage: pre_rtlopt, startdef: fmultiplier, recur: true)
+Completed clip the non-user hierarchies (accepts: 0, rejects: 0, runtime: 0.000s)
+Running Unified Mux Engine Tricks...
+Completed Unified Mux Engine Tricks
+--------------------------------------------------
+| Trick       | Accepts | Rejects | Runtime (ms) | 
+--------------------------------------------------
+| ume_runtime |       0 |       0 |         0.00 | 
+--------------------------------------------------
+Number of big hc bmuxes before = 0
+Info    : Pre-processed datapath logic. [DPOPT-6]
+        : No pre-processing optimizations applied to datapath logic in 'fmultiplier'.
+Info    : Optimizing datapath logic. [DPOPT-1]
+        : Optimizing datapath logic in 'fmultiplier'.
+Info    : Implementing datapath configurations. [DPOPT-3]
+        : Implementing datapath configurations for 'CDN_DP_region_0_3'
+CSAGen Prep Share:0 Re-Write:4 Speculation: 0
+MaxCSA: Successfully built Maximal CSA Expression Expr0

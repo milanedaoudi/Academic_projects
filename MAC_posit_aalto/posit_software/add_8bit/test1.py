@@ -1,0 +1,23 @@
+from posit import posit
+
+def hex_to_float_posit(hex_str, n=32, es=3):
+    # Create a posit object with given parameters
+    p = posit(n, es)
+    
+    # Convert hex string to binary string
+    binary_str = bin(int(hex_str, 16))[2:].zfill(n)
+    
+    # Convert binary posit to float
+    float_value = p.posit2float(binary_str)
+    
+    return float_value
+
+# Hexadecimal value to convert
+hex_value = "46488b4b"
+
+# Convert to float using posit
+result = hex_to_float_posit(hex_value)
+
+# Python 2.7 compatible print statements
+print("Hexadecimal value: {}".format(hex_value))
+print("Converted to float (using posit N=32, es=3): {}".format(result))

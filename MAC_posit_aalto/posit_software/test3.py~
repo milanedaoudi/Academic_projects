@@ -1,0 +1,24 @@
+# -*- coding: utf-8 -*-
+def generate_all_8bit_patterns():
+    # Generate all possible 8-bit patterns
+    all_patterns = []
+    for i in range(256):
+        binary_str = bin(i)[2:].zfill(8)  # Convert to 8-bit binary
+        all_patterns.append(binary_str)
+    
+    # Write all patterns to a file
+    with open("All_8bit_patterns.txt", "w") as f:
+        f.write("\n".join(all_patterns))
+    
+    # Generate Pin1 (each pattern once)
+    with open("Pin1_8bit.txt", "w") as f1:
+        f1.write("\n".join(all_patterns))
+    
+    # Generate Pin2 (full set repeated for each pattern)
+    with open("Pin2_8bit.txt", "w") as f2:
+        full_set = "\n".join(all_patterns) + "\n"
+        f2.write(full_set * 256)
+
+if __name__ == "__main__":
+    generate_all_8bit_patterns()
+    print("Generated files: All_8bit_patterns.txt, Pin1_8bit.txt, Pin2_8bit.txt")

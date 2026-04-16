@@ -1,0 +1,18 @@
+set TECHROOT "/prog/cadence/gpdk/g045/lan/flow/t1u1/reference_libs/GPDK045/gsclib045_all_v4.4"
+set FLOWPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/flow"
+set DEFPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/def"
+set LEFPATH "/prog/cadence/gpdk/g045/lan/flow/t1u1/reference_libs/GPDK045/gsclib045_all_v4.4"
+set CUSTOMLEFPATH ""
+
+set CONSTRAINTPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints"
+set SCRIPTPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/flow/scripts"
+set TECHPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/flow/tech"
+set RTLPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/source"
+set DBSPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/dbs"
+set REPORTPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/reports"
+set TOPMODULE "fpadd_single"
+set VERILOGFILES " /home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fp_normalizer.v /home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fpadd_single.v"
+set VHDLFILES ""
+set SDCFILE "/home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints/timing_constraints.tcl"
+set CPFFILE "/home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints/power_domains.cpf"
+

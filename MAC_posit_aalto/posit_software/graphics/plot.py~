@@ -1,0 +1,59 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Data from your experiments
+data = {
+    'es=1': [3.6769e-3, 1.32e-3, 8.241e-4],
+    'es=2': [3.64658e-3, 6.66382e-4, 1.32839e-4],
+    'es=3': [6.514e-3, 6.66478e-4, 1.3137e-4],
+    'es=4': [1.26983e-2, 1.2256e-3, 1.306e-4]
+}
+
+input_ranges = ['[0.01, 0.1]', '[0.001, 0.01]', '[0.0001, 0.001]']
+es_values = ['es=1', 'es=2', 'es=3', 'es=4']
+
+# Convert to numpy array for plotting
+errors = np.array([data[es] for es in es_values])
+
+# Create figure with 3 subplots
+plt.figure(figsize=(18, 6))
+
+# 1. Bar plot comparing errors across input ranges
+plt.subplot(1, 3, 1)
+width = 0.2
+x = np.arange(len(input_ranges))
+for i, es in enumerate(es_values):
+    plt.bar(x + i*width, data[es], width, label=es)
+plt.xticks(x + width*1.5, input_ranges)
+plt.yscale('log')
+plt.title('Absolute Errors by Input Range (log scale)')
+plt.ylabel('Average Absolute Error')
+plt.xlabel('Input Range')
+plt.legend()
+plt.grid(True, which="both", ls="-")
+
+# 2. Line plot showing error trends
+plt.subplot(1, 3, 2)
+for i, rng in enumerate(input_ranges):
+    plt.plot([1, 2, 3, 4], errors[:, i], 'o-', label=f'Range {rng}')
+plt.title('Error vs Exponent Size')
+plt.xlabel('Exponent Size (es)')
+plt.ylabel('Average Absolute Error')
+plt.yscale('log')
+plt.xticks([1, 2, 3, 4])
+plt.legend()
+plt.grid(True, which="both", ls="-")
+
+# 3. Heatmap of error values
+plt.subplot(1, 3, 3)
+plt.imshow(errors, norm='log', cmap='viridis')
+plt.colorbar(label='Average Absolute Error (log scale)')
+plt.xticks(np.arange(len(input_ranges)), input_ranges)
+plt.yticks(np.arange(len(es_values)), ['es=1', 'es=2', 'es=3', 'es=4'])
+plt.title('Error Heatmap')
+plt.xlabel('Input Range')
+plt.ylabel('Exponent Size')
+
+plt.tight_layout()
+plt.savefig('posit_error_analysis.png', dpi=300)
+plt.show()

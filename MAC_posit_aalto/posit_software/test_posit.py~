@@ -1,0 +1,26 @@
+from posit import posit
+
+def test_conversions():
+    # Create 8-bit posit with 2 exponent bits
+    p = posit(16, 2)
+    
+    # Test values
+    test_values = [1.5, -0.75, 3.141592653589793]
+    
+    for value in test_values:
+        print(f"\nTesting value: %s" % value)
+        
+        # Convert double to posit
+        posit_str = p.float2posit(value)
+        print(f"Double to posit: {value} -> {posit_str}")
+        
+        # Convert posit back to double
+        converted_value = p.posit2float(posit_str)
+        print(f"Posit to double: {posit_str} -> {converted_value}")
+        
+        # Calculate error
+        error = abs(value - converted_value)
+        print(f"Conversion error: {error:.10f}")
+
+if __name__ == "__main__":
+    test_conversions()

@@ -1,0 +1,85 @@
+#!/bin/bash
+
+# Automation script for posit arithmetic verification
+# Usage: ./run_verification.sh
+
+# -------------------------------------------------------------------
+# Step 1: Generate test patterns and reference results using Python
+# -------------------------------------------------------------------
+echo "============================================"
+echo "STEP 1: Generating test patterns and reference results"
+echo "============================================"
+
+# Run the pattern generation and float addition script
+python soft/init2.py #for input range, CHOOSE init2.py else init1.py
+
+# Verify files were created
+if [ ! -f "Pin1_32bit.txt" ] || [ ! -f "Pin2_32bit.txt" ]; then
+    echo "ERROR: Failed to create files"
+    exit 1
+fi
+
+echo "Pattern generation completed successfully"
+echo ""
+
+# -------------------------------------------------------------------
+# Step 2: Compile and run Verilog simulation
+# -------------------------------------------------------------------
+echo "============================================"
+echo "STEP 2: Running Verilog simulation"
+echo "============================================"
+
+# Compile Verilog files (modify as needed for your setup)
+vlog -work work posit_add_32bit_tb.v posit_add.v
+
+# Check if compilation succeeded
+if [ $? -ne 0 ]; then
+    echo "ERROR: Verilog compilation failed"
+    exit 1
+fi
+
+# Run Modelsim simulation for 1ms
+vsim -c -do "run 3ms; quit" work.posit_add_32bit_tb_v
+
+# Verify simulation output
+if [ ! -f "posit_results_32bit.txt" ]; then
+    echo "ERROR: Verilog simulation failed to generate posit_results.txt"
+    exit 1
+fi
+
+
+echo "Verilog simulation completed successfully"
+echo ""
+
+# -------------------------------------------------------------------
+# Step 3: Calculate errors between Verilog and reference results
+# -------------------------------------------------------------------
+echo "============================================"
+echo "STEP 3: Calculating errors"
+echo "============================================"
+
+# Run the error calculation script
+python soft/error.py
+
+# Verify error file was created
+if [ ! -f "error_32bit.txt" ]; then
+    echo "ERROR: Error calculation script failed"
+    exit 1
+fi
+
+echo "Error calculations completed successfully"
+echo ""
+
+# -------------------------------------------------------------------
+# Final status
+# -------------------------------------------------------------------
+echo "============================================"
+echo "VERIFICATION PIPELINE COMPLETED SUCCESSFULLY"
+echo "============================================"
+echo "Generated files:"
+echo "- Pin1_8bit.txt    : Input test vectors 1"
+echo "- Pin2_8bit.txt    : Input test vectors 2"
+echo "- results_float.txt: Reference float results"
+echo "- posit_results.txt: Verilog posit outputs"
+echo "- error.txt        : Calculated errors"
+echo ""

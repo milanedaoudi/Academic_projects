@@ -1,0 +1,74 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/mdaoudi/Documents/ic_project/fpu/fp_mult
+vFloatMultiplicationTb
+!s110 1745755855
+!i10b 1
+!s100 OTImm[EWAl]MMZ]6omW3k3
+I5jA?K:B?cQBkI0d1RlbEC2
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1745755437
+8FloatMultiplicationTb.v
+FFloatMultiplicationTb.v
+L0 2
+Z2 OL;L;10.6_1;65
+r1
+!s85 0
+31
+!s108 1745755854.000000
+!s107 FloatMultiplicationTb.v|
+!s90 FloatMultiplicationTb.v|
+!i113 1
+Z3 o-L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z4 tCvgOpt 0
+n@float@multiplication@tb
+vfmultiplier
+Z5 !s110 1745759136
+!i10b 1
+!s100 AAhOQOdnF4126A`NCInc:1
+IQ`AN27VB<7HG8z9U:eDH]2
+R1
+R0
+w1745755951
+8fmultiplier.v
+Ffmultiplier.v
+L0 24
+R2
+r1
+!s85 0
+31
+Z6 !s108 1745759136.000000
+Z7 !s107 fmultiplier.v|fmultiplier_tb.v|
+Z8 !s90 fmultiplier_tb.v|
+!i113 1
+R3
+R4
+vfmultiplier_tb
+R5
+!i10b 1
+!s100 cgOKObF4A]L2U7LW?H<0b1
+I=YKh9VSnP<m:?83BK:cND1
+R1
+R0
+w1745757936
+8fmultiplier_tb.v
+Ffmultiplier_tb.v
+L0 25
+R2
+r1
+!s85 0
+31
+R6
+R7
+R8
+!i113 1
+R3
+R4

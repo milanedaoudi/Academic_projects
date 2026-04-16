@@ -1,0 +1,10 @@
+vlib work
+
+#All the verilog modules
+vlog "FloatingMultiplication.v" 
+vlog "FloatMultiplicationTb.v"
+
+vsim -t ps work.FloatMultiplicationTb
+view wave
+#add wave *
+run -all

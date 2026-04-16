@@ -1,0 +1,369 @@
+Cadence Genus(TM) Synthesis Solution.
+Copyright 2021 Cadence Design Systems, Inc. All rights reserved worldwide.
+Cadence and the Cadence logo are registered trademarks and Genus is a trademark
+of Cadence Design Systems, Inc. in the United States and other countries.
+
+Version: 21.10-p002_1, built Fri Aug 20 00:13:13 PDT 2021
+Options: -batch -files synthesize.tcl 
+Date:    Sun Apr 27 16:21:49 2025
+Host:    vspace.ecdl.hut.fi (x86_64 w/Linux 3.10.0-1160.118.1.el7.x86_64) (1core*8cpus*15physical cpus*Intel(R) Xeon(R) CPU E5-2640 v4 @ 2.40GHz 25600KB) (65807808KB)
+PID:     23541
+OS:      CentOS Linux release 7.9.2009 (Core)
+
+Checking out license: Genus_Synthesis
+
+
+***********************************************************************************************************
+***********************************************************************************************************
+
+
+
+Loading tool scripts...
+Finished loading tool scripts (14 seconds elapsed).
+
+#@ Processing -files option
+@genus 1> source synthesize.tcl
+#@ Begin verbose source ./synthesize.tcl
+@file(synthesize.tcl) 2: source ./flow/scripts/common_vars.tcl
+Sourcing './flow/scripts/common_vars.tcl' (Sun Apr 27 16:22:03 EEST 2025)...
+#@ Begin verbose source ./flow/scripts/common_vars.tcl
+@file(common_vars.tcl) 1: set TECHROOT "/prog/cadence/gpdk/g045/lan/flow/t1u1/reference_libs/GPDK045/gsclib045_all_v4.4"
+@file(common_vars.tcl) 2: set FLOWPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/flow"
+@file(common_vars.tcl) 3: set DEFPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/def"
+@file(common_vars.tcl) 4: set LEFPATH "/prog/cadence/gpdk/g045/lan/flow/t1u1/reference_libs/GPDK045/gsclib045_all_v4.4"
+@file(common_vars.tcl) 5: set CUSTOMLEFPATH ""
+@file(common_vars.tcl) 7: set CONSTRAINTPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints"
+@file(common_vars.tcl) 8: set SCRIPTPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/flow/scripts"
+@file(common_vars.tcl) 9: set TECHPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/flow/tech"
+@file(common_vars.tcl) 10: set RTLPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/source"
+@file(common_vars.tcl) 11: set DBSPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/dbs"
+@file(common_vars.tcl) 12: set REPORTPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/reports"
+@file(common_vars.tcl) 13: set TOPMODULE "fmultiplier"
+@file(common_vars.tcl) 14: set VERILOGFILES " /home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v"
+@file(common_vars.tcl) 15: set VHDLFILES ""
+@file(common_vars.tcl) 16: set SDCFILE "/home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints/timing_constraints.tcl"
+@file(common_vars.tcl) 17: set CPFFILE "/home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints/power_domains.cpf"
+#@ End verbose source ./flow/scripts/common_vars.tcl
+@file(synthesize.tcl) 5: read_mmmc ${CONSTRAINTPATH}/mmmc_config.tcl
+  Setting attribute of root '/': 'is_read_mmmc_flow' = true
+Sourcing '/home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints/mmmc_config.tcl' (Sun Apr 27 16:22:03 EEST 2025)...
+#@ Begin verbose source /home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints/mmmc_config.tcl
+@file(mmmc_config.tcl) 4: source ./flow/scripts/common_vars.tcl
+Sourcing './flow/scripts/common_vars.tcl' (Sun Apr 27 16:22:03 EEST 2025)...
+#@ Begin verbose source ./flow/scripts/common_vars.tcl
+@file(common_vars.tcl) 1: set TECHROOT "/prog/cadence/gpdk/g045/lan/flow/t1u1/reference_libs/GPDK045/gsclib045_all_v4.4"
+@file(common_vars.tcl) 2: set FLOWPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/flow"
+@file(common_vars.tcl) 3: set DEFPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/def"
+@file(common_vars.tcl) 4: set LEFPATH "/prog/cadence/gpdk/g045/lan/flow/t1u1/reference_libs/GPDK045/gsclib045_all_v4.4"
+@file(common_vars.tcl) 5: set CUSTOMLEFPATH ""
+@file(common_vars.tcl) 7: set CONSTRAINTPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints"
+@file(common_vars.tcl) 8: set SCRIPTPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/flow/scripts"
+@file(common_vars.tcl) 9: set TECHPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/flow/tech"
+@file(common_vars.tcl) 10: set RTLPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/source"
+@file(common_vars.tcl) 11: set DBSPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/dbs"
+@file(common_vars.tcl) 12: set REPORTPATH "/home/mdaoudi/Documents/ic_project/fpu/synthesis/reports"
+@file(common_vars.tcl) 13: set TOPMODULE "fmultiplier"
+@file(common_vars.tcl) 14: set VERILOGFILES " /home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v"
+@file(common_vars.tcl) 15: set VHDLFILES ""
+@file(common_vars.tcl) 16: set SDCFILE "/home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints/timing_constraints.tcl"
+@file(common_vars.tcl) 17: set CPFFILE "/home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints/power_domains.cpf"
+#@ End verbose source ./flow/scripts/common_vars.tcl
+@file(mmmc_config.tcl) 5: set setup_corners "slow_vdd1v0"
+@file(mmmc_config.tcl) 6: set hold_corners  "fast_vdd1v2" 
+@file(mmmc_config.tcl) 10: foreach setupc $setup_corners {
+  puts "Defining timing files for library set ${setupc}.SS"
+  create_library_set \
+    -name ${setupc}.SS \
+    -timing [subst {
+      [glob -nocomplain ./flow/tech/lib/${setup_corners}_basicCells_hvt.lib]
+    }]
+}
+Defining timing files for library set slow_vdd1v0.SS
+@file(mmmc_config.tcl) 19: foreach holdc $hold_corners {
+  puts "Defining timing files for library set ${holdc}.FF"
+  create_library_set \
+    -name ${holdc}.FF \
+    -timing [subst {
+      [glob -nocomplain ./flow/tech/lib/${hold_corners}_basicCells_hvt.lib]
+    }]
+}
+Defining timing files for library set fast_vdd1v2.FF
+@file(mmmc_config.tcl) 42: foreach setupc $setup_corners {
+  puts "Creating operating condition for corner $setupc"
+  set tempmax 25
+  set tempmin -40
+  regexp -all {^(.*)_vdd([0-9]+)v([0-9]+)}  $setupc tot vtot vreal vdec
+  puts "$vreal.$vdec"
+  puts "$tempmax"
+  puts "$tempmin"
+  create_opcond \
+    -name               $setupc.max \
+    -process            1 \
+    -voltage            $vreal.$vdec \
+    -temperature        "$tempmax"
+}
+Creating operating condition for corner slow_vdd1v0
+1.0
+25
+-40
+@file(mmmc_config.tcl) 57: foreach holdc $hold_corners {
+  puts "Creating operating condition for corner $holdc"
+  set temp 25
+  regexp -all {^(.*)_vdd([0-9]+)v([0-9]+)}  $setupc tot vtot vreal vdec
+  puts "$vreal.$vdec"
+  puts "$temp"
+  create_opcond \
+    -name               $holdc.min \
+    -process            1 \
+    -voltage            $vreal.$vdec \
+    -temperature        "$tempmin"
+}
+Creating operating condition for corner fast_vdd1v2
+1.0
+25
+@file(mmmc_config.tcl) 74: foreach setupc $setup_corners {
+  puts "Creating timing condition for corner $setupc"
+  create_timing_condition \
+    -name               $setupc.setup \
+    -library_sets       [list ${setupc}.SS  ] \
+    -opcond             $setupc.max
+}
+Creating timing condition for corner slow_vdd1v0
+@file(mmmc_config.tcl) 82: foreach holdc $hold_corners {
+  puts "Creating timing condition for corner $holdc"
+  create_timing_condition \
+    -name               $holdc.hold \
+    -library_sets       [list ${holdc}.FF  ] \
+    -opcond             $holdc.min
+}
+Creating timing condition for corner fast_vdd1v2
+@file(mmmc_config.tcl) 95: create_rc_corner \
+    -name               cworst_CCworst \
+    -temperature        $tempmax \
+    -qrc_tech           /prog/cadence/gpdk/g045/lan/flow/t1u1/reference_libs/GPDK045/gsclib045_all_v4.4/gsclib045_tech/qrc/qx/gpdk045.tch 
+@file(mmmc_config.tcl) 100: create_rc_corner \
+    -name               rcworst_CCworst \
+    -temperature        $tempmax \
+    -qrc_tech           /prog/cadence/gpdk/g045/lan/flow/t1u1/reference_libs/GPDK045/gsclib045_all_v4.4/gsclib045_tech/qrc/qx/gpdk045.tch 
+@file(mmmc_config.tcl) 105: create_rc_corner \
+    -name               cbest_CCbest \
+    -temperature        $tempmin \
+    -qrc_tech           /prog/cadence/gpdk/g045/lan/flow/t1u1/reference_libs/GPDK045/gsclib045_all_v4.4/gsclib045_tech/qrc/qx/gpdk045.tch 
+@file(mmmc_config.tcl) 110: create_rc_corner \
+    -name               rcbest_CCbest \
+    -temperature        $tempmin \
+    -qrc_tech           /prog/cadence/gpdk/g045/lan/flow/t1u1/reference_libs/GPDK045/gsclib045_all_v4.4/gsclib045_tech/qrc/qx/gpdk045.tch 
+@file(mmmc_config.tcl) 118: foreach setupc $setup_corners {
+  puts "Defining delay corners for $setupc."
+  create_delay_corner \
+    -name               ${setupc}.setup_rcworst_CCworst \
+    -timing_condition   ${setupc}.setup \
+    -rc_corner          rcworst_CCworst
+}
+Defining delay corners for slow_vdd1v0.
+@file(mmmc_config.tcl) 126: foreach setupc $setup_corners {
+  puts "Defining delay corners for $setupc."
+  create_delay_corner \
+    -name               ${setupc}.setup_cworst_CCworst \
+    -timing_condition   ${setupc}.setup \
+    -rc_corner          cworst_CCworst
+}
+Defining delay corners for slow_vdd1v0.
+@file(mmmc_config.tcl) 134: foreach holdc $hold_corners {
+  puts "Defining delay corners for $holdc."
+  create_delay_corner \
+    -name               ${holdc}.hold_rcbest_CCbest \
+    -timing_condition   ${holdc}.hold \
+    -rc_corner          rcbest_CCbest
+}
+Defining delay corners for fast_vdd1v2.
+@file(mmmc_config.tcl) 142: foreach holdc $hold_corners {
+  puts "Defining delay corners for $holdc."
+  create_delay_corner \
+    -name               ${holdc}.hold_cbest_CCbest \
+    -timing_condition   ${holdc}.hold \
+    -rc_corner          cbest_CCbest
+}
+Defining delay corners for fast_vdd1v2.
+@file(mmmc_config.tcl) 150: foreach holdc $hold_corners {
+  puts "Defining delay corners for $holdc."
+  create_delay_corner \
+    -name               ${holdc}.hold_cworst_CCworst \
+    -timing_condition   ${holdc}.hold \
+    -rc_corner          cworst_CCworst
+}
+Defining delay corners for fast_vdd1v2.
+@file(mmmc_config.tcl) 158: foreach holdc $hold_corners {
+  puts "Defining delay corners for $holdc."
+  create_delay_corner \
+    -name               ${holdc}.hold_rcworst_CCworst \
+    -timing_condition   ${holdc}.hold \
+    -rc_corner          rcworst_CCworst
+}
+Defining delay corners for fast_vdd1v2.
+@file(mmmc_config.tcl) 169: create_constraint_mode \
+    -name               func \
+    -sdc_files          $SDCFILE
+@file(mmmc_config.tcl) 175: foreach setupc $setup_corners {
+  puts "Defining analysis views for $setupc."
+  create_analysis_view \
+    -name               func-${setupc}.setup_cworst_CCworst \
+    -constraint_mode    func \
+    -delay_corner       ${setupc}.setup_cworst_CCworst \
+    -power_mode         aon
+}
+Defining analysis views for slow_vdd1v0.
+@file(mmmc_config.tcl) 184: foreach setupc $setup_corners {
+  puts "Defining analysis views for $setupc."
+  create_analysis_view \
+    -name               func-${setupc}.setup_rcworst_CCworst \
+    -constraint_mode    func \
+    -delay_corner       ${setupc}.setup_rcworst_CCworst \
+    -power_mode         aon
+}
+Defining analysis views for slow_vdd1v0.
+@file(mmmc_config.tcl) 193: foreach holdc $hold_corners {
+  puts "Defining analysis views for $holdc."
+  create_analysis_view \
+    -name               func-${holdc}.hold_cbest_CCbest \
+    -constraint_mode    func \
+    -delay_corner       ${holdc}.hold_cbest_CCbest \
+    -power_mode         aon
+}
+Defining analysis views for fast_vdd1v2.
+@file(mmmc_config.tcl) 202: foreach holdc $hold_corners {
+  puts "Defining analysis views for $holdc."
+  create_analysis_view \
+    -name               func-${holdc}.hold_rcbest_CCbest \
+    -constraint_mode    func \
+    -delay_corner       ${holdc}.hold_rcbest_CCbest \
+    -power_mode         aon
+}
+Defining analysis views for fast_vdd1v2.
+@file(mmmc_config.tcl) 211: foreach holdc $hold_corners {
+  puts "Defining analysis views for $holdc."
+  create_analysis_view \
+    -name               func-${holdc}.hold_cworst_CCworst \
+    -constraint_mode    func \
+    -delay_corner       ${holdc}.hold_cworst_CCworst \
+    -power_mode         aon
+}
+Defining analysis views for fast_vdd1v2.
+@file(mmmc_config.tcl) 220: foreach holdc $hold_corners {
+  puts "Defining analysis views for $holdc."
+  create_analysis_view \
+    -name               func-${holdc}.hold_rcworst_CCworst \
+    -constraint_mode    func \
+    -delay_corner       ${holdc}.hold_rcworst_CCworst \
+    -power_mode         aon
+}
+Defining analysis views for fast_vdd1v2.
+@file(mmmc_config.tcl) 231: set_analysis_view \
+    -setup  [list func-${setupc}.setup_cworst_CCworst ] \
+    -hold   [list func-${holdc}.hold_cbest_CCbest ]
+
+Threads Configured:3
+
+  Message Summary for Library slow_vdd1v0_basicCells_hvt.lib:
+  ***********************************************************
+  Missing a function attribute in the output pin definition. [LBR-518]: 1
+  ***********************************************************
+ 
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.900000, 125.000000) in library 'slow_vdd1v0_basicCells_hvt.lib'.
+        : The nominal operating condition is represented, either by the nominal PVT values specified in the library source (via nom_process,nom_voltage and nom_temperature respectively), or by the default PVT values (1.0,1.0,1.0).
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'ANTENNAHVT' must have an output pin.
+        : Add the missing output pin(s), then reload the library. Else the library cell will be marked as timing model i.e. unusable. Timing_model means that the cell does not have any defined function. If there is no output pin, Genus will mark library cell as unusable i.e. the attribute 'usable' will be marked to 'false' on the libcell. Therefore, the cell is not used for mapping and it will not be picked up from the library for synthesis. If you query the attribute 'unusable_reason' on the libcell; result will be: 'Library cell has no output pins.'Note: The message LBR-9 is only for the logical pins and not for the power_ground pins. Genus will depend upon the output function defined in the pin group (output pin) of the cell, to use it for mapping. The pg_pin will not have any function defined.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'ANTENNAHVT' must have an output pin.
+Info    : Set default library domain. [LBR-109]
+        : The default library domain is 'library_domain:slow_vdd1v0.setup'.
+  Library has 324 usable logic and 128 usable sequential lib-cells.
+Warning : Cannot find expected operating_conditions in library. [MMMC-102]
+        : Operating_conditions (P=1.0 V=1.0 T=25.0 tree_type=balanced_tree) cannot be found for opcond:slow_vdd1v0.max in any libraries of timing_condition:slow_vdd1v0.setup.
+        : Using default operating conditions. Check for supported operating_conditions in libraries.
+#@ End verbose source /home/mdaoudi/Documents/ic_project/fpu/synthesis/constraints/mmmc_config.tcl
+@file(synthesize.tcl) 8: read_physical -lefs  ${TECHPATH}/lef/gsclib045_tech.lef
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_HV' has no resistance value.
+        : If this is the expected behavior, this message can be ignored.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_VV' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_VH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_HH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_2x1_HV_E' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_2x1_HV_W' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_1x2_HV_N' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M2_M1_1x2_HV_S' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_VH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_HH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_HV' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_VV' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_M_NH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_M_SH' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_2x1_VH_E' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_2x1_VH_W' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_1x2_VH_N' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M3_M2_1x2_VH_S' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M4_M3_HV' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'M4_M3_VV' has no resistance value.
+
+  According to lef_library, there are total 11 routing layers [ V(5) / H(6) ]
+
+Warning : None of the loaded LEF files have MACRO statements. [PHYS-20]
+        : Make sure the LEF file containing MACRO statement was not missed.
+        : The LEF file containing the cell specific information was not loaded. The LEF MACRO construct is used to set the physical data on cells in the timing library. It is likely that only the technology LEF file was loaded. Load all the associated LEF files.
+@file(synthesize.tcl) 9: read_physical -add_lefs "[glob ${TECHPATH}/lef/*_macro.lef]"
+Incrementally loading LEF file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/flow/tech/lef/gsclib045_hvt_macro.lef'...
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILL1HVT cannot be found in library.
+        : Ensure that the proper library files are available and have been imported.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILL16HVT cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILL2HVT cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILL32HVT cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILL4HVT cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILL64HVT cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILL8HVT cannot be found in library.
+@file(synthesize.tcl) 12: puts " $TOPMODULE reading RTL"
+ fmultiplier reading RTL
+@file(synthesize.tcl) 13: if {[llength $VERILOGFILES]} {
+  puts "Reading in verilog files"
+  read_hdl $VERILOGFILES
+} else {
+  puts "No verilogfiles to read"
+}
+Reading in verilog files
+always @(posedge clk or rst) begin
+     |
+Error   : Unsupported mix of edge and level sensitivity. [VLOGPT-42] [read_hdl]
+        : in file '/home/mdaoudi/Documents/ic_project/fpu/synthesis/source/fmultiplier.v' on line 40, column 6.
+        : 'always @(non-edged signal or non-edged signal)' is used for latch referencing or asynchronous set-reset on a latch.
+'always @(edged signal or edged signal)' is used for asynchronous set-reset on a flip-flop.
+#@ End verbose source ./synthesize.tcl
+1
+Encountered problems processing file: synthesize.tcl

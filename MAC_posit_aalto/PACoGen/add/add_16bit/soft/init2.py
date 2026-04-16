@@ -1,0 +1,51 @@
+# -*- coding: utf-8 -*-
+from posit import posit
+import random
+import struct
+
+def generate_test_data():
+    # Initialize 16-bit posit with es=2 (common for 16-bit)
+    p = posit(16, 8)
+    
+    # Generate random doubles in [0.0001, 0.001]
+    num_values = 65534  # Matches 16-bit address space
+    print("Generating random doubles...")
+    list1 = [random.uniform(0.01, 0.1) for _ in xrange(num_values)]
+    list2 = [random.uniform(0.01, 0.1) for _ in xrange(num_values)]
+   
+    # Create results_float_16bit.txt with additions
+    print("Creating float results...")
+    with open("results_float_16bit.txt", "w") as f_float:
+        for a, b in zip(list1, list2):
+            res = a + b
+            f_float.write("{:.15g}\n".format(res))
+    
+    # Convert to posit and create input files
+    print("Converting to 16-bit posit...")
+    with open("Pin1_16bit.txt", "w") as f_pin1, \
+         open("Pin2_16bit.txt", "w") as f_pin2:
+        
+        for a, b in zip(list1, list2):
+            try:
+                # Get 16-bit binary string representation
+                posit1 = p.float2posit(a)
+                posit2 = p.float2posit(b)
+                
+                # Pad to 16 bits if needed
+                posit1 = posit1.zfill(16)
+                posit2 = posit2.zfill(16)
+                
+                f_pin1.write(posit1 + "\n")
+                f_pin2.write(posit2 + "\n")
+            except Exception as e:
+                print("Conversion error: {}".format(str(e)))
+                f_pin1.write("0000000000000000\n")  # 16-bit zero
+                f_pin2.write("0000000000000000\n")
+    
+    print("\nOperation complete:")
+    print("- Generated {} random pairs in [0.0001, 0.001]".format(num_values))
+    print("- Created results_float_16bit.txt with additions")
+    print("- Created Pin1_16bit.txt and Pin2_16bit.txt with 16-bit posit conversions")
+
+if __name__ == "__main__":
+    generate_test_data()

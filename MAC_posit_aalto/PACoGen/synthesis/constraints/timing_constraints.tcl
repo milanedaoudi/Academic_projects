@@ -1,0 +1,53 @@
+#===============================================================================
+# PROJECT:     posit_add
+# DESCRIPTION: SDC constraints for combinational design (no clock)
+# AUTHOR:      Modified for clockless design
+#===============================================================================
+
+# Units
+set_time_unit -nanoseconds
+set_load_unit -picofarads
+
+#--------------------------------------------------------
+# Input Constraints
+#--------------------------------------------------------
+
+# Delay to account for external driver setup time
+set_input_delay 1.0 [get_ports {
+    in1
+    in2
+    start
+}]
+
+# Transition time and driving cell for inputs
+set_input_transition 1.0 [all_inputs]
+set_driving_cell -lib_cell INVX4HVT [all_inputs]
+
+#--------------------------------------------------------
+# Output Constraints
+#--------------------------------------------------------
+
+# Delay to account for setup time required by receiving module
+set_output_delay 1.0 [get_ports {
+    out
+    inf
+    zero
+    done
+}]
+
+# Load seen by outputs
+set_load 0.015 [all_outputs]
+
+#--------------------------------------------------------
+# Misc Path Constraints
+#--------------------------------------------------------
+
+# Reset is asynchronous or not part of critical path
+#set_false_path -from [get_port reset]
+
+#--------------------------------------------------------
+# Notes
+#--------------------------------------------------------
+# No clocks are defined in this SDC as the design is purely combinational.
+# Timing will be evaluated as input-to-output delays without setup/hold.
+
