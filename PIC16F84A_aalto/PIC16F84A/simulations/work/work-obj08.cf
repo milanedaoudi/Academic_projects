@@ -1,0 +1,4 @@
+v 4
+file "/home/mdaoudi/Documents/ELEC-E9540/my_project/simulations/" "../vhdl/orgate.vhd" "cabf044c2a6e724eeee53829489ea33e90304a3a" "20250308144852.610":
+  entity orgate at 1( 0) + 0 on 11;
+  architecture arch of orgate at 4( 30) + 0 on 12;

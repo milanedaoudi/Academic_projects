@@ -1,0 +1,47 @@
+# //  Questa Sim-64
+# //  Version 10.6_1 linux_x86_64 Jan 30 2017
+# //
+# //  Copyright 1991-2017 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+vlib work
+vmap work work
+# QuestaSim-64 vmap 10.6_1 Lib Mapping Utility 2017.01 Jan 30 2017
+# vmap work work 
+# Copying /progp/mentor/advms/17.1/questasim/v10.6_1/linux_x86_64/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+vcom -reportprogress 300 -work work /home/mdaoudi/Documents/ELEC-E9540/my_project/vhdl/ex01/tb_ex01.vhd
+# QuestaSim-64 vcom 10.6_1 Compiler 2017.01 Jan 30 2017
+# Start time: 15:26:59 on Feb 27,2025
+# vcom -reportprogress 300 -work work /home/mdaoudi/Documents/ELEC-E9540/my_project/vhdl/ex01/tb_ex01.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity testbench
+# -- Compiling architecture behavior of testbench
+# End time: 15:26:59 on Feb 27,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim work.testbench
+# vsim work.testbench 
+# Start time: 15:27:27 on Feb 27,2025
+# ** Warning: (vsim-8891) All optimizations are turned off because the -novopt switch is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features please see the User's Manual section on Preserving Object Visibility with vopt.
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.testbench(behavior)
+add wave -position insertpoint  \
+sim/:testbench:A \
+sim/:testbench:B \
+sim/:testbench:Q \
+sim/:testbench:S
+run
+# End time: 15:49:26 on Feb 27,2025, Elapsed time: 0:21:59
+# Errors: 0, Warnings: 1

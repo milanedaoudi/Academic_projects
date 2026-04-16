@@ -1,0 +1,18 @@
+set TECHROOT "/prog/cadence/gpdk/g045/lan/flow/t1u1/reference_libs/GPDK045/gsclib045_all_v4.4"
+set FLOWPATH "/home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/synthesis/flow"
+set DEFPATH "/home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/synthesis/def"
+set LEFPATH "/prog/cadence/gpdk/g045/lan/flow/t1u1/reference_libs/GPDK045/gsclib045_all_v4.4"
+set CUSTOMLEFPATH ""
+
+set CONSTRAINTPATH "/home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/synthesis/constraints"
+set SCRIPTPATH "/home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/synthesis/flow/scripts"
+set TECHPATH "/home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/synthesis/flow/tech"
+set RTLPATH "/home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/synthesis/source"
+set DBSPATH "/home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/synthesis/dbs"
+set REPORTPATH "/home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/synthesis/reports"
+set TOPMODULE "pic_rtl"
+set VERILOGFILES ""
+set VHDLFILES " /home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/synthesis/source/instruction_type.vhd /home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/synthesis/source/ALU_Types.vhd /home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/synthesis/source/full_adder.vhd /home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/synthesis/source/Nbit_ripple_carry_adder.vhd /home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/synthesis/source/alu.vhd /home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/synthesis/source/memory.vhd /home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/synthesis/source/stack_8x13.vhd /home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/synthesis/source/pic_rtl.vhd"
+set SDCFILE "/home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/synthesis/constraints/timing_constraints.tcl"
+set CPFFILE "/home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/synthesis/constraints/power_domains.cpf"
+

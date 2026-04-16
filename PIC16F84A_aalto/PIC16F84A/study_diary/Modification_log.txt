@@ -1,0 +1,41 @@
+20160222 JL
+    Modified the directory structure, and cleaned the text from unnecessary blabla.
+
+20150407 ER
+    Removed some unnecessary files.
+    Modified 'makearticle' script (see there for details).
+    Added missing file 'IEEEtran.bst' (bibliography style file).
+    Updated 'Bibliography.bib' to comply with above bibliography style.
+    Added myself to author list :-)
+
+20131211 MK
+    Modified the front page to look like a report.
+
+20131205 MK
+    Corrected the paper size and chapter title formatting.
+
+20131205 MK
+    I also suggest, that we put all the texfiles directly under the main
+    directory. I see no reason to build directory hierarchy for single files. If
+    naming hierarchy is needed, that can be created by naming conventions.
+
+20131205 MK
+    I suggest, that all the Figures go to the Figures. You may use whatever
+    methods you like to include them in your latex files.
+
+20131206 MK
+    The conversion script "makearticle" in this directory can be used directly to
+    compile the latex files. It also cleans up all the intermediate files
+
+    Use ./makearticle -p <mastertexfile> for pdflatex. ./makearticle -h gives help
+    Output is in "pdffiles" directory.
+
+20131205 MK
+    Käännöskomento pdflatex -synctex=1 -interatction=nonstopmode
+    --output-directory=./pdffiles %.tex
+
+20131205 MK
+    Cleaned up the log and intermediate files out of svn.
+
+20131205 MK
+    Initialized.

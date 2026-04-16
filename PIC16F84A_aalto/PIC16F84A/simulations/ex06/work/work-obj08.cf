@@ -1,0 +1,28 @@
+v 4
+file "/home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/simulations/ex06/" "../../vhdl/ex06/tb_ex06.vhd" "4e3345fe0145519099399b968aaa22bcb9b27bee" "20250410133317.861":
+  entity tb_ex06 at 1( 0) + 0 on 27;
+  architecture behavioral of tb_ex06 at 10( 156) + 0 on 28;
+file "/home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/simulations/ex06/" "../../vhdl/ex06/stack_8x13.vhd" "0e5ad952ef662b1c6f81eafdc921732c7b6d32e5" "20250410133317.039":
+  entity stack_8x13 at 11( 356) + 0 on 23;
+  architecture behavioral of stack_8x13 at 28( 988) + 0 on 24;
+file "/home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/simulations/ex06/" "../../vhdl/ex06/alu.vhd" "654a3a6112b9b6b2dea8610ac9ae4c2b96ec216a" "20250410133316.297":
+  entity alu at 1( 0) + 0 on 19;
+  architecture behavior of alu at 24( 594) + 0 on 20;
+file "/home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/simulations/ex06/" "../../vhdl/ex06/full_adder.vhd" "5df67d1e2d4c7c3aeba7c059fc6d2617e802ed1d" "20250410133316.014":
+  entity full_adder at 1( 0) + 0 on 15;
+  architecture behavior of full_adder at 13( 150) + 0 on 16;
+file "/home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/simulations/ex06/" "../../vhdl/ex06/ALU_Types.vhd" "0761bc3e2575f734421716956663f85a92f9d840" "20250410133315.749":
+  package alu_types at 1( 0) + 0 on 11 body;
+  package body alu_types at 11( 403) + 0 on 12;
+file "/home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/simulations/ex06/" "../../vhdl/ex06/instruction_type.vhd" "56944f17b91c27ed0330e6fc6c8437be81785b16" "20250410133315.843":
+  package instruction_pkg at 1( 0) + 0 on 13 body;
+  package body instruction_pkg at 41( 1603) + 0 on 14;
+file "/home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/simulations/ex06/" "../../vhdl/ex06/Nbit_ripple_carry_adder.vhd" "bc5fd2a7170c2b1e677de02a2c46a91982b69caa" "20250410133316.128":
+  entity nbit_ripple_carry_adder at 1( 0) + 0 on 17;
+  architecture structural of nbit_ripple_carry_adder at 16( 273) + 0 on 18;
+file "/home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/simulations/ex06/" "../../vhdl/ex06/memory.vhd" "8a47e60e9a33484226d00a438fbd0f5fe7c7777f" "20250410133316.780":
+  entity memory at 1( 0) + 0 on 21;
+  architecture behavior of memory at 25( 758) + 0 on 22;
+file "/home/mdaoudi/Documents/ELEC-E9540/PIC16F84A/simulations/ex06/" "../../vhdl/ex06/pic_rtl.vhd" "0fa5168dc5ee5aba59291df8a2d43ee65dabc7d5" "20250410133317.264":
+  entity decoder at 1( 0) + 0 on 25;
+  architecture behavioral of decoder at 39( 1426) + 0 on 26;

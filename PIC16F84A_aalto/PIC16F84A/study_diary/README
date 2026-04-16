@@ -1,0 +1,75 @@
+INSTRUCTIONS TO USE MNTLatexTemplate
+OB: Please take a look on the instructions at the end of this file BEFORE you
+start to write your document.
+
+GLOBAL SETTINGS
+Are in the file MNTLatexReport.sty
+use it at the beginning of the document as
+
+\documentclass[twoside,a4paper,english,12pt]{report}
+\usepackage{MNTLatexReport}
+
+
+INSTRUCTIONS ON EQUATIONS
+Please use equation arrays on calculations
+
+Preferable, requires 
+\usepackage[fleqn]{amsmath} and at the preamble. 
+
+USE THIS IF YOU USE MULTILINE EQUATIONS 
+\begin{align}
+  H(0)& =-g_mR_L=-20\\
+   A_0[dB] &\approx 26dB\\
+\end{align}
+
+OTHER POSSIBE EQUATIONS
+
+\begin{eqnarray*}
+ \lefteqn{w+x+y+z = }\\
+   && a+b+c+d+e+\\
+   && {}+f+g+h+i
+\end{eqnarray*}
+
+\begin{eqnarray*}
+ x&=&\sin \alpha = \cos \beta\\
+  &=&\cos(\pi-\alpha) = \sin(\pi-\beta)
+\end{eqnarray*}
+
+{\setlength\arraycolsep{0.1em}
+ \begin{eqnarray*}
+  x&=&\sin \alpha = \cos \beta\\
+   &=&\cos(\pi-\alpha) = \sin(\pi-\beta)
+ \end{eqnarray*}
+}
+
+
+
+LISTS 
+
+\begin{itemize}
+ \item...
+ \item...
+\end{itemize}
+
+
+FIGURES
+\begin{figure}[!h]
+    \centerline{\includegraphics[width=0.6\textwidth]{kuvat/har1_kuva1_amp.eps}}
+    \caption{\label{fig:har1_kuva1_vaihe}}
+\end{figure}
+
+OR
+
+\begin{figure}[!h]
+  \begin{minipage}{0.5\textwidth}
+    \centerline{\includegraphics[width=0.6\textwidth]{kuvat/har1_kuva1_amp.eps}}
+    \caption{\label{fig:har1_kuva1_amp}}
+  \end{minipage}
+  \begin{minipage}{0.5\textwidth}
+    \centerline{\includegraphics[width=0.6\textwidth]{kuvat/har1_kuva1_vaihe.eps}}
+    \caption{\label{fig:har1_kuva1_vaihe}}
+  \end{minipage}
+\end{figure}
+
+
+

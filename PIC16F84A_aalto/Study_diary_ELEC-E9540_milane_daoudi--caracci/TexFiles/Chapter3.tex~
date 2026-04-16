@@ -1,0 +1,161 @@
+\chapter{Synthesis}
+
+Initially, I executed the provided example to study its functionality before attempting synthesis with my own VHDL files. After adding the file paths to the configuration, I neglected to rerun the configuration script. Consequently, when I launched the batch mode synthesis flow, the tool persistently used the Verilog files instead of my VHDL designs.
+
+Upon consulting with a teaching assistant, I rectified this oversight by rerunning the configuration script, which then properly recognized my files. During synthesis, I encountered a syntax error in one of my VHDL files where I had written:
+\begin{verbatim}
+elsif(status_write_enable)
+\end{verbatim}
+instead of the correct:
+\begin{verbatim}
+elsif(status_write_enable = '1')
+\end{verbatim}
+This mistake stemmed from my SystemVerilog background. Curiously, the GHDL compiler had not flagged this as an error during previous simulation runs.
+
+After correcting the syntax and restarting the synthesis flow, the process completed successfully after considerable runtime. While I could examine the generated schematics, the reports revealed some inconsistencies.
+
+With guidance from course assistants, I learned that the \texttt{constraints/timing\_constraints.sdc} file needed modification as it was tailored specifically for the Verilog example. I implemented the following changes:
+\begin{itemize}
+    \item Defined a clock signal connected to my design's \texttt{clk} port
+    \item Incorporated the reset signal from my design
+    \item Set the target clock frequency to 4MHz as specified in the PIC datasheet
+    \item Removed the SCLK clock (from the Verilog example), maintaining only a single clock domain
+    \item Eliminated all SCLK-related commands
+\end{itemize}
+
+I then configured the input and output constraints following the SPI module example.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./Figures/synthesis/2.png}
+    \caption{timing constraints.tcl}
+\end{figure}
+
+
+During subsequent batch mode synthesis, I encountered formatting issues where commas were incorrectly interpreted as line terminators in the .sdc file. To resolve this, I migrated all commands to a new \texttt{timing\_constraints.tcl} file. After rerunning synthesis successfully, I examined the \texttt{genus.log} file for errors, which only revealed warnings about potential unintentional latches - an issue I will address later after analyzing the reports.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./Figures/synthesis/1.png}
+    \caption{Schematic view.tcl}
+\end{figure}
+
+\newpage
+
+\section{Reports Analysis}
+
+I will now systematically examine each report, though some require minimal commentary.
+
+% Insert side-by-side images (3 and 4)
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./Figures/synthesis/3.png}
+    \caption{area.datapath.rpt}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./Figures/synthesis/4.png}
+    \caption{area.summary.rpt}
+\end{figure}
+
+
+% Insert image 5
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./Figures/synthesis/5.png}
+    \caption{clock gating.rpt}
+\end{figure}
+
+\newpage
+
+% Insert image 6
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./Figures/synthesis/6.png}
+    \caption{gates.rpt}
+\end{figure}
+
+
+The gates report provides detailed statistics about:
+\begin{itemize}
+    \item Gate types and their instance counts
+    \item Physical area occupation
+    \item Power consumption and leakage characteristics
+    \item Library references
+\end{itemize}
+
+
+
+Notably, the report indicates the presence of 145 latches (identified as TLAT... in the gate column). The summary section aggregates data by gate categories (sequential, inverter, buffer, etc.), revealing that sequential logic dominates power consumption at 87.7\%, while combinational logic accounts for merely 10\%.
+
+% Insert image 7
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{./Figures/synthesis/7.png}
+    \caption{power.rpt}
+\end{figure}
+
+
+Regarding this alternate power report, I have no additional commentary except to note the anomalous absence of clock power consumption, which warrants further investigation.
+
+% Insert image 8
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./Figures/synthesis/8.png}
+    \caption{qor.rpt}
+\end{figure}
+
+
+Key observations from timing analysis:
+\begin{enumerate}
+    \item \textbf{Timing Closure}: Achieved with zero violations (TNS = 0.0) across all path groups (in2reg, reg2out, reg2reg)
+    \item \textbf{Slack Analysis}: Substantial margins observed (e.g., 220230.7ps for in2reg) suggesting the 250ns clock period (4kHz) could be reduced for performance optimization
+    \item \textbf{Area Metrics}:
+    \begin{itemize}
+        \item Cell Area: 15,461.48 units
+        \item Net Area: 5,859.82 units
+        \item Total: 21,321.29 units with a 38\% net/cell ratio indicating reasonable routing
+    \end{itemize}
+    \item \textbf{Instance Statistics}:
+    \begin{itemize}
+        \item 1,295 sequential cells (29.2\% of total) - appropriate for microcontroller designs
+        \item Maximum fanout of 1,150 on \texttt{clk}, properly buffered without skew issues
+    \end{itemize}
+\end{enumerate}
+
+% Insert image 9
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./Figures/synthesis/9.png}
+    \caption{Extract from timing.rpt}
+\end{figure}
+
+
+The timing report confirms all constraints are satisfied with no path violations.
+
+\newpage
+\section{Conclusion}
+
+Potential future work includes:
+\begin{itemize}
+    \item Frequency scaling experiments to determine optimal performance
+    \item Area and power consumption optimization
+\end{itemize}
+
+I would have to determine how the area and power scale with the frequency and
+run several simulations with different frequency lower then 4 Mhz.
+Unfortunately, I have other projects to work on and for the moment, I can not
+run these simulations. But if I have time, I will describe them after this
+part. If there's nothing more then it means I didn't have time. 
+
+About the latches, I know where the problem comes from in my code. For
+instances, in my rtl code I assign a value to w\_register when the state is
+Mwrite but I don't assign any other value to w\_register when I'm not in this
+state. So what the compiler (ghdl) understands is that w\_register should keep
+it's value until the state is Mwrite again. This is creating a latch. What I
+should do for all these signals is always assign them inside the process. A
+solution that comes to mind right now is to do everytime the process launches:
+w\_register <= w\_register \\
+signal\_that\_should\_keep\_its\_value <=
+signal\_that\_should\_keep\_its\_value \\

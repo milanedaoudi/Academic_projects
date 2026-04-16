@@ -1,0 +1,4 @@
+Operation: ADD   , A: 01100100, B: 00000111, Bit Select: 000, Status In: 000, Result: UUUUUUUU, Status Out: U0U
+Operation: ADD   , A: 11111111, B: 00000001, Bit Select: 000, Status In: 000, Result: 01101011, Status Out: U00
+Operation: SUB   , A: 00001111, B: 00000011, Bit Select: 000, Status In: 000, Result: 11111110, Status Out: UXX
+Operation: SUB   , A: 11110000, B: 00100000, Bit Select: 000, Status In: 000, Result: 00001100, Status Out: U0X

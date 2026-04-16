@@ -1,0 +1,857 @@
+$date
+  Thu Mar 27 18:54:25 2025
+$end
+$version
+  GHDL v0
+$end
+$timescale
+  1 fs
+$end
+$scope module standard $end
+$upscope $end
+$scope module textio $end
+$upscope $end
+$scope module std_logic_1164 $end
+$upscope $end
+$scope module numeric_std $end
+$upscope $end
+$scope module alu_types $end
+$upscope $end
+$scope module tb_ex05 $end
+$var reg 8 ! alu_a[7:0] $end
+$var reg 8 " alu_b[7:0] $end
+$var reg 8 # alu_result[7:0] $end
+$comment operation is not handled $end
+$var reg 3 $ alu_bit_select[2:0] $end
+$var reg 3 % alu_status_in[2:0] $end
+$var reg 3 & alu_status_out[2:0] $end
+$var reg 1 ' clk $end
+$var reg 1 ( rst $end
+$var reg 8 ) mem_write_addr[7:0] $end
+$var reg 8 * mem_read_addr[7:0] $end
+$var reg 8 + mem_data_in[7:0] $end
+$var reg 8 , mem_data_out[7:0] $end
+$var reg 1 - mem_write_en $end
+$var reg 1 . mem_read_en $end
+$var reg 1 / test_complete $end
+$scope module uut_alu $end
+$var reg 8 0 a[7:0] $end
+$var reg 8 1 b[7:0] $end
+$comment operation is not handled $end
+$var reg 8 2 result[7:0] $end
+$var reg 3 3 bit_select[2:0] $end
+$var reg 3 4 status_in[2:0] $end
+$var reg 3 5 status[2:0] $end
+$var reg 9 6 temp_result[8:0] $end
+$var reg 8 7 b_2complement[7:0] $end
+$var reg 8 8 clear_mask[7:0] $end
+$var reg 1 9 update_zflag $end
+$var reg 8 : adder_result[7:0] $end
+$var reg 1 ; adder_co $end
+$var reg 8 < sub_result[7:0] $end
+$var reg 1 = sub_co $end
+$scope module adder_instance $end
+$var reg 8 > a[7:0] $end
+$var reg 8 ? b[7:0] $end
+$var reg 8 @ s[7:0] $end
+$var reg 1 A co $end
+$var reg 9 B carry[8:0] $end
+$scope module gen_adders(0) $end
+$scope module fa $end
+$var reg 1 C a $end
+$var reg 1 D b $end
+$var reg 1 E ci $end
+$var reg 1 F s $end
+$var reg 1 G co $end
+$upscope $end
+$upscope $end
+$scope module gen_adders(1) $end
+$scope module fa $end
+$var reg 1 H a $end
+$var reg 1 I b $end
+$var reg 1 J ci $end
+$var reg 1 K s $end
+$var reg 1 L co $end
+$upscope $end
+$upscope $end
+$scope module gen_adders(2) $end
+$scope module fa $end
+$var reg 1 M a $end
+$var reg 1 N b $end
+$var reg 1 O ci $end
+$var reg 1 P s $end
+$var reg 1 Q co $end
+$upscope $end
+$upscope $end
+$scope module gen_adders(3) $end
+$scope module fa $end
+$var reg 1 R a $end
+$var reg 1 S b $end
+$var reg 1 T ci $end
+$var reg 1 U s $end
+$var reg 1 V co $end
+$upscope $end
+$upscope $end
+$scope module gen_adders(4) $end
+$scope module fa $end
+$var reg 1 W a $end
+$var reg 1 X b $end
+$var reg 1 Y ci $end
+$var reg 1 Z s $end
+$var reg 1 [ co $end
+$upscope $end
+$upscope $end
+$scope module gen_adders(5) $end
+$scope module fa $end
+$var reg 1 \ a $end
+$var reg 1 ] b $end
+$var reg 1 ^ ci $end
+$var reg 1 _ s $end
+$var reg 1 ` co $end
+$upscope $end
+$upscope $end
+$scope module gen_adders(6) $end
+$scope module fa $end
+$var reg 1 a a $end
+$var reg 1 b b $end
+$var reg 1 c ci $end
+$var reg 1 d s $end
+$var reg 1 e co $end
+$upscope $end
+$upscope $end
+$scope module gen_adders(7) $end
+$scope module fa $end
+$var reg 1 f a $end
+$var reg 1 g b $end
+$var reg 1 h ci $end
+$var reg 1 i s $end
+$var reg 1 j co $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module substractor_instance $end
+$var reg 8 k a[7:0] $end
+$var reg 8 l b[7:0] $end
+$var reg 8 m s[7:0] $end
+$var reg 1 n co $end
+$var reg 9 o carry[8:0] $end
+$scope module gen_adders(0) $end
+$scope module fa $end
+$var reg 1 p a $end
+$var reg 1 q b $end
+$var reg 1 r ci $end
+$var reg 1 s s $end
+$var reg 1 t co $end
+$upscope $end
+$upscope $end
+$scope module gen_adders(1) $end
+$scope module fa $end
+$var reg 1 u a $end
+$var reg 1 v b $end
+$var reg 1 w ci $end
+$var reg 1 x s $end
+$var reg 1 y co $end
+$upscope $end
+$upscope $end
+$scope module gen_adders(2) $end
+$scope module fa $end
+$var reg 1 z a $end
+$var reg 1 { b $end
+$var reg 1 | ci $end
+$var reg 1 } s $end
+$var reg 1 !" co $end
+$upscope $end
+$upscope $end
+$scope module gen_adders(3) $end
+$scope module fa $end
+$var reg 1 "" a $end
+$var reg 1 #" b $end
+$var reg 1 $" ci $end
+$var reg 1 %" s $end
+$var reg 1 &" co $end
+$upscope $end
+$upscope $end
+$scope module gen_adders(4) $end
+$scope module fa $end
+$var reg 1 '" a $end
+$var reg 1 (" b $end
+$var reg 1 )" ci $end
+$var reg 1 *" s $end
+$var reg 1 +" co $end
+$upscope $end
+$upscope $end
+$scope module gen_adders(5) $end
+$scope module fa $end
+$var reg 1 ," a $end
+$var reg 1 -" b $end
+$var reg 1 ." ci $end
+$var reg 1 /" s $end
+$var reg 1 0" co $end
+$upscope $end
+$upscope $end
+$scope module gen_adders(6) $end
+$scope module fa $end
+$var reg 1 1" a $end
+$var reg 1 2" b $end
+$var reg 1 3" ci $end
+$var reg 1 4" s $end
+$var reg 1 5" co $end
+$upscope $end
+$upscope $end
+$scope module gen_adders(7) $end
+$scope module fa $end
+$var reg 1 6" a $end
+$var reg 1 7" b $end
+$var reg 1 8" ci $end
+$var reg 1 9" s $end
+$var reg 1 :" co $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module uut_mem $end
+$var reg 1 ;" clk $end
+$var reg 1 <" rst $end
+$var reg 8 =" write_addr[7:0] $end
+$var reg 8 >" read_addr[7:0] $end
+$var reg 8 ?" data_in[7:0] $end
+$var reg 8 @" data_out[7:0] $end
+$var reg 1 A" write_en $end
+$var reg 1 B" read_en $end
+$var reg 3 C" mem_status_in[2:0] $end
+$var reg 3 D" mem_status_out[2:0] $end
+$comment mem is not handled $end
+$var reg 8 E" data_out_reg[7:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+bUUUUUUUU !
+bUUUUUUUU "
+b00000000 #
+b000 $
+b000 %
+b000 &
+0'
+1(
+bUUUUUUUU )
+bUUUUUUUU *
+bUUUUUUUU +
+b00000000 ,
+0-
+0.
+0/
+bUUUUUUUU 0
+bUUUUUUUU 1
+b00000000 2
+b000 3
+b000 4
+b000 5
+bUUUUUUUUU 6
+bXXXXXXXX 7
+b11111111 8
+19
+bUUUUUUUU :
+U;
+bUUUUUUUU <
+U=
+bUUUUUUUU >
+bUUUUUUUU ?
+bUUUUUUUU @
+UA
+bUUUUUUUU0 B
+UC
+UD
+0E
+UF
+UG
+UH
+UI
+UJ
+UK
+UL
+UM
+UN
+UO
+UP
+UQ
+UR
+US
+UT
+UU
+UV
+UW
+UX
+UY
+UZ
+U[
+U\
+U]
+U^
+U_
+U`
+Ua
+Ub
+Uc
+Ud
+Ue
+Uf
+Ug
+Uh
+Ui
+Uj
+bUUUUUUUU k
+bXXXXXXXX l
+bUUUUUUUU m
+Un
+bUUUUUUUU0 o
+Up
+Xq
+0r
+Us
+Ut
+Uu
+Xv
+Uw
+Ux
+Uy
+Uz
+X{
+U|
+U}
+U!"
+U""
+X#"
+U$"
+U%"
+U&"
+U'"
+X("
+U)"
+U*"
+U+"
+U,"
+X-"
+U."
+U/"
+U0"
+U1"
+X2"
+U3"
+U4"
+U5"
+U6"
+X7"
+U8"
+U9"
+U:"
+0;"
+1<"
+bUUUUUUUU ="
+bUUUUUUUU >"
+bUUUUUUUU ?"
+b00000000 @"
+0A"
+0B"
+b000 C"
+b000 D"
+b00000000 E"
+#5000000
+1'
+1;"
+#10000000
+0'
+0;"
+#15000000
+1'
+1;"
+#20000000
+0'
+0(
+0;"
+0<"
+#25000000
+1'
+b00010000 )
+b01010101 +
+1-
+1;"
+b00010000 ="
+b01010101 ?"
+1A"
+#30000000
+0'
+0;"
+#35000000
+1'
+b00010000 *
+b01010101 ,
+0-
+1.
+1;"
+b00010000 >"
+b01010101 @"
+0A"
+1B"
+b01010101 E"
+#40000000
+0'
+0;"
+#45000000
+1'
+b00100000 )
+b00000101 +
+1-
+0.
+1;"
+b00100000 ="
+b00000101 ?"
+1A"
+0B"
+#50000000
+0'
+0;"
+#55000000
+1'
+b00100000 *
+b00000101 ,
+0-
+1.
+1;"
+b00100000 >"
+b00000101 @"
+0A"
+1B"
+b00000101 E"
+#60000000
+0'
+0;"
+#65000000
+b00000101 !
+b00000011 "
+b00001000 #
+b000 &
+1'
+0.
+b00000101 0
+b00000011 1
+b00001000 2
+b000 5
+b11111101 7
+b00001000 :
+0;
+b00000010 <
+1=
+b00000101 >
+b00000011 ?
+b00001000 @
+0A
+b000001110 B
+1C
+1D
+0F
+1G
+0H
+1I
+1J
+0K
+1L
+1M
+0N
+1O
+0P
+1Q
+0R
+0S
+1T
+1U
+0V
+0W
+0X
+0Y
+0Z
+0[
+0\
+0]
+0^
+0_
+0`
+0a
+0b
+0c
+0d
+0e
+0f
+0g
+0h
+0i
+0j
+b00000101 k
+b11111101 l
+b00000010 m
+1n
+b111111010 o
+1p
+1q
+0s
+1t
+0u
+0v
+1w
+1x
+0y
+1z
+1{
+0|
+0}
+1!"
+0""
+1#"
+1$"
+0%"
+1&"
+0'"
+1("
+1)"
+0*"
+1+"
+0,"
+1-"
+1."
+0/"
+10"
+01"
+12"
+13"
+04"
+15"
+06"
+17"
+18"
+09"
+1:"
+1;"
+0B"
+b000 C"
+#70000000
+0'
+b00110000 )
+b00001000 +
+1-
+0;"
+b00110000 ="
+b00001000 ?"
+1A"
+#75000000
+1'
+1;"
+#80000000
+0'
+b00110000 *
+0-
+1.
+0;"
+b00110000 >"
+0A"
+1B"
+#85000000
+1'
+b00001000 ,
+1;"
+b00001000 @"
+b00001000 E"
+#90000000
+0'
+0.
+0;"
+0B"
+#95000000
+1'
+1;"
+#100000000
+0'
+b01000000 )
+b11111010 +
+1-
+0;"
+b01000000 ="
+b11111010 ?"
+1A"
+#105000000
+1'
+1;"
+#110000000
+0'
+b01000000 *
+0-
+1.
+0;"
+b01000000 >"
+0A"
+1B"
+#115000000
+1'
+b11111010 ,
+1;"
+b11111010 @"
+b11111010 E"
+#120000000
+b11111010 !
+b00000111 "
+b00000010 #
+0'
+0.
+b11111010 0
+b00000111 1
+b00000010 2
+b11111001 7
+b00000001 :
+1;
+b11110011 <
+b11111010 >
+b00000111 ?
+b00000001 @
+1A
+b111111100 B
+0C
+1F
+0G
+1H
+0J
+0K
+0M
+1N
+1R
+0U
+1V
+1W
+1Y
+0Z
+1[
+1\
+1^
+0_
+1`
+1a
+1c
+0d
+1e
+1f
+1h
+0i
+1j
+b11111010 k
+b11111001 l
+b11110011 m
+b111110000 o
+0p
+1s
+0t
+1u
+0w
+1x
+0y
+0z
+0{
+0|
+0}
+0!"
+1""
+0$"
+0%"
+1'"
+1*"
+1,"
+1/"
+11"
+14"
+16"
+19"
+0;"
+0B"
+#125000000
+1'
+b01100000 )
+b00000010 +
+1-
+1;"
+b01100000 ="
+b00000010 ?"
+1A"
+#130000000
+0'
+0;"
+#135000000
+1'
+b01100000 *
+b00000010 ,
+0-
+1.
+1;"
+b01100000 >"
+b00000010 @"
+0A"
+1B"
+b00000010 E"
+#140000000
+0'
+0;"
+#145000000
+1'
+0.
+1;"
+0B"
+#150000000
+0'
+0;"
+#155000000
+1'
+b10101011 )
+b10101010 +
+1-
+1;"
+b10101011 ="
+b10101010 ?"
+1A"
+#160000000
+0'
+0;"
+#165000000
+1'
+b10101011 *
+b10101010 ,
+0-
+1.
+1;"
+b10101011 >"
+b10101010 @"
+0A"
+1B"
+b10101010 E"
+#170000000
+0'
+0;"
+#175000000
+b10101010 !
+b00000000 "
+b00000000 #
+b100 &
+1'
+0.
+b10101010 0
+b00000000 1
+b00000000 2
+b100 5
+b00000000 7
+b10101010 :
+0;
+b10101010 <
+0=
+b10101010 >
+b00000000 ?
+b10101010 @
+0A
+b000000000 B
+0D
+0F
+0I
+1K
+0L
+0N
+0O
+0P
+0Q
+0T
+1U
+0V
+0W
+0Y
+0Z
+0[
+0^
+1_
+0`
+0a
+0c
+0d
+0e
+0h
+1i
+0j
+b10101010 k
+b00000000 l
+b10101010 m
+0n
+b000000000 o
+0q
+0s
+0#"
+1%"
+0&"
+0'"
+0("
+0)"
+0*"
+0+"
+0-"
+0."
+1/"
+00"
+01"
+02"
+03"
+04"
+05"
+07"
+08"
+19"
+0:"
+1;"
+0B"
+b100 C"
+#180000000
+0'
+b01100000 )
+b00000000 +
+1-
+0;"
+b01100000 ="
+b00000000 ?"
+1A"
+#185000000
+b100 %
+1'
+b100 4
+1;"
+b100 D"
+#190000000
+0'
+b01100000 *
+0-
+1.
+0;"
+b01100000 >"
+0A"
+1B"
+#195000000
+1'
+b00000000 ,
+1;"
+b00000000 @"
+b00000000 E"
+#200000000
+0'
+0.
+0;"
+0B"
+#205000000
+1'
+1;"
+#210000000
+0'
+1/
+0;"
+#215000000
+1'
+1;"
+#220000000

@@ -1,0 +1,27 @@
+Cadence Genus(TM) Synthesis Solution.
+Copyright 2021 Cadence Design Systems, Inc. All rights reserved worldwide.
+Cadence and the Cadence logo are registered trademarks and Genus is a trademark
+of Cadence Design Systems, Inc. in the United States and other countries.
+
+Version: 21.10-p002_1, built Fri Aug 20 00:13:13 PDT 2021
+Options: -batch -files synthesize.tcl 
+Date:    Wed Apr 16 13:42:48 2025
+Host:    vspace.ecdl.hut.fi (x86_64 w/Linux 3.10.0-1160.118.1.el7.x86_64) (1core*8cpus*15physical cpus*Intel(R) Xeon(R) CPU E5-2640 v4 @ 2.40GHz 25600KB) (65807808KB)
+PID:     23377
+OS:      CentOS Linux release 7.9.2009 (Core)
+
+Checking out license: Genus_Synthesis
+
+
+***********************************************************************************************************
+***********************************************************************************************************
+
+
+
+Loading tool scripts...
+Finished loading tool scripts (13 seconds elapsed).
+
+#@ Processing -files option
+@genus 1> source synthesize.tcl
+File 'synthesize.tcl' does not exist.
+Encountered problems processing file: synthesize.tcl

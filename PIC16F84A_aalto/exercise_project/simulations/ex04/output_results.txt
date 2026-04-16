@@ -1,0 +1,18 @@
+Operation: ADD   , A: 01100100, B: 00000111, Bit Select: 000, Status In: 000, Result: 01101011, Status Out: 000
+Operation: ADD   , A: 11111111, B: 00000001, Bit Select: 000, Status In: 000, Result: 00000000, Status Out: 101
+Operation: AND2  , A: 11111111, B: 00001111, Bit Select: 000, Status In: 000, Result: 00001111, Status Out: 000
+Operation: AND2  , A: 00000000, B: 11111111, Bit Select: 000, Status In: 000, Result: 00000000, Status Out: 100
+Operation: COMF  , A: 11110000, B: 11111111, Bit Select: 000, Status In: 000, Result: 00001111, Status Out: 000
+Operation: DECF  , A: 00000001, B: 00000000, Bit Select: 000, Status In: 000, Result: 00000000, Status Out: 100
+Operation: INCF  , A: 00001000, B: 00000011, Bit Select: 000, Status In: 000, Result: 00001001, Status Out: 000
+Operation: IOR   , A: 00000000, B: 00001111, Bit Select: 000, Status In: 000, Result: 00001111, Status Out: 000
+Operation: RLF   , A: 10001110, B: 00000000, Bit Select: 000, Status In: 001, Result: 00011101, Status Out: 001
+Operation: RRF   , A: 00000111, B: 00000000, Bit Select: 000, Status In: 001, Result: 10000011, Status Out: 001
+Operation: SUB   , A: 00001111, B: 00000011, Bit Select: 000, Status In: 000, Result: 00001100, Status Out: 011
+Operation: SUB   , A: 11110000, B: 00100000, Bit Select: 000, Status In: 000, Result: 11010000, Status Out: 001
+Operation: SWAPF , A: 10101111, B: 00000000, Bit Select: 000, Status In: 000, Result: 11111010, Status Out: 000
+Operation: XOR2  , A: 11110000, B: 11110001, Bit Select: 000, Status In: 000, Result: 00000001, Status Out: 000
+Operation: CLRF  , A: 11111111, B: 00000000, Bit Select: 000, Status In: 000, Result: 00000000, Status Out: 100
+ Operation: MOVF  , A: 11111111, B: 00000000, Bit Select: 000, Status In: 000, Result: 11111111, Status Out: 000
+Operation: BCF   , A: 11111111, B: 00000000, Bit Select: 010, Status In: 000, Result: 11111011, Status Out: 000
+Operation: BSF   , A: 00000000, B: 00000000, Bit Select: 010, Status In: 000, Result: 00000100, Status Out: 000

@@ -1,0 +1,219 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+use work.ALU_Types.ALL;
+
+entity tb_ex05 is
+end tb_ex05;
+
+architecture behavior of tb_ex05 is
+    -- Constants
+    constant CLK_PERIOD : time := 10 ns;
+    
+    -- ALU signals
+    signal alu_A, alu_B, alu_result : std_logic_vector(7 downto 0);
+    signal operation : ALU_operation;
+    signal alu_bit_select : std_logic_vector(2 downto 0) := "000";
+    signal alu_status_in, alu_status_out : std_logic_vector(2 downto 0);
+    
+    -- Memory signals
+    signal clk, rst : std_logic := '0';
+    signal mem_write_addr, mem_read_addr : std_logic_vector(7 downto 0);
+    signal mem_data_in, mem_data_out : std_logic_vector(7 downto 0);
+    signal mem_write_en, mem_read_en : std_logic;
+    
+    -- Test control
+    signal test_complete : boolean := false;
+    
+begin
+    -- Instantiate ALU
+    uut_alu: entity work.alu
+    port map (
+        A => alu_A,
+        B => alu_B,
+        operation => operation,
+        result => alu_result,
+        bit_select => alu_bit_select,
+        status_in => alu_status_in,
+        status => alu_status_out
+    );
+    
+    -- Instantiate Memory
+    uut_mem: entity work.memory
+    generic map (
+        ADDR_WIDTH => 8,
+        DATA_WIDTH => 8
+    )
+    port map (
+        clk => clk,
+        rst => rst,
+        write_addr => mem_write_addr,
+        read_addr => mem_read_addr,
+        data_in => mem_data_in,
+        data_out => mem_data_out,
+        write_en => mem_write_en,
+        read_en => mem_read_en,
+        mem_status_in => alu_status_out, --branching between two modules
+        mem_status_out => alu_status_in
+    );
+       
+
+    -- Clock generator
+    clk_process: process
+    begin
+        while not test_complete loop
+            clk <= '0';
+            wait for CLK_PERIOD/2;
+            clk <= '1';
+            wait for CLK_PERIOD/2;
+        end loop;
+        wait;
+    end process;
+    
+    -- Stimulus process
+    stim_proc: process
+    begin
+        -- Initialize
+        rst <= '1';
+        mem_write_en <= '0';
+        mem_read_en <= '0';
+        operation <= NOP;
+        wait for CLK_PERIOD*2;
+        rst <= '0';
+        wait for CLK_PERIOD/2;
+        
+        -- Test 1: Write value to memory
+        report "Writing 0x55 to address 0x10";
+        mem_write_addr <= x"10";
+        mem_data_in <= x"55";
+        mem_write_en <= '1';
+        wait for CLK_PERIOD;
+        mem_write_en <= '0';
+       -- wait for CLK_PERIOD;
+        
+        -- Test 2: Read value back from memory
+        report "Reading from address 0x10";
+        mem_read_addr <= x"10";
+        mem_read_en <= '1';
+        wait for CLK_PERIOD;
+        mem_read_en <= '0';
+       -- wait for CLK_PERIOD;
+        
+        -- Test 3: Perform ADD operation (5 + 3)
+        report "Testing ADD operation (5 + 3)";
+        -- Write first operand to memory
+        mem_write_addr <= x"20";
+        mem_data_in <= x"05";
+        mem_write_en <= '1';
+        wait for CLK_PERIOD;
+        mem_write_en <= '0';
+       -- wait for CLK_PERIOD;
+        
+               
+        -- Read operand from memory
+        mem_read_addr <= x"20";
+        mem_read_en <= '1';
+        wait for CLK_PERIOD;
+        alu_A <= mem_data_out;  -- Feed to ALU
+        alu_B <= x"03";
+        operation <= ADD;
+        mem_read_en <= '0';
+        
+        -- Write result to memory
+        wait for CLK_PERIOD/2;
+        mem_write_addr <= x"30";
+        mem_data_in <= alu_result;
+        mem_write_en <= '1';
+        wait for CLK_PERIOD;
+        mem_write_en <= '0';
+       -- wait for CLK_PERIOD;
+        
+        -- Verify result
+        mem_read_addr <= x"30";
+        mem_read_en <= '1';
+        wait for CLK_PERIOD;
+        mem_read_en <= '0';
+        wait for CLK_PERIOD;
+        
+   
+       -- Test 4: Perform AND
+        report "Testing AND";
+        -- Write first operand to memory
+        mem_write_addr <= x"40";
+        mem_data_in <= x"FA";
+        mem_write_en <= '1';
+        wait for CLK_PERIOD;
+        mem_write_en <= '0';
+       -- wait for CLK_PERIOD;
+        
+               
+        -- Read operand from memory
+        mem_read_addr <= x"40";
+        mem_read_en <= '1';
+        wait for CLK_PERIOD;
+        alu_A <= mem_data_out;  -- Feed to ALU
+        alu_B <= x"07";
+        operation <= AND2;
+        mem_read_en <= '0';
+        
+        -- Write result to memory
+        wait for CLK_PERIOD/2;
+        mem_write_addr <= x"60";
+        mem_data_in <= alu_result;
+        mem_write_en <= '1';
+        wait for CLK_PERIOD;
+        mem_write_en <= '0';
+       -- wait for CLK_PERIOD;
+        
+        -- Verify result
+        mem_read_addr <= x"60";
+        mem_read_en <= '1';
+        wait for CLK_PERIOD;
+        mem_read_en <= '0';
+        wait for CLK_PERIOD;
+
+        -- Test 5: Perform AND equal to 0 and check status...
+        report "Testing AND and status";
+        -- Write first operand to memory
+        mem_write_addr <= x"AB";
+        mem_data_in <= x"AA";
+        mem_write_en <= '1';
+        wait for CLK_PERIOD;
+        mem_write_en <= '0';
+       -- wait for CLK_PERIOD;
+        
+               
+        -- Read operand from memory
+        mem_read_addr <= x"AB";
+        mem_read_en <= '1';
+        wait for CLK_PERIOD;
+        alu_A <= mem_data_out;  -- Feed to ALU
+        alu_B <= x"00";
+        operation <= AND2;
+        mem_read_en <= '0';
+        
+        -- Write result to memory
+        wait for CLK_PERIOD/2;
+        mem_write_addr <= x"60";
+        mem_data_in <= alu_result;
+        mem_write_en <= '1';
+        wait for CLK_PERIOD;
+        mem_write_en <= '0';
+       -- wait for CLK_PERIOD;
+        
+        -- Verify result
+        mem_read_addr <= x"60";
+        mem_read_en <= '1';
+        wait for CLK_PERIOD;
+        mem_read_en <= '0';
+        wait for CLK_PERIOD;
+
+ 
+               
+        -- Test complete
+        report "All tests completed successfully";
+        test_complete <= true;
+        wait;
+    end process;
+    
+end behavior;

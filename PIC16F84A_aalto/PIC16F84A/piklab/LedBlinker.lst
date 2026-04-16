@@ -1,0 +1,86 @@
+gplink-1.3.0 #1017 (Jun 16 2015)
+Copyright (c) 1998-2014 gputils project
+Listing File Generated: 4-7-2025  18:20:25
+ 
+ 
+Address  Value    Disassembly              Source
+-------  -----    -----------              ------
+                                           RESET CODE 0x000
+000000   2805     goto    0x5                   goto main
+                                           
+                                           ISR CODE 0x004
+000004   2805     goto    0x5                   goto isr_handler
+                                           
+                                           MAIN CODE
+                                           isr_handler  ; interrupt code goes here
+                                           
+                                           main
+                                           
+                                           ; your code goes here
+                                           
+                                           ;*****Set up the Constants**** 
+                                           
+                                           STATUS  equ 03h      ;Address of the STATUS register
+                                           TRISA   equ 85h      ;Address of the tristate register for port A
+                                           PORTA   equ 05h      ;Address of Port A
+                                           COUNT1  equ 08h      ;First counter for our delay loops
+                                           COUNT2  equ 09h      ;Second counter for our delay loops 
+                                           
+                                           ;****Set up the port**** 
+                                           
+000005   1683     bsf     0x3, 0x5                 bsf     STATUS,5     ;Switch to Bank 1
+000006   3000     movlw   0                        movlw   00h          ;Set the Port A pins
+000007   0085     movwf   0x5                      movwf   TRISA        ;to output.
+000008   1283     bcf     0x3, 0x5                 bcf     STATUS,5     ;Switch back to Bank 0 
+                                           
+                                           
+                                           
+                                           ;****Turn the LED on**** 
+000009   3005     movlw   0x5              Start  movlw    05h     ;value 5 to counter1
+00000a   0088     movwf   0x8                     movwf    COUNT1  ;transfer
+00000b   300a     movlw   0xa                     movlw    0Ah     ;value 10 to counter2
+00000c   0089     movwf   0x9                     movwf    COUNT2  ; transfer
+00000d   3002     movlw   0x2                     movlw    02h     ;Turn the LED on by first putting
+00000e   0085     movwf   0x5                     movwf    PORTA   ;it into the w register and then
+                                                                    ;on the port 
+                                           
+                                           ;****Start of the delay loop 1**** 
+                                           
+00000f   0b88     decfsz  0x8, f           Loop1   decfsz   COUNT1,1       ;Subtract 1 from 255
+000010   280f     goto    0xf                      goto     Loop1          ;If COUNT is zero, carry on.
+000011   3005     movlw   0x5                      movlw    05h            ;value 5 to counter1
+000012   0088     movwf   0x8                      movwf    COUNT1         ;transfer
+000013   0b89     decfsz  0x9, f                   decfsz   COUNT2,1       ;Subtract 1 from 255
+000014   280f     goto    0xf                      goto     Loop1          ;Go back to the start of our loop.
+                                                                           ;This delay counts down from
+                                                                           ;255 to zero, 255 times
+                                           
+                                           ;****Delay finished, now turn the LED off**** 
+                                           
+000015   3000     movlw   0                        movlw   00h                     ;Turn the LED off by first putting
+000016   0085     movwf   0x5                      movwf   PORTA                   ;it into the w register and then on
+                                                                                   ;the port 
+                                           
+                                           ;****Add another delay**** 
+                                           ;Initial values
+000017   3005     movlw   0x5                      movlw    05h     ;value 5 to counter1
+000018   0088     movwf   0x8                      movwf    COUNT1  ;transfer
+000019   300a     movlw   0xa                      movlw    0Ah     ;value 10 to counter2
+00001a   0089     movwf   0x9                      movwf    COUNT2  ; transfer
+00001b   0b88     decfsz  0x8, f           Loop2   decfsz  COUNT1,1        ;This second loop keeps the
+00001c   281b     goto    0x1b                     goto    Loop2           ;LED turned off long enough for
+00001d   3005     movlw   0x5                      movlw    05h            ;value 5 to counter1 
+00001e   0088     movwf   0x8                      movwf    COUNT1  ;transfer
+00001f   0b89     decfsz  0x9, f                   decfsz  COUNT2,1        ;us to see it turned off
+000020   281b     goto    0x1b                     goto    Loop2           ; 
+                                           
+                                           ;****Now go back to the start of the program
+                                           
+000021   2809     goto    0x9                      goto    Start      ;go back to Start and turn LED
+                                                                      ;on again 
+                                           
+                                           ;****End of the program**** 
+                                           
+                                           end                 ;Needed by some compilers,
+                                                               ;and also just in case we miss
+                                                               ;the goto instruction.

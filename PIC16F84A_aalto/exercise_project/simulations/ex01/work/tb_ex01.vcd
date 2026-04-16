@@ -1,0 +1,37 @@
+$date
+  Mon Mar  3 10:52:35 2025
+$end
+$version
+  GHDL v0
+$end
+$timescale
+  1 fs
+$end
+$scope module standard $end
+$upscope $end
+$scope module textio $end
+$upscope $end
+$scope module std_logic_1164 $end
+$upscope $end
+$scope module tb_ex01 $end
+$var reg 8 ! a[7:0] $end
+$var reg 8 " b[7:0] $end
+$var reg 8 # q[7:0] $end
+$var reg 1 $ s $end
+$upscope $end
+$enddefinitions $end
+#0
+b00001111 !
+b11110000 "
+b00001111 #
+0$
+#10000000
+b11110000 #
+1$
+#20000000
+b00001111 #
+0$
+#30000000
+b11110000 #
+1$
+#40000000

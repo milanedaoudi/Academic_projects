@@ -1,0 +1,142 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+use IEEE.STD_LOGIC_TEXTIO.ALL;
+use STD.TEXTIO.ALL;
+
+entity tb_ex07 is
+end tb_ex07;
+
+architecture Behavioral of tb_ex07 is
+    component stack_8x13
+        Port (
+            clk         : in  STD_LOGIC;
+            reset       : in  STD_LOGIC;
+            push        : in  STD_LOGIC;
+            pop         : in  STD_LOGIC;
+            data_in     : in  STD_LOGIC_VECTOR(12 downto 0);
+            data_out    : out STD_LOGIC_VECTOR(12 downto 0);
+            stack_full  : out STD_LOGIC;
+            stack_empty : out STD_LOGIC
+        );
+    end component;
+
+    signal clk          : STD_LOGIC := '0';
+    signal reset        : STD_LOGIC := '1';
+    signal push         : STD_LOGIC := '0';
+    signal pop          : STD_LOGIC := '0';
+    signal data_in      : STD_LOGIC_VECTOR(12 downto 0) := (others => '0');
+    signal data_out     : STD_LOGIC_VECTOR(12 downto 0);
+    signal stack_full   : STD_LOGIC;
+    signal stack_empty  : STD_LOGIC;
+
+    signal test_complete : boolean := false;
+    
+    constant CLK_PERIOD : time := 10 ns;
+begin
+
+    uut: stack_8x13 port map (
+        clk => clk,
+        reset => reset,
+        push => push,
+        pop => pop,
+        data_in => data_in,
+        data_out => data_out,
+        stack_full => stack_full,
+        stack_empty => stack_empty
+    );
+    
+  
+
+  -- Clock generator
+    clk_process: process
+    begin
+        while not test_complete loop
+            clk <= '0';
+            wait for CLK_PERIOD/2;
+            clk <= '1';
+            wait for CLK_PERIOD/2;
+        end loop;
+        wait;
+    end process;
+
+
+    stimulus: process
+        procedure push_value(val : in integer) is
+        begin
+            data_in <= std_logic_vector(to_unsigned(val, 13));
+            push <= '1';
+            wait for CLK_PERIOD;
+            push <= '0';
+            wait for CLK_PERIOD;
+        end procedure;
+        
+        procedure pop_value is
+        begin
+            pop <= '1';
+            wait for CLK_PERIOD;
+            pop <= '0';
+            wait for CLK_PERIOD;
+        end procedure;
+    begin
+        -- Initial reset
+        reset <= '1';
+        wait for CLK_PERIOD*2;
+        reset <= '0';
+        wait for CLK_PERIOD;
+        
+        -- Test 1: Simple push and pop
+        report "Test 1: Simple push and pop";
+        push_value(1);
+        assert stack_empty = '0' report "Stack should not be empty" severity error;
+        pop_value;
+        assert stack_empty = '1' report "Stack should be empty" severity error;
+        
+        -- Test 2: Fill the stack completely
+        report "Test 2: Fill stack completely";
+        for i in 1 to 8 loop
+            push_value(i);
+            assert to_integer(unsigned(data_out)) = i report "Top of stack incorrect" severity error;
+        end loop;
+        assert stack_full = '1' report "Stack should be full" severity error;
+        
+        -- Test 3: Overflow (9th push should wrap around)
+        report "Test 3: Overflow test";
+        push_value(9);
+        assert stack_full = '1' report "Stack should remain full" severity error;
+        
+        -- Test 4: Pop all values
+        report "Test 4: Empty the stack";
+        for i in 1 to 8 loop
+            pop_value;
+        end loop;
+        assert stack_empty = '1' report "Stack should be empty" severity error;
+        
+        -- Test 5: Mixed push/pop operations
+        report "Test 5: Mixed operations";
+        push_value(10);
+        push_value(20);
+        pop_value;
+        push_value(30);
+        push_value(40);
+        pop_value;
+        pop_value;
+        assert to_integer(unsigned(data_out)) = 10 report "Top of stack incorrect" severity error;
+        
+        -- Test 6: Reset test
+        report "Test 6: Reset test";
+        push_value(100);
+        push_value(200);
+        reset <= '1';
+        wait for CLK_PERIOD;
+        reset <= '0';
+        wait for CLK_PERIOD;
+        assert stack_empty = '1' report "Stack should be empty after reset" severity error;
+        
+        report "All tests completed";
+        test_complete <= true;
+        wait;
+    end process;
+
+
+end Behavioral;

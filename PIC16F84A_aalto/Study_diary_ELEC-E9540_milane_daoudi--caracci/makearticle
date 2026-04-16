@@ -1,0 +1,109 @@
+#!/bin/sh
+#####################################################
+# Convert TEX-files to PDF-files
+# Initially written by Marko Kosunen
+# Last modified by Enrico Roverato
+# Version 1.2
+# Date: 07.04.2015
+#
+# Software required:
+#                  latex
+#                  ps2pdf
+#                  pdflatex
+#                  bibtex
+#                  makeindex
+#
+# Usage: Try makearticle -h
+#
+# Modification history:
+# - Made pdflatex default in release 1.1
+# - Removed annoying '-synctex' option in release 1.2
+# 
+####################################################
+
+# function to display help with -h argument
+help_f()
+{
+echo -e "MAKEARTICLE Release 1.2 (07.04.2015)"
+echo -e "makearticle - Script for producing PDF document from TEX-files"
+echo -e "Written by Marko "Pikkis" Kosunen"
+echo -e -n "\n"
+echo -e "SYNOPSIS"
+echo -e "  makearticle [OPTIONS] [FILE]"
+echo -e "DESCRIPTION"
+echo -e "  Produce PDF-document from givend TEX-files"
+echo -e "  Output defaults to ./pdffiles/[FILE].pdf ."
+echo -e -n "\n"
+echo -e "OPTIONS"
+echo -e "  -d"
+echo -e "      Use dvi latex."
+echo -e "  -p"
+echo -e "      Use pdflatex (default)."
+echo -e "  -h"
+echo -e "      Show this help."
+}
+
+
+# initialize variables
+PDFMODE=1
+
+# get options
+while getopts dph opt
+do
+  case "$opt" in
+    d) PDFMODE=0;;
+    p) PDFMODE=1;;
+    h) help_f; exit 0;;
+    \?) help_f;;
+  esac
+shift
+done
+
+# check if source file exists
+if [ ! -f $1 ]; then
+echo "ERROR: Input file does not exist."
+   help_f
+  exit 1
+fi
+
+# remove extension of source file
+doc=`echo $1 | sed 's/\(.*\)\(.[Tt][Ee][Xx]$\)/\1/g'`
+
+# create output directories
+if [ ! -d ./psfiles ]; then
+ mkdir ./psfiles
+ echo "Created directory ./psfiles"
+fi
+if [ ! -d ./pdffiles ]; then
+ mkdir ./pdffiles
+ echo "Created directory ./pdffiles"
+fi
+
+# compile
+if [ $PDFMODE == "0" ]; then
+    latex $doc.tex
+    latex $doc.tex
+    makeindex $doc.glo -s nomencl.ist -o $doc.gls
+    bibtex $doc
+    latex $doc.tex
+    latex $doc.tex
+    dvips -Ppdf -G0 -ta4 $doc.dvi -o - | ps2pdf -sPAPERSIZE=a4 -dMaxSubsetPct=100 -dCompatibilityLevel=1.4 -dPDFSETTINGS=/prepress -dSubsetFonts=true -dEmbedAllFonts=true - ./pdffiles/$doc.pdf
+else 
+    pdflatex $doc.tex
+    makeindex $doc.nlo -s nomencl.ist -o $doc.nls
+    bibtex $doc
+    pdflatex $doc.tex
+    pdflatex $doc.tex
+    pdflatex $doc.tex
+    mv $doc.pdf ./pdffiles/
+fi 
+    #dvips -Ppdf -G0 -ta4 $doc.dvi -o ./psfiles/$doc.ps
+#ps2pdf -sPAPERSIZE=a4 -dMaxSubsetPct=100 -dCompatibilityLevel=1.4 -dSubsetFonts=true -dEmbedAllFonts=true ./psfiles/$doc.ps ./pdffiles/$doc.pdf
+
+# remove useless crap
+for i in  *.dvi  *.aux  *.bbl  *.blg *.log *.out *.toc *.nlo *.nls *.ilg;  do
+    if [ -f ./"$i" ]; then
+     echo "Cleaning up $i"
+     rm -f "./$i"
+   fi
+done

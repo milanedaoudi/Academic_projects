@@ -1,0 +1,132 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+use work.instruction_pkg.all;
+use work.ALU_Types.ALL;
+
+entity decoder_tb is
+end decoder_tb;
+
+architecture Behavioral of decoder_tb is
+    -- Component Declaration
+    component decoder is
+        Port (
+            clk         : in  STD_LOGIC;
+            reset       : in  STD_LOGIC;
+            instruction : in  STD_LOGIC_VECTOR(13 downto 0);
+            pc          : inout std_logic_vector(10 downto 0)
+        );
+    end component;
+
+    -- Testbench Signals
+    signal clk          : STD_LOGIC := '0';
+    signal reset        : STD_LOGIC := '1';
+    signal instruction  : STD_LOGIC_VECTOR(13 downto 0) := (others => '0');
+    signal pc           : std_logic_vector(10 downto 0);
+    
+    -- Clock period definition
+    constant clk_period : time := 10 ns;
+    
+    -- Memory content for testing
+    type ram_type is array (0 to 127) of std_logic_vector(7 downto 0);
+    signal test_ram : ram_type := (
+        16#20# => "00000101",  -- Value 5 at address 0x20
+        others => (others => '0')
+    );
+    
+begin
+    -- Instantiate the Unit Under Test (UUT)
+    uut: decoder
+    port map (
+        clk => clk,
+        reset => reset,
+        instruction => instruction,
+        pc => pc
+    );
+
+    -- Clock process
+    clk_process: process
+    begin
+        clk <= '0';
+        wait for clk_period/2;
+        clk <= '1';
+        wait for clk_period/2;
+    end process;
+    
+    -- Memory stimulus process (mock memory behavior)
+    mem_stim: process
+    begin
+        wait until rising_edge(clk);
+        if uut.mem_read_en = '1' then
+            uut.mem_data_out <= test_ram(to_integer(unsigned(uut.mem_read_addr)));
+        end if;
+        
+        if uut.mem_write_en = '1' then
+            test_ram(to_integer(unsigned(uut.mem_write_addr))) <= uut.mem_data_in;
+            report "Memory Write: Addr " & to_hstring(uut.mem_write_addr) & 
+                   " Data " & to_hstring(uut.mem_data_in);
+        end if;
+    end process;
+    
+    -- Stimulus process
+    stim_proc: process
+    begin
+        -- Reset the system
+        reset <= '1';
+        wait for clk_period*2;
+        reset <= '0';
+        
+        -- Initialize W register with value 3
+        uut.w_register <= "00000011";  -- 0x03
+        report "Test: Initialized W register with 0x03";
+        
+        -- Test ADDWF instruction (add W to file register 0x20, result to file reg)
+        -- Format: 00 0111 d ffffff
+        -- d=1 (store result in file reg), f=0x20
+        instruction <= "000111100100000";  -- ADDWF 0x20, F
+        report "Test: Issuing ADDWF 0x20, F instruction";
+        
+        -- Let it run through all states
+        wait for clk_period*4;
+        
+        -- Verify results
+        assert test_ram(16#20#) = "00001000"  -- 5 + 3 = 8
+            report "ADDWF result incorrect. Expected 0x08, got " & 
+                   to_hstring(test_ram(16#20#))
+            severity error;
+            
+        assert uut.alu_status_out = "000"  -- No flags set
+            report "Status flags incorrect after ADDWF"
+            severity error;
+            
+        report "Test: ADDWF operation completed successfully";
+        
+        -- Test ADDWF instruction (add W to file register 0x20, result to W)
+        -- d=0 (store result in W)
+        instruction <= "000111000100000";  -- ADDWF 0x20, W
+        report "Test: Issuing ADDWF 0x20, W instruction";
+        
+        -- Let it run through all states
+        wait for clk_period*4;
+        
+        -- Verify results
+        assert uut.w_register = "00001101"  -- 8 + 5 = 13 (0x0D)
+            report "ADDWF result incorrect. Expected 0x0D in W, got " & 
+                   to_hstring(uut.w_register)
+            severity error;
+            
+        report "Test: ADDWF W operation completed successfully";
+        
+        -- End simulation
+        wait;
+    end process;
+    
+    -- Monitor process
+    monitor_proc: process
+    begin
+        wait until rising_edge(clk);
+        report "State: " & execution_state'image(uut.current_state) & 
+               " | PC: " & to_hstring(pc) & 
+               " | W: " & to_hstring(uut.w_register);
+    end process;
+end Behavioral;

@@ -1,0 +1,483 @@
+\chapter{Entities}\label{Study Diary}
+
+\section{ALU}
+
+\subsection{Entity Design}
+
+Designing the ALU presented several challenges, which I systematically
+resolved through iterative debugging and VHDL best practices.
+I chose to first define a package that defines all the operations code. You
+need to be careful and not select opcode like AND. Instead, I chose AND2. In
+this package there is also a function that take a 6 characters string and
+convert it to type alu\_operation. I used this function in the testbench to
+read from an input file. This solution wasn't the best, I should have used
+comas but it worked and I didn't have to use this method again in the
+future. That's why I didn't changed it for something better.
+
+\begin{lstlisting}[language=VHDL, caption={ALU Operations Package Definition}]
+package ALU_Types is
+    type ALU_operation is (ADD, AND2, COMF, DECF, INCF, IOR, NOP, RLF, 
+                           RRF, SUB, SWAPF, XOR2, CLRF, CLRW, MOVF,
+                           MOVWF, MOVLW, BCF, BSF);
+
+    -- Function to convert string to ALU_operation
+    function string_to_ALU_operation(op_str : string) return ALU_operation;
+end ALU_Types;
+
+-- Package body where the function is defined
+package body ALU_Types is
+
+    function string_to_ALU_operation(op_str : string) return ALU_operation is
+    begin
+        -- Check the string and map it to the corresponding ALU_operation value
+        if op_str = "ADD   " then
+            return ADD;
+        elsif op_str = "AND2  " then
+            return AND2;
+        elsif op_str = "COMF  " then
+            return COMF;
+        elsif op_str = "DECF  " then
+            return DECF;
+\end{lstlisting}
+
+\newpage
+
+\begin{itemize}
+    \item \textbf{Problem 1: Pipeline Delay in ALU Output}
+
+    \underline{Initial Issue:} The ALU initially introduced a one-cycle delay between receiving inputs and producing the output. However, the design required combinational logic (immediate output upon input change).
+
+    \underline{Root Cause:} Misunderstanding of VHDL's process sensitivity list and signal assignment behavior. My initial approach incorrectly introduced a register-like delay:
+
+    \begin{lstlisting}[language=VHDL, caption={Example}]
+process(clk)
+begin
+    result <= A + B; -- Intermediate signal
+    alu_result <= result; -- Introduced 1-cycle delay
+end process;
+    \end{lstlisting}
+
+    \underline{Solution:} Removed the intermediate result signal and assigned alu\_result directly within a combinational process. I also instantiated 2 N bits ripple carry adder (one for addition, one for substraction) in a way that they always output a result. 
+
+    \begin{lstlisting}[language=VHDL, caption={Components instantiations}]
+ADDER_INSTANCE: Nbit_ripple_carry_adder
+    port map (A  => A, B  => B, S  => adder_result, CO => adder_CO);
+
+B_2complement <= std_logic_vector(unsigned(not B) +1);
+  
+SUBSTRACTOR_INSTANCE : Nbit_ripple_carry_adder
+    port map (A  => A, B => B_2complement, S  => sub_result, CO => sub_CO);
+    \end{lstlisting}
+
+    \begin{lstlisting}[language=VHDL, caption={Beginning of first process}]
+--process for taking care of result and Z_flag
+process(A, B, operation, bit_select, status_in, adder_result, sub_result, clear_mask)
+begin   
+    case operation is
+        when ADD =>    
+            result <= adder_result;
+            update_Zflag <= '1';
+
+        when AND2 =>     
+            result <= A and B; 
+            update_Zflag <= '1';
+
+        when COMF => 
+            result <= not A;
+            update_Zflag <= '1';
+    \end{lstlisting}
+
+    \newpage
+    \item \textbf{Problem 2: Status Flag Management}
+
+    \underline{Initial Issue:} The status\_out port was driven by multiple processes, leading to a multi-driver conflict.
+
+    \underline{Solution:} Restructured the logic into two dedicated processes: Process 1 takes care of result and update\_Zflag and the second process takes care of status flag. 
+
+    \begin{lstlisting}[language=VHDL, caption={Second process for status flag}]
+--process for taking care of status
+process(result, update_Zflag, status_in, operation, adder_CO, sub_CO)
+begin
+    status <= status_in; 
+    if update_Zflag = '1' then
+        if result = "00000000" then
+            status(2) <= '1';  -- Set Z flag if result is zero
+        else
+            status(2) <= '0';  -- Clear Z flag if result is non-zero
+        end if;
+    end if;
+
+    if operation = ADD then
+        status(0) <= adder_CO;
+        status(1) <= A(3) and B(3); --carry_out_4bit
+    elsif operation = SUB then
+        status(0) <= sub_CO;
+        status(1) <= A(3) and B_2complement(3);
+    elsif operation = RLF then 
+        status(0) <= A(7);
+    elsif operation = RRF then 
+        status(0) <= A(0);
+    elsif operation = NOP then 
+        status <= "000";
+    end if;
+end process;
+    \end{lstlisting}
+
+    \item \textbf{Problem 3: Bit Manipulation (BSF/BCF)}
+
+    \underline{Initial Issue:} Assigning clear\_mask inside a process caused unexpected delays.
+
+    \underline{Solution:} Defined clear\_mask combinationally outside the process:
+
+    \begin{lstlisting}[language=VHDL, caption={Continuous assignment of clear mask}]
+clear_mask <= 
+(others => '1') when operation /= BCF and operation /= BSF else  -- Default case
+(0 => '0', others => '1') when operation = BCF and bit_select = "000" else
+(1 => '0', others => '1') when operation = BCF and bit_select = "001" else
+(2 => '0', others => '1') when operation = BCF and bit_select = "010" else
+(3 => '0', others => '1') when operation = BCF and bit_select = "011" else
+(4 => '0', others => '1') when operation = BCF and bit_select = "100" else
+(5 => '0', others => '1') when operation = BCF and bit_select = "101" else
+(6 => '0', others => '1') when operation = BCF and bit_select = "110" else
+(7 => '0', others => '1') when operation = BCF and bit_select = "111" else
+(others => '1') when operation = BCF else  -- Default for BCF
+(0 => '1', others => '0') when operation = BSF and bit_select = "000" else
+(1 => '1', others => '0') when operation = BSF and bit_select = "001" else
+(2 => '1', others => '0') when operation = BSF and bit_select = "010" else
+(3 => '1', others => '0') when operation = BSF and bit_select = "011" else
+(4 => '1', others => '0') when operation = BSF and bit_select = "100" else
+(5 => '1', others => '0') when operation = BSF and bit_select = "101" else
+(6 => '1', others => '0') when operation = BSF and bit_select = "110" else
+(7 => '1', others => '0') when operation = BSF and bit_select = "111" else
+(others => '0') when operation = BSF else  -- Default for BSF
+(others => '1');  -- Fallback default
+    \end{lstlisting}
+\end{itemize}
+
+\subsection{Testbench and simulation}
+
+The module was easy to connect to the top level entity. I think that defining
+a package to define a new type called alu\_operation (ADD, AND2, ETC...) was a
+good idea because it made my input program clearer:\\
+ADD   01100100 00000111 000 000\\
+ADD   11111111 00000001 000 000\\
+AND2  11111111 00001111 000 000\\
+AND2  00000000 11111111 000 000
+
+Yet as a counter part it was a bit harder to read from the file
+input\_program.txt. I had to make sure there was exactly 6 characters space
+included before the first operand. I could used a coma to make the reading
+easier but I succeeded like this. 
+
+% Simulation results
+
+\newpage
+\section{Memory Implementation}
+\subsection{Entity Design}
+
+The memory implementation presented interesting architectural choices. While conceptually straightforward, the design required careful consideration of access methodologies:
+
+\begin{itemize}
+    \item \textbf{Memory Access Strategy}: 
+    I initially implemented a \textbf{synchronous read/write} design with dual ports (\texttt{read\_addr} and \texttt{write\_addr}) and separate data registers (\texttt{mem\_data\_in} and \texttt{mem\_data\_out}). This approach worked correctly but was later modified to use \textbf{asynchronous/combinational reads} to better align with the decoder's timing requirements. The final implementation drives \texttt{data\_out} immediately when \texttt{read\_en} is asserted.
+
+    \begin{lstlisting}[language=VHDL, caption={Continuous assignment of data\_out enabling combinational reading}]
+-- Combinational read
+data_out <= mem(to_integer(unsigned(read_addr))) when read_en ='1' 
+            else (others => '0'); 
+    \end{lstlisting}
+
+    \item \textbf{Status Register Handling}:
+    The special case of the status register at address \texttt{0x03} required particular attention. The design prioritizes top-level \texttt{data\_in} over \texttt{status\_in} during writes to this address. Additionally, I introduced a \texttt{status\_write\_enable} signal to properly handle bit-set (BSF) and bit-clear (BCF) operations. This refinement emerged during debugging, demonstrating the iterative nature of hardware design and verification.
+
+    \begin{lstlisting}[language=VHDL, caption={Use of status\_write\_enable}]
+elsif (status_write_enable) then --for RLF and RRF
+    mem(to_integer(unsigned(STATUS_ADDR))) <= 
+        (DATA_WIDTH-1 downto 3 => '0') & mem_status_in;
+    report "RLF instruction here";
+end if;
+    \end{lstlisting}
+\end{itemize}
+
+\subsection{Testbench Implementation}
+The testbench development focused on practical verification. First, I wrote a
+testbench for the memory and verified simple read and write instructions like
+these ones:
+
+\begin{lstlisting}[language=VHDL, caption={Testbench testing only the memory}]
+-- Test 1: Simple write then read
+report "Test 1: Write then read from different addresses";
+write_addr <= x"10";
+data_in <= x"AA";
+mem_status_in <= "101";
+write_en <= '1';
+wait for clk_period;
+write_en <= '0';
+
+read_addr <= x"10";
+read_en <= '1';
+wait for clk_period;
+assert data_out = x"AA" report "Test 1 failed: Data mismatch" severity error;
+assert mem_status_out = "101" report "Test 1 failed: Status mismatch" severity error;
+read_en <= '0';
+wait for clk_period;
+\end{lstlisting}
+
+Then, I study the relation between ALU and memory and implemented a testbench
+that instantiates alu and memory and connect them such as:
+\begin{itemize}
+    \item \textbf{ALU-Memory Interface}:
+    Established clear signal relationships:
+    \begin{itemize}
+        \item \texttt{mem\_status\_in} $\leftarrow$ \texttt{alu\_status\_out}
+        \item \texttt{alu\_status\_in} $\leftarrow$ \texttt{mem\_status\_out}
+    \end{itemize}
+
+    \item \textbf{Testing Methodology}:
+    Implemented direct test vectors rather than file I/O for simplicity and debuggability:
+    \begin{lstlisting}[language=VHDL, caption={Testbench combining ALU and memory}]
+-- Test 1: Write value to memory
+report "Writing 0x55 to address 0x10";
+mem_write_addr <= x"10";
+mem_data_in <= x"55";
+mem_write_en <= '1';
+wait for CLK_PERIOD;
+mem_write_en <= '0';
+-- wait for CLK_PERIOD;
+
+-- Test 2: Read value back from memory
+report "Reading from address 0x10";
+mem_read_addr <= x"10";
+mem_read_en <= '1';
+wait for CLK_PERIOD;
+mem_read_en <= '0';
+-- wait for CLK_PERIOD;
+
+-- Test 3: Perform ADD operation (5 + 3)
+report "Testing ADD operation (5 + 3)";
+-- Write first operand to memory
+mem_write_addr <= x"20";
+mem_data_in <= x"05";
+mem_write_en <= '1';
+wait for CLK_PERIOD;
+mem_write_en <= '0';
+-- wait for CLK_PERIOD;
+    \end{lstlisting}
+
+    The test sequence included:
+    \begin{enumerate}
+        \item Basic write/read verification
+        \item ALU operations with memory operands
+        \item Result storage back to memory
+        \item Comprehensive status flag testing
+    \end{enumerate}
+\end{itemize}
+
+This approach provided excellent debugging visibility while maintaining test coverage.
+
+\section{Decoder}
+
+To implement the decoder, I started reading the datasheet thoroughly. Before that, I only read it for the ALU to check what operations I needed to implement. I understood how to execute each instruction using the four different states: \texttt{iFetch}, \texttt{Mread}, \texttt{Execute} and \texttt{Mwrite}. I understood how instructions were thought: most of the instructions have an opcode so we can identify the operation, an address or a literal coded with a certain number of bits. Thanks to this study, I drew a simple finite state machine which is not complete (so I won't submit it here). I just used it for myself in order to have clearer ideas on how to start coding.
+
+At first, I thought the decoder didn't need several outputs/inputs except \texttt{clk}, \texttt{rst}, \texttt{instruction} and \texttt{pc}. But then, when I first simulated my decoder I thought I couldn't access internal signals but I just forgot that GTKWave enables you to do that by clicking on the module in the GTKWave graphic interface. I remembered this only after implementing a decoder with more outputs and inputs, but this is not important because choosing what are the outputs of the decoder is a "choice" and since we don't have any criteria to respect, I decided to keep it like that. All signals used by submodules memory and ALU are also outputs of the decoder. That way, it's also easy for me to select these signals when launching GTKWave because I don't have to go through the submodules.
+
+\subsection{Instruction Package}
+The first thing I decided to do before implementing the decoder is a package named \texttt{instruction\_pkg} that contains a new type definition: \texttt{instruction\_type}. I use this type to make the difference between:
+\begin{itemize}
+    \item Byte-oriented
+    \item Bit-oriented
+    \item Literal and control (\texttt{lANDc})
+    \item Special operations (\texttt{CALL}, \texttt{GOTO})
+\end{itemize}
+
+In this package I also define a procedure called \texttt{data\_extraction} that:
+\begin{itemize}
+    \item Assigns to \texttt{operation} the type of operation executed by the instruction (given as an input of the procedure)
+    \item Extracts the rest of the data from each instruction
+\end{itemize}
+
+\begin{lstlisting}[language=VHDL,caption={Beginning of instruction package}]
+package instruction_pkg is
+    -- Instruction type enumeration
+    type instruction_type is (byte_oriented, bit_oriented, lANDc, CLRW, special, unknown);
+    
+    -- Constants for special instructions
+    constant NOP_INSTRUCTION : std_logic_vector(13 downto 0) := "00000000000000";
+    constant RETURN_INSTRUCTION : std_logic_vector(13 downto 0) := "00000000001000";
+    constant ADDR_WIDTH : integer := 7;
+    constant DATA_WIDTH : integer := 8;
+    
+    -- Data extraction procedure
+    procedure data_extraction (
+        -- Input
+        signal instruction : in std_logic_vector(13 downto 0);
+        -- Global output
+        signal operation : out instruction_type;
+        -- Output byte oriented
+        signal opcode_byte : out std_logic_vector(5 downto 0); -- 6 bits
+        signal d_byte : out std_logic;
+        signal f_byte : out std_logic_vector(6 downto 0);
+        -- Output bit-oriented
+        signal opcode_bit : out std_logic_vector(3 downto 0); -- 4 bits
+        signal b_bit : out std_logic_vector(2 downto 0);
+        signal f_bit : out std_logic_vector(6 downto 0);
+        -- Output literal and control
+        signal opcode_lANDc : out std_logic_vector(5 downto 0); -- 6 bits
+        signal k_literal : out std_logic_vector(7 downto 0);
+        -- Output special
+        signal opcode_special : out std_logic_vector(2 downto 0);
+        signal k_special : out std_logic_vector(10 downto 0);
+        -- Memory interface
+        signal mem_read_address : out std_logic_vector(6 downto 0)
+    );
+end package instruction_pkg;
+
+\end{lstlisting}
+
+
+
+For instance, byte-oriented operations are recognized because they all start by "00". We then assign:
+\begin{itemize}
+    \item The opcode to \texttt{opcode\_byte}
+    \item The direction to \texttt{d\_byte}
+    \item The 7-bit address to \texttt{mem\_read\_address} (used during reading)
+\end{itemize}
+
+I call this procedure in \texttt{iFetch} and it makes my code easier to read. The process of extracting data is purely combinational, so the procedure is the right way to do this.
+
+At first, this package also defined a type \texttt{state} which could be \texttt{iFetch}, \texttt{Mread}, \texttt{Execute} or \texttt{Mwrite}. But then when I first simulated the decoder, I couldn't see the signals \texttt{current\_state} and \texttt{next\_state} because GTKWave doesn't know how to read this new type. I should have used strings: "\texttt{iFetch}", etc. But I finally decided to use \texttt{std\_logic\_vector}:
+\begin{itemize}
+    \item "00" for \texttt{iFetch}
+    \item "01" for \texttt{Mread}
+    \item ...
+\end{itemize}
+
+\subsection{Module Connections}
+In \texttt{decoder.vhd}, I instantiate ALU and memory using positional assignment and signals I used as output of my decoder. They are connected together this way:
+
+\begin{itemize}
+    \item \texttt{alu\_status\_out\_reg} is just a register that retains the value of \texttt{alu\_status\_out} when calculated. We assign \texttt{alu\_status\_out\_reg} to \texttt{mem\_status\_in} so the memory takes care of writing this status to address \texttt{0x03h}. This is taken care of in the memory implementation and detailed above.
+    
+    \item We then connect \texttt{mem\_status\_out} and \texttt{alu\_status\_in}. Anytime, the memory is assigning a value to \texttt{mem\_status\_out} which is the value it found at address \texttt{0x03h} and we use this as input for the ALU.
+\end{itemize}
+
+This part was a bit tricky. At first I connected \texttt{mem\_status\_in} and \texttt{alu\_status\_out} but I saw in the testbench that it wasn't the good solution because when not used, the ALU would always assign 0 for \texttt{alu\_status\_out} (it wasn't retaining its value). So I used a register to do this.
+
+I will speak of \texttt{status\_write\_enable} later (last signal of memory outputs).
+
+\subsection{State Machine Implementation}
+I first implemented a synchronous process with asynchronous reset. I may change this functionality later. This process takes care of:
+\begin{itemize}
+    \item Assigning \texttt{next\_state} to \texttt{current\_state} each rising clock edge
+    \item Updating \texttt{pc} when the current state is \texttt{Execute} (so that \texttt{pc} can be changed exactly at the end of the instruction)
+\end{itemize}
+
+At first, \texttt{pc} was always incremented but then I added an if statement that assigned a different value than \texttt{pc + 1} to \texttt{pc} if the operation was \texttt{CALL}, \texttt{GOTO}, \texttt{RETLW} or \texttt{RETURN}. This other value was \texttt{pc\_reg} and is assigned in the other process (I will speak about it later). This first process is very simple.
+
+The second process takes care of the logic and describes a case statement which reacts according to \texttt{current\_state} and calculates \texttt{next\_state}. I will speak about things that I find important in this process or troubles I encountered and how I resolved them.
+
+At first, I wanted to reset all outputs of the decoder but I figured that I only need to reset:
+\begin{itemize}
+    \item The memory contents (nothing to do because the memory is already linked with the top-module reset)
+    \item \texttt{next\_state} because I had a problem when simulating it (I was blocked at state "01" after a reset which is not normal)
+    \item The accumulation register \texttt{w\_register}
+\end{itemize}
+
+\subsubsection{State Machine Details}
+The first part of case statement is for fetching the instruction. It:
+\begin{itemize}
+    \item Calls the extraction procedure
+    \item Determines if the instruction needs reading or not
+    \item Chooses the \texttt{next\_state} which can be \texttt{Mread} or \texttt{Execute} based on instruction
+    \item If the \texttt{next\_state} is reading, it will also assert \texttt{mem\_read\_en} which enables reading from memory address \texttt{mem\_read\_addr}
+\end{itemize}
+
+The second part of the case is for memory reading only. For operations that need reading from memory, it will keep the value read by assigning \texttt{mem\_data\_out} to \texttt{operand} which then will be used to feed the ALU. The next state is always \texttt{Execute} here.
+
+The next part of case statement is for \texttt{Execute} state. Based on operation (\texttt{byte\_oriented}, \texttt{bit\_oriented}, \texttt{lANDc}, \texttt{special}...) and opcode (\texttt{opcode\_byte}, \texttt{opcode\_bit}, \texttt{opcode\_lANDc}, \texttt{opcode\_special}...), it determines how to feed the ALU properly using \texttt{operand}, \texttt{w\_register}, \texttt{k\_literal} or \texttt{k\_special}...
+
+The last part of case statement is \texttt{Mwrite}. In this part:
+\begin{itemize}
+    \item I assign \texttt{alu\_status\_out} to \texttt{alu\_status\_out\_reg} for the reasons I explained earlier
+    \item If operation is \texttt{BSF} or \texttt{BCF}, I assert \texttt{status\_write\_enable} that enables these operations to rotate properly through carry bit
+\end{itemize}
+
+I did this because when I simulated an \texttt{RRF} instruction it wasn't properly doing the operation wanted, so I decided to change the implementation of my memory by adding a \texttt{status\_enable} signal as input. When it is activated and \texttt{mem\_write\_enable} isn't asserted, it still writes the content of \texttt{status\_in} to \texttt{STATUS\_ADDR 0x03h}. Doing multiple simulations and testbenches helped me a lot to observe different errors and their causes and also to fix problems by trying different solutions.
+
+The \texttt{next\_state} when memory writing is always \texttt{iFetch}.
+
+An if statement is then taking care of writing \texttt{alu\_result} to the proper address or \texttt{w\_register} depending on \texttt{d} (if 1, result is written to address else to \texttt{w\_register}).
+
+\subsection{Testing and Debugging}
+With the testbench, I simulated ALL instructions one by one, including \texttt{CALL}, \texttt{GOTO}, \texttt{RETLW}, \texttt{RETURN}.
+
+A problem arose when trying the instruction \texttt{ADDWF}. It was the first time I was reading an operand from the memory. The problem was that I was receiving the operand one cycle after asking for it (after asserting \texttt{mem\_read\_en}). I decided to implement combinational read because before this I was using a synchronous read. I just changed a bit my memory implementation and it worked.
+
+I also had many problems with status when doing \texttt{RLF} and \texttt{RRF} instructions but I think I came to a good solution with \texttt{status\_write\_enable} and \texttt{status\_out\_reg} as I explained earlier. At first I was connecting \texttt{alu\_status\_out} to \texttt{mem\_status\_in} but the fact that \texttt{alu\_status\_out} was "000" except when the ALU was used provoked incorrect writing to status address \texttt{0x03h} in memory. That's when I decided to connect \texttt{alu\_status\_out\_reg} to \texttt{mem\_status\_in} instead of \texttt{alu\_status\_out}.
+
+Once you read correctly from memory, write correctly to it and take care of status then most of operations worked. I just had to code \texttt{call}, \texttt{goto}, \texttt{retlw} and \texttt{return}.
+
+In order to code them, I would assign \texttt{pc\_reg} in \texttt{Execute} depending on the operation asked. \texttt{pc\_reg} would then keep its value and I would assign \texttt{pc\_reg} to \texttt{pc} in first process when doing \texttt{call}, \texttt{goto}, \texttt{retlw} and \texttt{return}. I chose to do this because you can't drive \texttt{pc} with 2 different processes.
+
+Simulations took most of my time when doing this because I wanted to do a complete testbench to not have problems later.
+
+\section{Stack 8$\times$13}
+I designed a simple stack with 8 levels of 13 bits each. Push and pop operations cannot be asserted simultaneously as this functionality was not required. The stack pointer is neither directly readable nor writable, and the output always reflects the top of the stack. This last feature allows me to read directly from the stack without enabling any signal, as it's combinational.
+
+Following a TA's advice, I found existing stack implementation code online since many stack designs already exist. I modified a few parameters to match my specific requirements (number of levels, bit width, etc.).
+
+For testing, I performed the following operations:
+\begin{itemize}
+    \item Pushing and popping a few elements
+    \item Pushing until the stack was full
+    \item Popping until it was empty
+\end{itemize}
+
+After testing multiple cases, I gained a thorough understanding of how the stack operates. Debugging the code helped me comprehend many aspects of its functionality. The implementation worked correctly without any problems.
+
+\section{Connection Between Stack and Rest of the Logic}
+I modified my decoder implementation to connect the stack properly. The stack handles push and pop operations for specific instructions:
+\begin{itemize}
+    \item \textbf{CALL}: Pushes \texttt{pc+1} to the stack by placing the value on \texttt{stack\_data\_in} and asserting \texttt{push}
+    \item \textbf{RETLW} and \textbf{RETURN}: Retrieves the top of stack (\texttt{stack\_data\_out}) to feed \texttt{pc\_reg}, then pops the stack by asserting \texttt{pop}
+\end{itemize}
+
+The decoder implementation was updated by:
+\begin{itemize}
+    \item Removing the \texttt{tos} (top of stack) signal
+    \item Adding new decoder outputs: \texttt{push}, \texttt{pop}, \texttt{stack\_data\_in}, and \texttt{stack\_data\_out}
+    \item Implementing the required control logic
+\end{itemize}
+
+These changes were incorporated into a new VHDL file named \texttt{pic\_rtl.vhdl}.
+
+\subsection{Stack Limitations}
+The 8-level stack allows for 8 nested subprogram calls. However, calling a 9th subprogram would overwrite the first return address, causing program errors. This represents a fundamental limitation of the stack depth.
+
+\subsection{Verification}
+To verify the program counter-stack connection:
+\begin{itemize}
+    \item Adapted the testbench from Exercise 6
+    \item Created a test case with:
+    \begin{itemize}
+        \item A \texttt{CALL} to a subprogram executing \texttt{MOVLW} and \texttt{ADDLW}
+        \item Return to \texttt{pc+1} (pushed during \texttt{CALL}) using \texttt{RETLW}
+        \item Additional tests for \texttt{RETURN} instruction
+    \end{itemize}
+    \item All test cases executed correctly
+\end{itemize}
+
+\section*{Conclusion}
+At this stage of development, all individual components have been rigorously
+verified through independent unit testing. The first phase of RTL design has
+been successfully completed with the top-level module \texttt{pic\_rtl} capable of executing all specified instructions from the datasheet (excluding those explicitly excluded from the project requirements). All implemented instructions execute correctly within 3 or 4 clock cycles without errors.
+
+A critical design consideration involves the timing of instruction assignment:
+new instructions must be assigned to the \texttt{instruction} signal of
+\texttt{pic\_rtl} exclusively on the falling edge of the clock signal. This architectural decision was made after observing that rising-edge assignment introduced stability issues not present during falling-edge assignment. Importantly, this timing constraint:
+
+\begin{itemize}
+\item Does not affect instruction execution semantics
+\item Maintains the same instruction throughput
+\item Preserves the timing relationship between consecutive instructions
+\end{itemize}

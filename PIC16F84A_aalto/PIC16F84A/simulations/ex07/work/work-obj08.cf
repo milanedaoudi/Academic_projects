@@ -1,0 +1,7 @@
+v 4
+file "/home/mdaoudi/Documents/ELEC-E9540/exercise_project/simulations/ex07/" "../../vhdl/ex07/tb_ex07.vhd" "f68f6590ead72596d6dba02ee57ae644343a72b2" "20250407103319.881":
+  entity tb_ex07 at 1( 0) + 0 on 13;
+  architecture behavioral of tb_ex07 at 10( 153) + 0 on 14;
+file "/home/mdaoudi/Documents/ELEC-E9540/exercise_project/simulations/ex07/" "../../vhdl/ex07/stack.vhd" "0e5ad952ef662b1c6f81eafdc921732c7b6d32e5" "20250407103319.670":
+  entity stack_8x13 at 11( 356) + 0 on 11;
+  architecture behavioral of stack_8x13 at 28( 988) + 0 on 12;

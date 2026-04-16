@@ -1,0 +1,4 @@
+v 4
+file "/home/mdaoudi/Documents/ELEC-E9540/my_project/simulations/ex01/" "../../vhdl/ex01/tb_ex01.vhd" "fd4838a1b11949aa10dcec0954c1fbca4fc1cd92" "20250303085235.425":
+  entity tb_ex01 at 1( 0) + 0 on 11;
+  architecture behavior of tb_ex01 at 7( 76) + 0 on 12;

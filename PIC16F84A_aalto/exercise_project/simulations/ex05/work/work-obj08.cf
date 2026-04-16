@@ -1,0 +1,19 @@
+v 4
+file "/home/mdaoudi/Documents/ELEC-E9540/exercise_project/simulations/ex05/" "../../vhdl/ex05/tb_ex05.vhd" "4e58580e1267995113d74255fea8f4caacd527a4" "20250327165424.345":
+  entity tb_ex05 at 1( 0) + 0 on 21;
+  architecture behavior of tb_ex05 at 9( 126) + 0 on 22;
+file "/home/mdaoudi/Documents/ELEC-E9540/exercise_project/simulations/ex05/" "../../vhdl/ex05/alu.vhd" "1c0c8d35884a2d3e6e0971900a45d6a23a3cf6b8" "20250327165423.711":
+  entity alu at 1( 0) + 0 on 17;
+  architecture behavior of alu at 24( 594) + 0 on 18;
+file "/home/mdaoudi/Documents/ELEC-E9540/exercise_project/simulations/ex05/" "../../vhdl/ex05/full_adder.vhd" "5df67d1e2d4c7c3aeba7c059fc6d2617e802ed1d" "20250327165423.443":
+  entity full_adder at 1( 0) + 0 on 13;
+  architecture behavior of full_adder at 13( 150) + 0 on 14;
+file "/home/mdaoudi/Documents/ELEC-E9540/exercise_project/simulations/ex05/" "../../vhdl/ex05/ALU_Types.vhd" "44b32d409b39d84ce64e082a1ff03c6ebff0e798" "20250327165423.326":
+  package alu_types at 1( 0) + 0 on 11 body;
+  package body alu_types at 11( 405) + 0 on 12;
+file "/home/mdaoudi/Documents/ELEC-E9540/exercise_project/simulations/ex05/" "../../vhdl/ex05/Nbit_ripple_carry_adder.vhd" "bc5fd2a7170c2b1e677de02a2c46a91982b69caa" "20250327165423.550":
+  entity nbit_ripple_carry_adder at 1( 0) + 0 on 15;
+  architecture structural of nbit_ripple_carry_adder at 16( 273) + 0 on 16;
+file "/home/mdaoudi/Documents/ELEC-E9540/exercise_project/simulations/ex05/" "../../vhdl/ex05/memory.vhd" "75a27a624f70ed284dc1eee57ae8c93da72f1b8c" "20250327165424.119":
+  entity memory at 1( 0) + 0 on 19;
+  architecture behavior of memory at 22( 699) + 0 on 20;

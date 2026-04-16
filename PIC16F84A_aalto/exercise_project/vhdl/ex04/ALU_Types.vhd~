@@ -1,0 +1,8 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+package ALU_Types is
+    type ALU_operation is (ADD, AND2, COMF, DECF, INCF, IOR, NOP, RLF, 
+                           RRF, SUB, SWAPF, XOR2, CLRF, CLEARW, MOVF,
+                           MOVWF, MOVLW, BCF, BSF);
+end package ALU_Types;

@@ -1,0 +1,113 @@
+gpasm-1.3.0 #1017 (Jun 16 2015) led_blinker_a   4-7-2025  18:20:25          PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 RESET CODE 0x000
+0000   2???           00002      goto main
+                      00003 
+                      00004 ISR CODE 0x004
+0004   2???           00005      goto isr_handler
+                      00006 
+                      00007 MAIN CODE
+0000                  00008 isr_handler  ; interrupt code goes here
+                      00009 
+0000                  00010 main
+                      00011 
+                      00012 ; your code goes here
+                      00013 
+                      00014 ;*****Set up the Constants**** 
+                      00015 
+  00000003            00016 STATUS  equ 03h      ;Address of the STATUS register
+  00000085            00017 TRISA   equ 85h      ;Address of the tristate register for port A
+  00000005            00018 PORTA   equ 05h      ;Address of Port A
+  00000008            00019 COUNT1  equ 08h      ;First counter for our delay loops
+  00000009            00020 COUNT2  equ 09h      ;Second counter for our delay loops 
+                      00021 
+                      00022 ;****Set up the port**** 
+                      00023 
+0000   1683           00024         bsf     STATUS,5     ;Switch to Bank 1
+0001   3000           00025         movlw   00h          ;Set the Port A pins
+0002   0085           00026         movwf   TRISA        ;to output.
+0003   1283           00027         bcf     STATUS,5     ;Switch back to Bank 0 
+                      00028 
+                      00029 
+                      00030 
+                      00031 ;****Turn the LED on**** 
+0004   3005           00032 Start  movlw    05h     ;value 5 to counter1
+0005   0088           00033        movwf    COUNT1  ;transfer
+0006   300A           00034        movlw    0Ah     ;value 10 to counter2
+0007   0089           00035        movwf    COUNT2  ; transfer
+0008   3002           00036        movlw    02h     ;Turn the LED on by first putting
+0009   0085           00037        movwf    PORTA   ;it into the w register and then
+                      00038                          ;on the port 
+                      00039 
+                      00040 ;****Start of the delay loop 1**** 
+                      00041 
+000A   0B88           00042 Loop1   decfsz   COUNT1,1       ;Subtract 1 from 255
+000B   2???           00043         goto     Loop1          ;If COUNT is zero, carry on.
+000C   3005           00044         movlw    05h            ;value 5 to counter1
+000D   0088           00045         movwf    COUNT1         ;transfer
+000E   0B89           00046         decfsz   COUNT2,1       ;Subtract 1 from 255
+000F   2???           00047         goto     Loop1          ;Go back to the start of our loop.
+                      00048                                 ;This delay counts down from
+                      00049                                 ;255 to zero, 255 times
+                      00050 
+                      00051 ;****Delay finished, now turn the LED off**** 
+                      00052 
+0010   3000           00053         movlw   00h                     ;Turn the LED off by first putting
+gpasm-1.3.0 #1017 (Jun 16 2015) led_blinker_a   4-7-2025  18:20:25          PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0011   0085           00054         movwf   PORTA                   ;it into the w register and then on
+                      00055                                         ;the port 
+                      00056 
+                      00057 ;****Add another delay**** 
+                      00058 ;Initial values
+0012   3005           00059         movlw    05h     ;value 5 to counter1
+0013   0088           00060         movwf    COUNT1  ;transfer
+0014   300A           00061         movlw    0Ah     ;value 10 to counter2
+0015   0089           00062         movwf    COUNT2  ; transfer
+0016   0B88           00063 Loop2   decfsz  COUNT1,1        ;This second loop keeps the
+0017   2???           00064         goto    Loop2           ;LED turned off long enough for
+0018   3005           00065         movlw    05h            ;value 5 to counter1 
+0019   0088           00066         movwf    COUNT1  ;transfer
+001A   0B89           00067         decfsz  COUNT2,1        ;us to see it turned off
+001B   2???           00068         goto    Loop2           ; 
+                      00069 
+                      00070 ;****Now go back to the start of the program
+                      00071 
+001C   2???           00072         goto    Start      ;go back to Start and turn LED
+                      00073                            ;on again 
+                      00074 
+                      00075 ;****End of the program**** 
+                      00076 
+Warning[205]: Found directive in column 1. (end)
+                      00077 end                 ;Needed by some compilers,
+gpasm-1.3.0 #1017 (Jun 16 2015) led_blinker_a   4-7-2025  18:20:25          PAGE  3
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+COUNT1                            00000008
+COUNT2                            00000009
+Loop1                             0000000A
+Loop2                             00000016
+PORTA                             00000005
+STATUS                            00000003
+Start                             00000004
+TRISA                             00000085
+__16F84                           00000001
+isr_handler                       00000000
+main                              00000000
+
+Errors   :     0
+Warnings :     1 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+

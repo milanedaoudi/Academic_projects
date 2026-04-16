@@ -1,0 +1,43 @@
+gplink-1.3.0 #1017 (Jun 16 2015)
+Map File - Created 4-7-2025  18:20:25
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                    RESET       code   0x000000    program   0x000002
+                      ISR       code   0x000004    program   0x000002
+                     MAIN       code   0x000005    program   0x00003a
+
+
+
+                              Program Memory Usage
+                               Start         End
+                           ---------   ---------
+                            0x000000    0x000000
+                            0x000004    0x000004
+                            0x000005    0x000021
+                            31 program addresses used
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File
+                ---------  ---------  ---------  --------- ---------
+                    Loop1   0x00000f    program     static led_blinker_assembly_code.asm
+                    Loop2   0x00001b    program     static led_blinker_assembly_code.asm
+                    Start   0x000009    program     static led_blinker_assembly_code.asm
+              isr_handler   0x000005    program     static led_blinker_assembly_code.asm
+                     main   0x000005    program     static led_blinker_assembly_code.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File
+                ---------  ---------  ---------  --------- ---------
+              isr_handler   0x000005    program     static led_blinker_assembly_code.asm
+                     main   0x000005    program     static led_blinker_assembly_code.asm
+                    Start   0x000009    program     static led_blinker_assembly_code.asm
+                    Loop1   0x00000f    program     static led_blinker_assembly_code.asm
+                    Loop2   0x00001b    program     static led_blinker_assembly_code.asm
+
+

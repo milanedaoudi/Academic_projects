@@ -1,0 +1,70 @@
+gpasm-1.3.0 #1017 (Jun 16 2015) testbench.asm   4-9-2025  18:10:35          PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 RESET CODE 0x000
+0000   2???           00002      goto main
+                      00003 
+                      00004 ISR CODE 0x004
+0004   2???           00005      goto isr_handler
+                      00006 
+                      00007 MAIN CODE
+0000                  00008 isr_handler  ; interrupt code goes here
+                      00009 
+0000                  00010 main
+                      00011 
+                      00012 ; your code goes here
+                      00013 
+                      00014 ;*****Set up the Constants**** 
+                      00015 
+  00000003            00016 STATUS  equ 03h      ;Address of the STATUS register
+  00000085            00017 TRISA   equ 85h      ;Address of the tristate register for port A
+  00000005            00018 PORTA   equ 05h      ;Address of Port A
+  00000008            00019 COUNT1  equ 08h      ;First adress
+  00000009            00020 COUNT2  equ 09h      ;Second counter for our delay loops 
+                      00021 
+                      00022 
+                      00023 ;**** First part of code**** 
+0000   3003           00024 Start  movlw    03h     ;value 3 to 0x08
+0001   0088           00025        movwf    COUNT1  ;transfer
+0002   300E           00026        movlw    0Eh     ;value 14 to W
+0003   0708           00027        addwf    COUNT1, w  ; add count1(3) and w(14) and put it in W
+0004   0088           00028        movwf    COUNT1     ;move W(17) to COUNT1
+0005   0508           00029        andwf    COUNT1, w   ;and between W=17 and COUNT1=17
+0006   0988           00030        comf     COUNT1, f ;complement of COUNT1 and move it to W
+0007   0308           00031        decf     COUNT1, w   ; decrement COUNT1 and move it to W
+0008   0A89           00032        incf     COUNT2, f  ; increment COUNT2 and move it to COUNT2
+0009   0409           00033        iorwf   COUNT2,  w  ;  or between W and COUNT2
+000A   0188           00034        clrf    COUNT1 ; empty COUNT1
+000B   0808           00035        movf   COUNT1, w ; verify COUNT 1 is empty
+000C   0809           00036        movf  COUNT2, w; move count2 to W
+000D   0103           00037        clrw   ;
+                      00038        
+                      00039        
+                      00040 ;****End of the program**** 
+                      00041 
+Warning[205]: Found directive in column 1. (end)
+                      00042 end                 ;Needed by some compilers,
+gpasm-1.3.0 #1017 (Jun 16 2015) testbench.asm   4-9-2025  18:10:35          PAGE  2
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+COUNT1                            00000008
+COUNT2                            00000009
+PORTA                             00000005
+STATUS                            00000003
+Start                             00000000
+TRISA                             00000085
+__16F84                           00000001
+isr_handler                       00000000
+main                              00000000
+
+Errors   :     0
+Warnings :     1 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+

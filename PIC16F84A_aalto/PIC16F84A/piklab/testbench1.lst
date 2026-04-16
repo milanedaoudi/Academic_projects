@@ -1,0 +1,52 @@
+gplink-1.3.0 #1017 (Jun 16 2015)
+Copyright (c) 1998-2014 gputils project
+Listing File Generated: 4-9-2025  18:10:35
+ 
+ 
+Address  Value    Disassembly              Source
+-------  -----    -----------              ------
+                                           RESET CODE 0x000
+000000   2805     goto    0x5                   goto main
+                                           
+                                           ISR CODE 0x004
+000004   2805     goto    0x5                   goto isr_handler
+                                           
+                                           MAIN CODE
+                                           isr_handler  ; interrupt code goes here
+                                           
+                                           main
+                                           
+                                           ; your code goes here
+                                           
+                                           ;*****Set up the Constants**** 
+                                           
+                                           STATUS  equ 03h      ;Address of the STATUS register
+                                           TRISA   equ 85h      ;Address of the tristate register for port A
+                                           PORTA   equ 05h      ;Address of Port A
+                                           COUNT1  equ 08h      ;First adress
+                                           COUNT2  equ 09h      ;Second counter for our delay loops 
+                                           
+                                           
+                                           ;**** First part of code**** 
+000005   3003     movlw   0x3              Start  movlw    03h     ;value 3 to 0x08
+000006   0088     movwf   0x8                     movwf    COUNT1  ;transfer
+000007   300e     movlw   0xe                     movlw    0Eh     ;value 14 to W
+000008   0708     addwf   0x8, w                  addwf    COUNT1, w  ; add count1(3) and w(14) and put it in W
+000009   0088     movwf   0x8                     movwf    COUNT1     ;move W(17) to COUNT1
+00000a   0508     andwf   0x8, w                  andwf    COUNT1, w   ;and between W=17 and COUNT1=17
+00000b   0988     comf    0x8, f                  comf     COUNT1, f ;complement of COUNT1 and move it to W
+00000c   0308     decf    0x8, w                  decf     COUNT1, w   ; decrement COUNT1 and move it to W
+00000d   0a89     incf    0x9, f                  incf     COUNT2, f  ; increment COUNT2 and move it to COUNT2
+00000e   0409     iorwf   0x9, w                  iorwf   COUNT2,  w  ;  or between W and COUNT2
+00000f   0188     clrf    0x8                     clrf    COUNT1 ; empty COUNT1
+000010   0808     movf    0x8, w                  movf   COUNT1, w ; verify COUNT 1 is empty
+000011   0809     movf    0x9, w                  movf  COUNT2, w; move count2 to W
+000012   0103     clrw                            clrw   ;
+                                                  
+                                                  
+                                           ;****End of the program**** 
+                                           
+                                           end                 ;Needed by some compilers,
+                                                               ;and also just in case we miss
+                                                               ;the goto instruction.
+                                           

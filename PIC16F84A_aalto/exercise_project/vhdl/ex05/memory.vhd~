@@ -1,0 +1,50 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity memory is 
+    generic (
+        ADDR_WIDTH : integer := 8; 
+        DATA_WIDTH : integer := 8
+    );
+    port (
+    clk, rst : in std_logic;
+    addr : in std_logic_vector(ADDR_WIDTH-1 downto 0);
+    data_in : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    data_out : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    write_en, read_en : in std_logic;
+    mem_status_in : in std_logic_vector(2 downto 0); --alu_status_out
+    mem_status_out : out std_logic_vector(2 downto 0)  --alu status_in
+); 
+end entity memory; 
+
+architecture behavior of memory is 
+    --Signal declarations 
+    type memory_array is array (0 to 2**ADDR_WIDTH-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal mem : memory_array := (others => (others => '0'));  --memory initialization
+    constant STATUS_ADDR: std_logic_vector(7 downto 0) := x"03";
+
+begin 
+    mem_status_out <= mem(to_integer(unsigned(STATUS_ADDR)))(2 downto 0);
+
+    --take into account staus_in and always assign status_out located at 0x3h
+    --synchronous reading and writing
+    process (clk) begin 
+        if rst = '1' then 
+            mem <= (others => (others => '0'));
+            data_out <= (others => '0');
+        elsif write_en = '1' then 
+            if addr = STATUS_ADDR then
+                 mem(to_integer(unsigned(addr))) <= data_in; 
+            else
+                mem(to_integer(unsigned(addr))) <= data_in; --write
+                mem(to_integer(unsigned(STATUS_ADDR))) <= (DATA_WIDTH-1 downto 3 => '0') & mem_status_in; 
+            end if;
+        end if;
+    end process; 
+
+  --test
+  data_out <= mem(to_integer(unsigned(addr))) when (read_en = '1' and clk = '1') else (others => '0');   
+end architecture behavior; 
+
+         

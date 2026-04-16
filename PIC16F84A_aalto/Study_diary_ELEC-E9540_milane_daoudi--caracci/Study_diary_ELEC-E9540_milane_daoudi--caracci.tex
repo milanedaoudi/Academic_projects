@@ -1,0 +1,45 @@
+\documentclass[twoside,a4paper,english,11pt]{report}
+%Preamble moved top stylefile
+\usepackage{MNTLatexReport}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor} % For colors
+\usepackage{verbatim}
+\lstset{
+    language=VHDL,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green},
+    numbers=left,
+    frame=single,
+    breaklines=true,
+    captionpos=b,
+    showstringspaces=false,
+    literate= % Handle special characters
+      {\$}{{\$}}1
+      {\_}{{\_}}1
+}
+
+\setlength{\parindent}{0pt} % Remove all paragraph indentation
+\begin{document}
+% Setup cover page & TOC
+\input{./TexFiles/coverpage.tex}
+\input{./TexFiles/Introduction.tex}
+\input{./TexFiles/tableofcontents.tex}
+% Some included text. see contents of the file for examples
+\input{./TexFiles/Chapter1.tex}
+\input{./TexFiles/Chapter2.tex}
+\input{./TexFiles/Chapter3.tex}
+% only here to create some sort of preliminary TOC
+\newpage
+\input{./TexFiles/Conclusion.tex}
+
+\clearpage
+%Set the bibliography stylefile and bibliography file
+%Use JabRef for bibliography management
+\bibliographystyle{IEEEtran}
+%\bibliography{IEEEfull,Bibliography}
+%%Print the Symbols and abbreviations
+\printnomenclature
+\end{document}
+

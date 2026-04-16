@@ -1,0 +1,94 @@
+set_cpf_version 1.1
+set_design spi_slave
+set_hierarchy_separator "/"
+
+#Create power nets
+# Currently a minimum set
+foreach powernet [ list VDD] {
+    create_power_nets -nets $powernet -voltage {1.0:1.2}
+}
+
+#High voltage powernets
+create_power_nets \
+   -nets VDDIO \
+   -voltage {1.62:1.98}
+
+#Currently we have only one VSS for simplicity
+foreach groundnet [ list VSS ] {
+    create_ground_nets -nets $groundnet
+}
+
+
+#Default power domain
+create_power_domain \
+   -name AO \
+   -default
+
+update_power_domain \
+   -name AO \
+   -primary_power_net VDD \
+   -primary_ground_net VSS 
+
+# We need to connect  a pin to a net even if the instance belongs to another power domain
+foreach n [ list VDD VDDIO] {
+        create_global_connection \
+            -domain AO \
+            -net $n \
+            -pins [ list $n ]
+}
+
+create_global_connection \
+   -domain AO \
+   -net VSS \
+   -pins { VSS }
+
+# VBN is of type power, can not connect to ground here
+#-pins { VSS VPW_N VNW_P VBN VBP}
+
+create_global_connection \
+   -domain AO \
+   -net VDD \
+   -pins { VDD }
+
+# Other domains
+foreach domain [ list IO ] {
+    create_power_domain \
+       -name $domain \
+    
+    update_power_domain \
+       -name $domain \
+       -primary_power_net VDD$domain \
+       -primary_ground_net VSS
+    
+    create_global_connection \
+       -domain $domain \
+       -net VDD$domain \
+       -pins [ list VDD$domain ]
+    
+    # We need to connect  a pin to a net even if the instance belongs to another power domain
+    foreach n [ list VDD VDDIO ] {
+        create_global_connection \
+            -domain $domain \
+            -net $n \
+            -pins [ list $n ]
+    }
+    
+    # Lets keep it simple. Only one VSS
+    create_global_connection \
+       -domain $domain \
+       -net VSS \
+       -pins { VSS  }
+}
+
+
+## Modes
+create_nominal_condition \
+    -name 1p2v \
+    -voltage 1.2
+
+create_power_mode \
+-name aon \
+-default \
+-domain_conditions {AO@1p2v}
+
+end_design

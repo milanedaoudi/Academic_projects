@@ -1,0 +1,47 @@
+gplink-1.3.0 #1017 (Jun 16 2015)
+Copyright (c) 1998-2014 gputils project
+Listing File Generated: 4-12-2025  17:25:22
+ 
+ 
+Address  Value    Disassembly              Source
+-------  -----    -----------              ------
+                                           RESET CODE 0x000
+000000   2805     goto    0x5                  goto    main        ; Jump to main program
+                                           
+                                           ISR CODE 0x004
+000004   2805     goto    0x5                  goto    isr_handler ; Interrupt vector
+                                           
+                                           MAIN CODE
+                                           isr_handler ; interrupt code goes here
+                                           ;***** Constants *****
+                                           STATUS  equ 03h        ; STATUS register
+                                           TRISA   equ 85h        ; TRIS A register
+                                           PORTA   equ 05h        ; PORT A
+                                           COUNT1  equ 08h        ; Counter 1
+                                           COUNT2  equ 09h        ; Counter 2
+                                           
+                                           ;***** Main Program *****
+                                           main
+                                           
+                                           Start:
+                                               ; Demonstrate movlw and addlw
+000005   3010     movlw   0x10                 movlw   0x10        ; Load 0x10 into W
+000006   3e20     addlw   0x20                 addlw   0x20        ; Add 0x20 to W (W now 0x30)
+000007   0088     movwf   0x8                  movwf   COUNT1       ; Output result to COUNT1
+                                               
+                                               ; Call a subroutine
+000008   200a     call    0xa                  call    math_operations  ; Call math subroutine
+                                               
+                                               ; Demonstrate goto
+000009   2805     goto    0x5                  goto    main        ; Infinite loop
+                                           
+                                           ;***** Subroutines *****
+                                           math_operations:
+00000a   38f0     iorlw   0xf0                 iorlw   0xF0        ; OR operation
+00000b   3cfa     sublw   0xfa                 sublw  0xFA;
+00000c   34ff     retlw   0xff                 retlw   0xFF        ; Return with value 0xFF in W
+                                           
+                                           
+                                           
+                                           
+                                           end

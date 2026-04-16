@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+#############################################################################
+# This is a configuration script for innovus flow.
+# The purpose is to control the place and route
+# in parametrized manner from this single file
+# This may sound insane. 
+# However, by doing that it is possible to avoid documenting
+# what is configured and where. This file in not only a configuration script.
+# It IS the documentation.
+#
+# Inited by Marko Kosunen on 02.02.2018
+#############################################################################
+##Function to display help with -h argument and to control
+##The configuration from the commnad line
+help_f()
+{
+cat << EOF
+CONFIGURE Release 1.0 (04.04.2016)
+configure-configuration script for a digital flow
+Written by Marko Pikkis Kosunen
+
+SYNOPSIS
+  configure [OPTIONS]
+DESCRIPTION
+  Producess all configuration for the digital flow
+OPTIONS
+  -h
+      Show this help.
+EOF
+}
+
+if [ -z "$PDK_HOME" ]; then
+    echo "FATAL ERROR: PDK_HOME is not set"
+    echo "Please source ./sourceme.sh"
+    exit 1
+fi
+
+
+EXTID="_$(date +%Y%m%d)"
+while getopts h opt
+do
+  case "$opt" in
+    h) help_f; exit 0;;
+    \?) help_f;;
+  esac
+done
+
+# Set all variables and paths relative to the current desigN
+WD="$(pwd)"
+ROOTPATH="$( cd "$( dirname "$0" )" && pwd )"
+
+# Include process definition.
+. ./configure_includes/process_setup_include.sh
+
+# Name of the to design
+TOPMODULE="spi_slave"
+
+#Paths to verilog files
+LINKEDVERILOG="\
+    ${ROOTPATH}/verilog_example/async_set_register.v \
+    ${ROOTPATH}/verilog_example/spi_slave.v \
+    "
+#Paths to VHDL files
+LINKEDVHDL=""
+
+# Include flow specific procedures and variables
+# Depends on variables defined above.
+. ./configure_includes/general_setups_include.sh
+
+exit 0
+
