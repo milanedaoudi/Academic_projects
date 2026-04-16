@@ -1,0 +1,4 @@
+TYPE: SERIAL
+LABEL: Main debug
+SOURCE: Main processing unit
+TARGET: ../data/debugOut.txt

@@ -1,0 +1,6 @@
+TYPE: CPU
+LABEL: INTEL
+CORES: 2
+FREQUENCY: 3
+PRIORITY: 2
+PROGRAM: ../data/instSimple2.txt

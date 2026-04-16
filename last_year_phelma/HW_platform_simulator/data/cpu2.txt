@@ -1,0 +1,6 @@
+TYPE: CPU
+LABEL: Coproc
+CORES: 2
+FREQUENCY: 2
+PRIORITY: 2
+PROGRAM: ../data/instSimple.txt

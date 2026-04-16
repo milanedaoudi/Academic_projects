@@ -1,0 +1,6 @@
+TYPE: CPU
+LABEL: Main processing unit
+CORES: 4
+FREQUENCY: 5
+PROGRAM: ../data/program.txt
+PRIORITY: 3

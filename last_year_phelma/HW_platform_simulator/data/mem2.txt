@@ -1,0 +1,6 @@
+TYPE: ROM
+LABEL: DRAM 2
+SIZE: 5
+ACCESS: 4
+SOURCE: Auxiliary bus
+INIT: 1.1 1.2 3.4 0.0123 9.87
